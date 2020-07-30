@@ -30,14 +30,17 @@ const Login: React.FC<{
 
     const handlerClickLogin = () =>{
         props.onLogin(textEmail,textPassword,true);
+        setTimeout(()=>{
+            window.location.reload();
+        },1000)
     }
 
     const handlerClickRegistration = ()=>{
         props.onLogin(textEmail,textPassword,false);
+        setTimeout(()=>{
+            window.location.reload();
+        },1000)
         
-        if(localStorage.getItem('token')){
-            console.log("navigazione")
-        }
     }
 
     return (

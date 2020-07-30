@@ -4,6 +4,7 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 import MainPage from './pages/MainPage/MainPage';
+import Navigation from './pages/Navigation/Navigation';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -25,11 +26,11 @@ import './theme/variables.css';
 
 const App: React.FC = () => (
   <IonApp>
+    <Navigation />
     <IonReactRouter>
       <IonRouterOutlet>
-      <Route path="/home" component={Home} exact={true} />
-        <Route path="/main-page" component={MainPage} exact={true} />
-        <Route exact path="/" render={() => <Redirect to="/main-page" />} />
+      {localStorage.getItem("userId") ? <Route path="/home" component={Home} exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
+        <Route exact path="/" render={() => <Redirect to="/home" />} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
