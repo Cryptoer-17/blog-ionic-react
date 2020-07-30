@@ -34,6 +34,10 @@ const Login: React.FC<{
 
     const handlerClickRegistration = ()=>{
         props.onLogin(textEmail,textPassword,false);
+        
+        if(localStorage.getItem('token')){
+            console.log("navigazione")
+        }
     }
 
     return (
@@ -99,8 +103,6 @@ const Login: React.FC<{
         </form>
        </IonContent>
     </IonPage>
-        
-        
     );
   };
 
