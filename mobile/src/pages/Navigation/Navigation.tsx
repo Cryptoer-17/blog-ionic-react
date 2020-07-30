@@ -1,13 +1,30 @@
 import React from 'react';
-import { IonContent, IonNav } from "@ionic/react";
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon } from "@ionic/react";
+import { NavLink } from 'react-router-dom';
+import { personCircleOutline} from 'ionicons/icons';
+import Ricerca from '../../components/Ricerca/Ricerca';
 
 const Navigation: React.FC = ()=>{
 
 
     return(
-        <IonContent>
-            {localStorage.getItem("userId") && <IonNav root="nav-home"></IonNav>}
-        </IonContent>
+        <IonHeader>
+        <IonToolbar>
+            <IonButtons slot="start">
+                <IonButton >
+                    Blog
+                </IonButton>
+                <IonButton>
+                <IonIcon slot="start" icon={personCircleOutline}/>
+                </IonButton>
+            </IonButtons>
+            <Ricerca />
+            <IonButton slot="end" fill="clear" color="dark">
+                    Logout
+            </IonButton>   
+           
+        </IonToolbar>
+    </IonHeader>
     );
 }
 
