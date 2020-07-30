@@ -12,7 +12,7 @@ const Ricerca: React.FC = () => {
     }
 
   return (
-         <IonItem className="Searchbar" lines="none">
+         <IonItem  lines="none">
             <IonInput 
             type="text" 
             value={textRicerca} 
@@ -28,8 +28,3 @@ const Ricerca: React.FC = () => {
 
 export default Ricerca;
 
-
-/*<div className ={classes.Ricerca}>
-            <input type="text" placeholder=" Cerca..." onChange={(event) => setCerca(event.target.value) } onKeyPress={ event => { if(event.key === 'Enter') clickHandler() }}/>
-            <NavLink onClick = { clickHandler } to="/ricerca" exact className={classes.CercaButton} ><i className="material-icons">search</i></NavLink>
-        </div>*/
