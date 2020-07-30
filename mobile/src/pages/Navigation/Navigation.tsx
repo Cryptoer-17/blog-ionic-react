@@ -11,10 +11,10 @@ const Navigation: React.FC = ()=>{
         <IonHeader>
         <IonToolbar>
             <IonButtons slot="start">
-                <IonButton >
+                <IonButton routerLink="/home">
                     Blog
                 </IonButton>
-                <IonButton>
+                <IonButton routerLink="/profilo">
                 <IonIcon slot="start" icon={personCircleOutline}/>
                 </IonButton>
             </IonButtons>

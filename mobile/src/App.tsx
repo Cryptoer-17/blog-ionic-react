@@ -5,6 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home/Home';
 import MainPage from './pages/MainPage/MainPage';
 import Navigation from './pages/Navigation/Navigation';
+import Profilo from './pages/Profilo/Profilo';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -30,10 +31,15 @@ const App: React.FC = () => (
     <IonReactRouter>
       <IonRouterOutlet>
       {localStorage.getItem("userId") ? <Route path="/home" component={Home} exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
+      {localStorage.getItem("userId") ? <Route path="/profilo" exact render={()=>(<Profilo></Profilo>)}/> :null}
         <Route exact path="/" render={() => <Redirect to="/home" />} />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
 );
+
+/*
+{localStorage.getItem("userId") ?    <Route path={"/profilo" + (key ? "/:key" : "")} exact  render={() =>(<AsyncProfilo  profilo={tempArray} clickUpdateArticolo={this.updateArticoloHandler} key={key} mount={() => this.componentDidMount()}/>)} /> : null }
+*/
 
 export default App;
