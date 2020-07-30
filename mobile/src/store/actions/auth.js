@@ -27,7 +27,7 @@ export const loginSuccess = (token,userId) =>{
 
 
 
-export const login = (email, password,isSignup,errore) =>{
+export const login = (email, password,isSignup) =>{
     return dispatch =>{
         dispatch(loginStart());
         const authData = {
@@ -35,12 +35,12 @@ export const login = (email, password,isSignup,errore) =>{
           password : password,
           email:email
         }
-        console.log(isSignup);
-        //registrazione
-        let url = 'http://localhost:4001/register';
+        //login
+        let url = 'http://localhost:4001/login';
         if(!isSignup){
-            //login
-            url = 'http://localhost:4001/login';
+            //registrazione
+            console.log("isSignup")
+            url = 'http://localhost:4001/register';
         }
         axios.post(url,authData )
         .then(response =>{
@@ -55,8 +55,8 @@ export const login = (email, password,isSignup,errore) =>{
             // dispatch(checkLoginTimeout(response.data.expiresIn));
         })
         .catch( err =>{
-            console.log(errore);
-            dispatch(loginFail(errore)); 
+            console.log(err);
+            dispatch(loginFail(err)); 
             setTimeout(() =>{
             dispatch(logout());
             },  3000);

@@ -23,6 +23,7 @@ const loginFail= (state, action) =>{
 }
 
 const loginSuccess = (state,action) =>{
+    console.log("entrato");
     return updateObject (state , {
         token : action.idToken,
         userId: action.userId,

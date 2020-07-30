@@ -7,7 +7,7 @@ import * as actions from '../../store/actions/index';
 
 
 const Login: React.FC<{
-    onLogin: (textEmail:string,textPassword:string)=> void; 
+    onLogin: (textEmail:string,textPassword:string,isSignup:boolean)=> void; 
 }> = props =>{  
     const [textEmail, setTextEmail] = useState<string>('');
     const [emailValid, setEmailValid] = useState<boolean>(true);
@@ -28,14 +28,13 @@ const Login: React.FC<{
         setPasswordValid(checkValidity(text,{minLength:8,maxLength:15,required:true,isPassword:true}));   
     }
 
-    const handlerClicklogin = () =>{
-        props.onLogin(textEmail,textPassword);
+    const handlerClickLogin = () =>{
+        props.onLogin(textEmail,textPassword,true);
     }
 
-  /*  <{
-        onCalculate: ()=> void; 
-        onReset: ()=> void;
-    }> = props =>{  */
+    const handlerClickRegistration = ()=>{
+        props.onLogin(textEmail,textPassword,false);
+    }
 
     return (
     <IonPage>
@@ -88,12 +87,12 @@ const Login: React.FC<{
                 <br></br>
                 <IonRow>
                     <IonCol>
-                        <IonButton expand="block" disabled={!validationText()} onClick={handlerClicklogin}>Accedi</IonButton>
+                        <IonButton expand="block" disabled={!validationText()} onClick={handlerClickLogin}>Accedi</IonButton>
                     </IonCol>
                 </IonRow>
                 <IonRow>
                     <IonCol>
-                        <IonButton expand="block" disabled={!validationText()}>Refistrati</IonButton>
+                        <IonButton expand="block" disabled={!validationText()} onClick={handlerClickRegistration}>Refistrati</IonButton>
                     </IonCol>
                 </IonRow>
             </IonGrid>
@@ -114,7 +113,7 @@ const mapStateToProps = (state:any) =>{
 
 const mapDispatchToProps = (dispatch:any) => {
     return{
-   onLogin : (email:string,password:string) => dispatch(actions.login(email,password)),
+   onLogin : (email:string,password:string,isSignup:boolean) => dispatch(actions.login(email,password,isSignup)),
     };
   };
   
