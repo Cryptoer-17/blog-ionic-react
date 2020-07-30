@@ -10,7 +10,7 @@ const Home: React.FC = () => {
     
     const scrollTop = ()=>{
       if(contentRef){
-        contentRef.current?.scrollToTop();
+        contentRef.current?.scrollToTop(1000);
       }
       
     }
