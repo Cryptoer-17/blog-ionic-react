@@ -11,3 +11,10 @@ export {
     updateArticolo,
     deleteArticolo,
 }from './articolo';
+
+export{
+    sendData,
+    getProfilo,
+    updateData,
+    setUsername
+}from './profilo';

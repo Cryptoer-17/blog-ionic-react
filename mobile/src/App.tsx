@@ -29,14 +29,15 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 
 const App: React.FC<{
-  onInitArticoli:()=>void
+  onInitArticoli:()=>void,
+  onGetProfilo:()=>void
 }> = (props) => {
 
   useEffect(()=>{
     const userId = localStorage.getItem("userId");
     if(userId){
       props.onInitArticoli();
-     /* props.onGetProfilo();*/
+      props.onGetProfilo();
     }
   },[]);
 
@@ -62,14 +63,14 @@ const mapStateToProps = (state:any) =>{
   return{
       loading: state.articolo.loading,
       error : state.articolo.error,
-    /*  profilo: state.profilo.profilo,*/
+      profilo: state.profilo.profilo,
   };
 };
 
 const mapDispatchToProps = (dispatch:any) =>{
   return{
      onInitArticoli: () => dispatch(actions.initArticoli()),
-    /* onGetProfilo:() => dispatch(actions.getProfilo()),*/
+     onGetProfilo:() => dispatch(actions.getProfilo()),
   }
 }
 
