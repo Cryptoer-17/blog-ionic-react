@@ -31,6 +31,10 @@
         font-size:11px;
         vertical-align: middle;
     }
+
+    .FloatLeft{
+        float: left;
+    }
     
     
     @media (max-width: 500px) {

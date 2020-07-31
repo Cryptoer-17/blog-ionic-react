@@ -1,27 +1,21 @@
 import React from 'react';
 import { IonItem,IonIcon, IonCardSubtitle, IonButton } from '@ionic/react';
 import { personCircleOutline} from 'ionicons/icons';
-
+import './Autore.css';
 const Autore: React.FC<{
     name:string,
 }> = (props) => {
     const { name} = props;
   return (
 
-    /*<IonItem lines="none">*/
     <React.Fragment>
+      <div className="Icona">
         <IonIcon icon={personCircleOutline} ></IonIcon>
+      </div>
       <IonCardSubtitle >{name}</IonCardSubtitle>
     </React.Fragment>
-      
-    /*</IonItem>*/
-  
   );
 };
 
 export default Autore;
 
-/*<div className={'Autore'}>
-    <i className="material-icons" >account_circle</i>
-    {name}
-</div>*/

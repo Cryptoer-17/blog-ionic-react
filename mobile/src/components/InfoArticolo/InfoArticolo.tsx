@@ -2,6 +2,7 @@ import React from 'react';
 import { IonItem,IonIcon, IonToolbar, IonTitle, IonCardTitle, IonCardSubtitle, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { timeOutline} from 'ionicons/icons';
 import Autore from '../Autore/Autore';
+import './InfoArticolo.css';
 const InfoArticolo: React.FC<{
     categoria:string,
     data:any,
@@ -21,11 +22,20 @@ const InfoArticolo: React.FC<{
     <IonToolbar>
       <IonGrid>
         <IonRow>
-         <IonCol>
+         <IonCol size="3">
             <Autore name = {autore} />
           </IonCol>
-          <IonCol>
+          <IonCol size="2">
             <IonCardSubtitle >{categoria}</IonCardSubtitle>
+          </IonCol>
+          <IonCol size="7">
+            <div className="FloatLeft">
+              <IonCardSubtitle>{data} |</IonCardSubtitle>
+            </div>
+            <div className="FloatLeft">
+              <IonIcon  icon={timeOutline} ></IonIcon>
+            </div>
+            <IonCardSubtitle >{tempoLettura < 1 ? "< 1 min. read" :  tempoLettura+" min. read"}</IonCardSubtitle>
           </IonCol>
         </IonRow>
       </IonGrid>
