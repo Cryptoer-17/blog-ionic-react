@@ -4,6 +4,7 @@ const profiliService = require("../services/profili.service");
 
 module.exports = (app) => {
   app.get("/profili", async function (req, res) {
+    console.log("profili");
     const flagValid = req.query["flagValid"];
     try {
       const profili = await profiliService.findAll(flagValid);

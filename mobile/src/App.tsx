@@ -8,6 +8,7 @@ import Navigation from './pages/Navigation/Navigation';
 import Profilo from './pages/Profilo/Profilo';
 import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
+import * as moment from 'moment';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -30,8 +31,20 @@ import './theme/variables.css';
 
 const App: React.FC<{
   onInitArticoli:()=>void,
-  onGetProfilo:()=>void
+  onGetProfilo:()=>void,
+  profilo:any[],
+  loading:boolean
 }> = (props) => {
+
+
+  const forceUpdate = useEffect(()=>{
+    const userId = localStorage.getItem("userId");
+    if(userId){
+      props.onInitArticoli();
+      props.onGetProfilo();
+    };
+  },[]);
+
 
   useEffect(()=>{
     const userId = localStorage.getItem("userId");
@@ -42,13 +55,48 @@ const App: React.FC<{
   },[]);
 
 
+  let key; 
+  let tempArray;
+  if(props.profilo.length){
+    let numeroTelefono = (props.profilo[0].profilo.numeroTelefono ===undefined || props.profilo[0].profilo.numeroTelefono === null? '' : props.profilo[0].profilo.numeroTelefono);
+    let dataNascita = (props.profilo[0].profilo.dataNascita ===undefined || props.profilo[0].profilo.dataNascita === null? '' : props.profilo[0].profilo.dataNascita);
+     if(dataNascita !== ''){
+       dataNascita = moment(dataNascita).toDate().toISOString().substr(0,10);
+     }
+     key=props.profilo[0].profilo._id;
+     tempArray={
+     _id:props.profilo[0].profilo._id,
+     nome: (props.profilo[0].profilo.nome === undefined  ? '' : props.profilo[0].profilo.nome),
+     cognome:(props.profilo[0].profilo.cognome===undefined? '' : props.profilo[0].profilo.cognome),
+     dataNascita: dataNascita,
+     sesso:props.profilo[0].profilo.sesso,
+     numeroTelefono:numeroTelefono,
+     nazionalità:(props.profilo[0].profilo.nazionalità === undefined? '' : props.profilo[0].profilo.nazionalità) ,
+     img: (props.profilo[0].profilo.img === null ? undefined : props.profilo[0].profilo.img),
+     username:props.profilo[0].profilo.username,
+     descrizione:(props.profilo[0].profilo.descrizione === undefined ? '' : props.profilo[0].profilo.descrizione)
+   }
+ }else{
+   tempArray={
+     nome: '',
+     cognome:'',
+     dataNascita: '',
+     sesso:'',
+     numeroTelefono:'',
+     nazionalità:'',
+     img: undefined,
+     username:'',
+     descrizione:''
+   }
+ } 
+
 return(
   <IonApp>
     <Navigation />
     <IonReactRouter>
       <IonRouterOutlet>
-      {localStorage.getItem("userId") ? <Route path="/home" component={Home} exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
-      {localStorage.getItem("userId") ? <Route path="/profilo" exact render={()=>(<Profilo></Profilo>)}/> :null}
+      {localStorage.getItem("userId") ? <Route path="/home"render={(props) =>(<Home {...props} spinner={props.loading} errore={props.error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
+      {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")} exact render={()=>(<Profilo></Profilo>)}/> :null}
         <Route exact path="/" render={() => <Redirect to="/home" />} />
       </IonRouterOutlet>
     </IonReactRouter>

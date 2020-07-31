@@ -5,6 +5,7 @@ const articoloService = require("../services/articolo.service");
 module.exports = (app) => {
  app.get("/articoli", async function (req, res) {
     try {
+      console.log("articoli");
       console.log(req.query);
       console.log(req.userid);
       const articoli = await articoloService.findAll(req.userid, req.query);
