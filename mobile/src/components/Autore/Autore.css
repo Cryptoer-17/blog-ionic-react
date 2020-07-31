@@ -1,0 +1,18 @@
+.Autore{
+    display:inline-flex;
+    padding:2px;
+    text-align:center;
+    font-size: 16px;
+    border-radius: 4px;
+}
+.Autore i{
+    vertical-align: middle;
+    margin-right:2px;
+    font-size: 21px;
+}
+
+.IonItemAutore{
+    width: 30%;
+    margin-right: 120px;
+    margin-left: 120px;
+}

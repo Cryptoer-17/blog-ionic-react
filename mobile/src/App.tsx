@@ -33,9 +33,10 @@ const App: React.FC<{
   onInitArticoli:()=>void,
   onGetProfilo:()=>void,
   profilo:any[],
-  loading:boolean
+  loading:boolean,
+  error:string
 }> = (props) => {
-
+  const {loading,error} = props;
 
   const forceUpdate = useEffect(()=>{
     const userId = localStorage.getItem("userId");
@@ -95,7 +96,7 @@ return(
     <Navigation />
     <IonReactRouter>
       <IonRouterOutlet>
-      {localStorage.getItem("userId") ? <Route path="/home"render={(props) =>(<Home {...props} spinner={props.loading} errore={props.error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
+      {localStorage.getItem("userId") ? <Route path="/home"render={(props) =>(<Home {...props} spinner={loading} errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
       {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")} exact render={()=>(<Profilo></Profilo>)}/> :null}
         <Route exact path="/" render={() => <Redirect to="/home" />} />
       </IonRouterOutlet>

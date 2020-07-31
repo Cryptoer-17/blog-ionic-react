@@ -6,6 +6,7 @@ import ScrollUpButton from '../../components/UI/ScrollUpButton/ScrollUpButton';
 import {connect} from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import AnteprimaArticolo from '../../components/AnteprimaArticolo/AnteprimaArticolo';
+import moment from 'moment';
 
 
 const Home: React.FC<{
@@ -56,7 +57,6 @@ const clickHeartHandler = (art:any)=>{
   /*let {spinner, articoli , errore,mount,error} = props;*/
 
   let {articoli,spinner,errore,mount,error} = props;
-
   const contentRef = useRef(null);
     
   const scrollTop = ()=>{
@@ -70,7 +70,7 @@ const clickHeartHandler = (art:any)=>{
 
   let errorMessage = null;
    if(typeof errore === 'undefined'){
-     errorMessage =  <IonTitle>Errore nel caricamento dati.</IonTitle>;
+     errorMessage =  <IonTitle class="ion-text-center">Errore nel caricamento dati.</IonTitle>;
    }
  
    let articoliVisualizzati;
@@ -99,7 +99,7 @@ const clickHeartHandler = (art:any)=>{
        /* disableMore = {true}
         mount = {mount}*/
         clickHeart = {() => clickHeartHandler(art)} 
-       /* key={art.articolo._id}*//>);
+        key={art.articolo._id}/>);
   })
   }
 
@@ -121,9 +121,17 @@ const clickHeartHandler = (art:any)=>{
         </IonToolbar>
       </IonHeader>
       <IonContent scrollEvents={true} ref={contentRef}>
+        
         <IonToolbar>
             <IonTitle class="ion-text-center">Blog</IonTitle>
         </IonToolbar> 
+        {errorMessage ? errorMessage : null}
+        {
+         articoli ?
+         articoliVisualizzati 
+         : null
+        }
+         {errorVar }
         <div className="ScrollUpButton">
           <ScrollUpButton clicked={scrollTop}/>
         </div>

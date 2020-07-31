@@ -2,6 +2,7 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 export const setArticoliSuccess = (articoli) =>{
+    console.log('passato da articoli success');
     return{
         type: actionTypes.SET_ARTICOLI_SUCCESS,
         articoli: articoli
@@ -34,6 +35,7 @@ export const initArticoli = () =>{
           }
         axios.get('http://localhost:4001/articoli',config)
         .then(response =>{   
+            console.log(response);
           for(let key in response.data){
             temparray.push({articolo: response.data[key], key: key })
         };         
