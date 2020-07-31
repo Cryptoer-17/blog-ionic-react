@@ -32,10 +32,6 @@
         vertical-align: middle;
     }
 
-    .FloatLeft{
-        float: left;
-    }
-    
     
     @media (max-width: 500px) {
       .Info{

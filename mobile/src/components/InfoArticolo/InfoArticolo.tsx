@@ -29,12 +29,8 @@ const InfoArticolo: React.FC<{
             <IonCardSubtitle >{categoria}</IonCardSubtitle>
           </IonCol>
           <IonCol size="7">
-            <div className="FloatLeft">
-              <IonCardSubtitle>{data} |</IonCardSubtitle>
-            </div>
-            <div className="FloatLeft">
-              <IonIcon  icon={timeOutline} ></IonIcon>
-            </div>
+              <IonCardSubtitle class="ion-float-left">{data} |</IonCardSubtitle>
+              <IonIcon  icon={timeOutline} class="ion-float-left"></IonIcon>
             <IonCardSubtitle >{tempoLettura < 1 ? "< 1 min. read" :  tempoLettura+" min. read"}</IonCardSubtitle>
           </IonCol>
         </IonRow>

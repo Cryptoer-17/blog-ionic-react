@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonItem, IonCard, IonCardHeader } from '@ionic/react';
+import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonCardTitle } from '@ionic/react';
 import Info from '../InfoArticolo/InfoArticolo';
 
 const AnteprimaArticolo: React.FC<{
@@ -37,6 +37,20 @@ const AnteprimaArticolo: React.FC<{
        <IonCardHeader>
         <Info autore={autore} categoria={categoria} data={data} tempoLettura={minuti} />
        </IonCardHeader>
+       <IonItem routerLink={'/articolo/'+id}>
+        <IonCardContent >
+            <IonItem lines="none" >
+                    <IonTitle class="ion-text-center">{titolo}</IonTitle>
+            </IonItem>
+            {sottotitolo && <React.Fragment><IonItem class="ion-margin-bottom">
+                        <IonCardSubtitle color="dark" ><b>{sottotitolo}</b></IonCardSubtitle>
+                </IonItem></React.Fragment>}
+                {descrizione && <IonItem lines="none">
+                    <IonCardSubtitle color="dark" class="ion-margin-top">{descrizione}</IonCardSubtitle>
+                </IonItem>}
+        </IonCardContent>
+       </IonItem>
+       
    </IonCard>
       
     
@@ -70,3 +84,5 @@ const AnteprimaArticolo: React.FC<{
 };
 
 export default AnteprimaArticolo;
+
+//mettere il tag routerLink dopo aver inserito IonItem o qualcosa del genere. Per ora senza link

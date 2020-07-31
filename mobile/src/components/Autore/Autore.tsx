@@ -9,9 +9,7 @@ const Autore: React.FC<{
   return (
 
     <React.Fragment>
-      <div className="Icona">
-        <IonIcon icon={personCircleOutline} ></IonIcon>
-      </div>
+        <IonIcon icon={personCircleOutline} class="ion-float-left"></IonIcon>
       <IonCardSubtitle >{name}</IonCardSubtitle>
     </React.Fragment>
   );
