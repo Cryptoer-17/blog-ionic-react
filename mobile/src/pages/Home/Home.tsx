@@ -57,11 +57,11 @@ const clickHeartHandler = (art:any)=>{
   /*let {spinner, articoli , errore,mount,error} = props;*/
 
   let {articoli,spinner,errore,mount,error} = props;
-  const contentRef = useRef(null);
+  const contentRef:any = useRef(null);
     
   const scrollTop = ()=>{
     if(contentRef){
-      contentRef.current?.scrollToTop(1000);
+      contentRef.current!.scrollToTop(1000);
     }
     
   }
@@ -96,9 +96,12 @@ const clickHeartHandler = (art:any)=>{
         titolo = {art.articolo.titolo}
         data = {data}
         minuti = {art.articolo.minuti}
-       /* disableMore = {true}
-        mount = {mount}*/
+        disableMore = {true}
+       /* mount = {mount}*/
         clickHeart = {() => clickHeartHandler(art)} 
+        showDropdown={false}
+        clickMenuHandler={()=>{}}
+        ricerca={false}
         key={art.articolo._id}/>);
   })
   }

@@ -22,13 +22,13 @@ const InfoArticolo: React.FC<{
     <IonToolbar>
       <IonGrid>
         <IonRow>
-         <IonCol size="3">
+         <IonCol sizeSm="5" size="3">
             <Autore name = {autore} />
           </IonCol>
-          <IonCol size="2">
+          <IonCol sizeSm="4" size="2">
             <IonCardSubtitle >{categoria}</IonCardSubtitle>
           </IonCol>
-          <IonCol size="7">
+          <IonCol sizeSm="3" size="7">
               <IonCardSubtitle class="ion-float-left">{data} |</IonCardSubtitle>
               <IonIcon  icon={timeOutline} class="ion-float-left"></IonIcon>
             <IonCardSubtitle >{tempoLettura < 1 ? "< 1 min. read" :  tempoLettura+" min. read"}</IonCardSubtitle>

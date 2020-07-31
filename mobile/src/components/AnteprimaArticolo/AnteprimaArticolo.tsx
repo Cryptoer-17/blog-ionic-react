@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonCardTitle } from '@ionic/react';
+import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonCardTitle, IonThumbnail, IonImg, IonGrid, IonRow, IonCol } from '@ionic/react';
+import ActionBar from '../ActionBar/ActionBar';
 import Info from '../InfoArticolo/InfoArticolo';
+import './AnteprimaArticolo.css';
 
 const AnteprimaArticolo: React.FC<{
     id:string,
@@ -13,12 +15,28 @@ const AnteprimaArticolo: React.FC<{
     titolo:string,
     data:any,
     minuti:number,
-    clickHeart:()=>void
+    clickHeart:()=>void,
+    showDropdown:boolean,
+    clickMenuHandler:()=>void,
+    disableMore:boolean,
+    ricerca:boolean
 }>= (props) => {
 
-  const { autore, titolo, sottotitolo,categoria, img, descrizione, clickHeart, data, minuti, id /*showDropdown*/, like/*,ricerca*/} = props;
+  const { autore, titolo, sottotitolo,categoria, img, descrizione, clickHeart, data, minuti, id ,showDropdown, like,ricerca,clickMenuHandler,disableMore} = props;
   const [showModalDelete, setShowModalDelete] = useState(false);
   
+
+  const viewMessageArticle = (id:string) => {
+    document.getElementById(id)!.click()
+    setTimeout(() => {
+        document.getElementById("messageIcon")!.click();
+    }, 1000);
+}
+
+    const clickModalDelete = () => {
+        setShowModalDelete(true);
+    }
+
     
   let showModalDeleteVar;
   let colore = 'black';
@@ -38,19 +56,24 @@ const AnteprimaArticolo: React.FC<{
         <Info autore={autore} categoria={categoria} data={data} tempoLettura={minuti} />
        </IonCardHeader>
        <IonItem routerLink={'/articolo/'+id}>
-        <IonCardContent >
-            <IonItem lines="none" >
-                    <IonTitle class="ion-text-center">{titolo}</IonTitle>
-            </IonItem>
-            {sottotitolo && <React.Fragment><IonItem class="ion-margin-bottom">
-                        <IonCardSubtitle color="dark" ><b>{sottotitolo}</b></IonCardSubtitle>
-                </IonItem></React.Fragment>}
+        <div className="CardContent">
+            <IonCardContent >
+                <IonItem lines="none" >
+                        <IonTitle class="ion-text-center">{titolo}</IonTitle>
+                </IonItem>
+                {sottotitolo && <React.Fragment><IonItem class="ion-margin-bottom">
+                            <IonCardSubtitle color="dark" ><b>{sottotitolo}</b></IonCardSubtitle>
+                    </IonItem></React.Fragment>}
                 {descrizione && <IonItem lines="none">
                     <IonCardSubtitle color="dark" class="ion-margin-top">{descrizione}</IonCardSubtitle>
                 </IonItem>}
-        </IonCardContent>
+                <IonItem lines="none">
+                    <IonImg src={img} slot="end"/>
+                </IonItem>          
+            </IonCardContent>
+        </div>
        </IonItem>
-       
+       <ActionBar id={id} showdropdown={showDropdown}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
    </IonCard>
       
     

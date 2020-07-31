@@ -9,6 +9,10 @@
     display:block;
 }
 
+.CardContent{
+    margin: auto;
+    width: 100%;
+}
 
 @media (max-width: 600px) {
     .AnteprimaArticolo {
