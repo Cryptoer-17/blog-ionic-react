@@ -4,8 +4,11 @@ import { NavLink } from 'react-router-dom';
 import { personCircleOutline} from 'ionicons/icons';
 import Ricerca from '../../components/Ricerca/Ricerca';
 
-const Navigation: React.FC = ()=>{
+const Navigation: React.FC<{
+    idProfilo:string
+}> = (props)=>{
 
+    const {idProfilo} = props;
 
     return(
         <IonHeader>
@@ -14,7 +17,7 @@ const Navigation: React.FC = ()=>{
                 <IonButton routerLink="/home">
                     Blog
                 </IonButton>
-                <IonButton routerLink="/profilo">
+                <IonButton routerLink={"/profilo" + (idProfilo ? "/"+idProfilo+"" : null)}>
                 <IonIcon slot="start" icon={personCircleOutline}/>
                 </IonButton>
             </IonButtons>

@@ -7,9 +7,12 @@ import MainPage from './pages/MainPage/MainPage';
 import Navigation from './pages/Navigation/Navigation';
 import Profilo from './pages/Profilo/Profilo';
 import Modifica from './pages/Modifica/Modifca';
+import Articolo from './pages/Articolo/Articolo';
 import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import asyncComponent from './hoc_/asyncComponent/asyncComponent';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -29,6 +32,11 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+
+const asyncArticolo = asyncComponent(() =>{
+  return import('./pages/Articolo/Articolo');
+});
+
 
 const App: React.FC<{
   onInitArticoli:()=>void,
@@ -92,14 +100,16 @@ const App: React.FC<{
    }
  } 
 
+ console.log(key);
 return(
   <IonApp>
-    <Navigation />
+    <Navigation idProfilo={key}/>
     <IonReactRouter>
       <IonRouterOutlet>
       {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props} spinner={loading} errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
-      {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")} exact render={()=>(<Profilo></Profilo>)}/> :null}
+      {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo></Profilo>)}/> :null}
       {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
+      {localStorage.getItem("userId") ?  <Route path="/articolo/:id" /*component ={asyncArticolo}*/exact render={()=>(<Articolo />)} /> : null}
         <Route exact path="/" render={() => <Redirect to="/home" /> } />
       </IonRouterOutlet>
     </IonReactRouter>
@@ -109,6 +119,7 @@ return(
 /*
 {localStorage.getItem("userId") ?    <Route path={"/profilo" + (key ? "/:key" : "")} exact  render={() =>(<AsyncProfilo  profilo={tempArray} clickUpdateArticolo={this.updateArticoloHandler} key={key} mount={() => this.componentDidMount()}/>)} /> : null }
 {localStorage.getItem("userId") ?  <Route path="/modifica/:id"  render = {(props)=>(<Modifica {...props} mount={() => this.componentDidMount()}/>)} /> : null }
+{localStorage.getItem("userId") ?  <Route path="/articolo/:id" component ={asyncArticolo} /> : null}
 
 */
 
