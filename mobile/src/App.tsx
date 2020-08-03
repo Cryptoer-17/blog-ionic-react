@@ -100,7 +100,6 @@ const App: React.FC<{
    }
  } 
 
- console.log(key);
 return(
   <IonApp>
     <Navigation idProfilo={key}/>
@@ -109,7 +108,7 @@ return(
       {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props} spinner={loading} errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
       {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo></Profilo>)}/> :null}
       {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
-      {localStorage.getItem("userId") ?  <Route path="/articolo/:id" /*component ={asyncArticolo}*/exact render={()=>(<Articolo />)} /> : null}
+      {localStorage.getItem("userId") ?  <Route path="/articolo/:id" component ={asyncArticolo} /> : null}
         <Route exact path="/" render={() => <Redirect to="/home" /> } />
       </IonRouterOutlet>
     </IonReactRouter>

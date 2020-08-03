@@ -1,0 +1,19 @@
+.Modal {
+    transition: all 0.3s ease-in-out;
+    position: fixed;
+    z-index: 400;
+    border: 1px solid #F0E7E7;
+    background-color: white;
+    padding: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    top: 20%;
+    left: 25%;
+    width: 80%;
+    height:auto;
+    max-height:70%;
+    overflow-y: auto;
+    border-radius: 8px;
+    opacity:1;
+}
+

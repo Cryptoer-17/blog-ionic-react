@@ -5,7 +5,8 @@ import Modal from '../../UI/Modal/Modal';
 import EliminaMessaggio from '../EliminaMessaggio/EliminaMessaggio';
 import Messaggio from '../Messaggio/Messaggio';
 import './Comments.css';
-import { IonCard, IonCardContent } from '@ionic/react';
+import { IonCard, IonCardContent, IonCardHeader,IonIcon, IonButton, IonBackdrop } from '@ionic/react';
+import { closeOutline} from 'ionicons/icons';
 
 
 const Comments: React.FC<{
@@ -36,6 +37,7 @@ const Comments: React.FC<{
   }
 
   const modalRemoveComment = (index:number)=>{
+    console.log("cliccato");
       setShowModalDelete(true);
       setIndexSmg(index);
   }
@@ -44,7 +46,7 @@ const Comments: React.FC<{
   const { clickSendMessage, articolo } = props;
   let showModalDeleteVar;
   let tempUserArray:any[] = [];
-  let colorArray = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'dark', 'medium', 'light'];
+  let colorArray = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'dark', 'medium'];
   articolo.messaggi.map((messaggio:any) => {
     if (!tempUserArray.includes(messaggio.username)) {
         let colore;
@@ -58,11 +60,14 @@ const Comments: React.FC<{
             commenti = articolo.messaggi.map((messaggio:any, index:number) => {
                 return (<IonCard key={index}>
                   <IonCardContent>
+                  {messaggio.username === localStorage.getItem("username") ? <IonButton fill="clear" class="ion-float-right top-right"  onClick = {()=>modalRemoveComment(index)}>
+                        <IonIcon  icon={closeOutline}></IonIcon>
+                    </IonButton>: null}
                   <NomePersona userArray={tempUserArray}>{messaggio.username}</NomePersona>
                     <Comment>
                         {messaggio.testo}
                    </Comment> 
-                     {messaggio.username === localStorage.getItem("username") ? <i className="material-icons" onClick = {()=>modalRemoveComment(index)}>close</i> : null}
+                  
                   </IonCardContent>
                 </IonCard>
                 )
@@ -70,13 +75,13 @@ const Comments: React.FC<{
         } else commenti = null;
 
         if (showModalDelete) {
-          showModalDeleteVar = <Modal show={showModalDelete}><EliminaMessaggio {...props} cmpDidMount={props.cmpDidMount} indexmsg={indexmsg} articolo={articolo} hideModal={() => hideModalDelete()} /*mount={this.props.mount}*/ /></Modal>
+          showModalDeleteVar = <Modal show={showModalDelete} modalClosed={()=>{}}><EliminaMessaggio {...props} cmpDidMount={props.cmpDidMount} indexmsg={indexmsg} articolo={articolo} hideModal={() => hideModalDelete()} /*mount={this.props.mount}*/ /></Modal>
       }
 
   return (
     <>
-    <IonCard>
     {showModalDeleteVar}
+    <IonCard>
       <IonCardContent>
         <div id="divCommts" className={'Commenti'} >
                       {commenti}

@@ -13,10 +13,12 @@ const NomePersona: React.FC<{
             colore = userPropriety.colore
         }
         return null;
-    })
+    });
+
+    console.log(colore);
   return (
     <>
-    <IonTitle size="small">{props.children}</IonTitle>
+    <IonTitle size="small" class="ion-margin-bottom" color={colore}>{props.children}</IonTitle>
     </>
   );
 };

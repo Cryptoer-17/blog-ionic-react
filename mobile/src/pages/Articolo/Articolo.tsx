@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IonItem, IonPage, IonContent, IonTitle, IonHeader, IonToolbar, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonImg, IonThumbnail } from "@ionic/react";
+import { IonItem, IonContent, IonTitle, IonCard, IonCardHeader, IonCardContent, IonCardSubtitle, IonImg } from "@ionic/react";
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import Tag from '../../components/Tag/Tag';
@@ -31,7 +31,6 @@ const Articolo: React.FC<{
           }
         axios.get('http://localhost:4001/articolo/' + id,config)
         .then(response => {
-            console.log(response);
             if (typeof response.data[0].tags === 'undefined') {  
                 response.data[0].tags = [];
             }
@@ -55,7 +54,6 @@ const Articolo: React.FC<{
     }
 
     const handlerSendMessage = (props:any) => {
-        console.log(props);
         let messaggio;
         const messaggi = [
             ...props.articolo.messaggi,
@@ -123,8 +121,6 @@ const Articolo: React.FC<{
     let articoloVisualizzato;
     let colore = 'dark';
     let tags;
-    console.log("ri-render");
-    console.log(articolo);
     if(articolo != null){
         if (articolo?.tags.length) {
             const newtags = [...articolo.tags];
@@ -173,7 +169,7 @@ const Articolo: React.FC<{
         <IonContent scrollEvents={true}>
             <br></br><br></br><br></br>
             {articoloVisualizzato}
-            {comments && <Comments {...props} cmpDidMount={()=>riRender()} articolo={articolo} clickSendMessage={()=>{handlerSendMessage(props);console.log(props)}} />}
+            {comments && <Comments {...props} cmpDidMount={()=>riRender()} articolo={articolo} clickSendMessage={()=>handlerSendMessage(props)} />}
         </IonContent>
     );
 }
