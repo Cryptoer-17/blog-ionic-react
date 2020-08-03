@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonItem,IonIcon, IonToolbar, IonTitle, IonCardTitle, IonCardSubtitle, IonButton, IonGrid, IonRow, IonCol } from '@ionic/react';
 import { timeOutline} from 'ionicons/icons';
-import Autore from '../Autore/Autore';
+import Autore from './Autore/Autore';
 import './InfoArticolo.css';
 const InfoArticolo: React.FC<{
     categoria:string,

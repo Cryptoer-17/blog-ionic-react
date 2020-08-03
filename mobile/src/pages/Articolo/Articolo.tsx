@@ -8,7 +8,7 @@ import Info from '../../components/InfoArticolo/InfoArticolo';
 import ActionBar from '../../components/ActionBar/ActionBar';
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-
+import Comments from '../../components/Articolo/Comments/Comments';
 import './Articolo.css';
 
 const Articolo: React.FC<{
@@ -17,6 +17,7 @@ const Articolo: React.FC<{
     const [articolo, setArticolo]:any = useState(null);
     const [loading, setLoading] = useState(false);
     const [comments, setComments] = useState(false);
+    const [render, setRender] = useState(false);
     let location = useLocation().pathname.slice(10);
 
     useEffect(()=>{
@@ -53,8 +54,35 @@ const Articolo: React.FC<{
         }, 1);
     }
 
+    const handlerSendMessage = (props:any) => {
+        console.log(props);
+        let messaggio;
+        const messaggi = [
+            ...props.articolo.messaggi,
+            messaggio = {
+                username: localStorage.getItem("username"),
+                testo: props
+            }
+        ]
+        const anteprima = {
+            ...props.articolo,
+            messaggi: messaggi,
+        }
+        setArticolo(anteprima);
+        const id = location;
+        let config = {
+            headers: {
+                authorization: 'Bearer '+ localStorage.getItem("token"),
+            }
+          }
+        axios.put('http://localhost:4001/articolo/update/' + id, anteprima,config)
+            .then(response => {
+                props.onInitArticoli();
+            })
+            .catch(error => console.log(error));
+    }
+
     const clickHeartHandler = () => {
-        console.log("cliccato");
         let length = articolo.like.length;
         let c = 0;
         let heartChange = articolo.like.map((object:any) => {
@@ -85,6 +113,10 @@ const Articolo: React.FC<{
                 props.onInitArticoli();
             })
             .catch(error => console.log(error));
+    }
+
+    const riRender = ()=>{
+        setRender(!render);
     }
 
 
@@ -138,11 +170,11 @@ const Articolo: React.FC<{
         </IonCard>
     }
     return(
-        <>
-        <br></br><br></br><br></br>
-        {articoloVisualizzato}
-        </>
-            
+        <IonContent scrollEvents={true}>
+            <br></br><br></br><br></br>
+            {articoloVisualizzato}
+            {comments && <Comments {...props} cmpDidMount={()=>riRender()} articolo={articolo} clickSendMessage={()=>{handlerSendMessage(props);console.log(props)}} />}
+        </IonContent>
     );
 }
 
