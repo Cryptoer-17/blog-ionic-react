@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonCardTitle, IonThumbnail, IonImg, IonGrid, IonRow, IonCol } from '@ionic/react';
+import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonCardTitle, IonThumbnail, IonImg, IonGrid, IonRow, IonCol, IonFab, IonFabButton, IonFabList, IonIcon } from '@ionic/react';
 import ActionBar from '../ActionBar/ActionBar';
 import Info from '../InfoArticolo/InfoArticolo';
 import './AnteprimaArticolo.css';
+import { chatbubbleEllipsesOutline } from 'ionicons/icons';
 
 const AnteprimaArticolo: React.FC<{
     id:string,
@@ -55,7 +56,7 @@ const AnteprimaArticolo: React.FC<{
        <IonCardHeader>
         <Info autore={autore} categoria={categoria} data={data} tempoLettura={minuti} />
        </IonCardHeader>
-       <IonItem routerLink={'/articolo/'+id}>
+       <IonItem routerLink={'/articolo/'+id} lines="none">
         <div className="CardContent">
             <IonCardContent >
                 <IonItem lines="none" >
@@ -73,7 +74,8 @@ const AnteprimaArticolo: React.FC<{
             </IonCardContent>
         </div>
        </IonItem>
-       <ActionBar id={id} showdropdown={showDropdown}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
+       <ActionBar id={id} showdropdown={true}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
+      
    </IonCard>
       
     
