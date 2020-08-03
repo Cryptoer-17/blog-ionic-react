@@ -60,10 +60,10 @@ const AnteprimaArticolo: React.FC<{
         <div className="CardContent">
             <IonCardContent >
                 <IonItem lines="none" >
-                        <IonTitle class="ion-text-center">{titolo}</IonTitle>
+                        <IonTitle class="ion-text-center" className="Titolo"><b>{titolo}</b></IonTitle>
                 </IonItem>
-                {sottotitolo && <React.Fragment><IonItem class="ion-margin-bottom">
-                            <IonCardSubtitle color="dark" ><b>{sottotitolo}</b></IonCardSubtitle>
+                {sottotitolo && <React.Fragment><IonItem class="ion-margin-bottom" >
+                            <IonCardSubtitle color="dark"><b>{sottotitolo}</b></IonCardSubtitle>
                     </IonItem></React.Fragment>}
                 {descrizione && <IonItem lines="none">
                     <IonCardSubtitle color="dark" class="ion-margin-top">{descrizione}</IonCardSubtitle>

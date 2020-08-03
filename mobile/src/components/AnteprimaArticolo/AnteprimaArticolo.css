@@ -14,6 +14,10 @@
     width: 100%;
 }
 
+.Titolo{
+    font-size: xx-large;
+}
+
 @media (max-width: 600px) {
     .AnteprimaArticolo {
         width: 300px;

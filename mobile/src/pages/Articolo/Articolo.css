@@ -1,0 +1,22 @@
+.Tag{
+    float: left;
+    margin-bottom: 10px;
+    margin: auto;
+}
+
+.CardContent{
+    margin: auto;
+    width: 100%;
+}
+
+.Titolo{
+    font-size: xx-large;
+}
+
+.center-image{
+    margin: auto;
+}
+
+.border-solid{
+    border: 1px solid black;
+}
