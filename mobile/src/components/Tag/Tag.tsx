@@ -11,7 +11,7 @@ const Tag: React.FC<{
 
   return (
     <div className ={'Tag'}>
-      <IonCardSubtitle color="black" class="margin-top" >{props.children}</IonCardSubtitle>
+      <IonCardSubtitle color="dark" class="margin-top" >{props.children}</IonCardSubtitle>
       {(location === "/pubblica" || location === "/modifica/:id") && <i className="material-icons" onClick = {props.click}>close</i>}
     </div>
   );
@@ -19,7 +19,3 @@ const Tag: React.FC<{
 
 export default Tag;
 
-/*<div className ={classes.Tag}>
-<span className ={classes.Content}> {props.children}</span> 
-{ (props.location.pathname === "/pubblica" || props.match.path === "/modifica/:id")  && <i className="material-icons" onClick = {props.click}>close</i>}
-</div>*/

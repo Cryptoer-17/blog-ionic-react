@@ -5,11 +5,18 @@ import { useLocation } from 'react-router-dom';
 import Tag from '../../components/Tag/Tag';
 import moment from 'moment';
 import Info from '../../components/InfoArticolo/InfoArticolo';
+import ActionBar from '../../components/ActionBar/ActionBar';
+import * as actions from '../../store/actions/index';
+import { connect } from 'react-redux';
+
 import './Articolo.css';
-const Articolo: React.FC = (props)=>{
+
+const Articolo: React.FC<{
+    onInitArticoli:()=>void
+}> = (props)=>{
     const [articolo, setArticolo]:any = useState(null);
     const [loading, setLoading] = useState(false);
-    
+    const [comments, setComments] = useState(false);
     let location = useLocation().pathname.slice(10);
 
     useEffect(()=>{
@@ -39,10 +46,52 @@ const Articolo: React.FC = (props)=>{
     },[])
 
 
-    let articoloVisualizzato;
-    let colore = 'black';
-    let tags;
+    const viewCommentsHandler = ()=> {
+        setComments(true)
+        setTimeout(() => {
+            window.scrollTo(0, 9999)
+        }, 1);
+    }
 
+    const clickHeartHandler = () => {
+        console.log("cliccato");
+        let length = articolo.like.length;
+        let c = 0;
+        let heartChange = articolo.like.map((object:any) => {
+            if (object.username === localStorage.getItem("username")) {
+                object.like = !object.like
+            }
+            else {
+                c++;
+            }
+            return object
+        })
+        if (c === length) {
+            heartChange.push({ like: true, username: localStorage.getItem("username") })
+        }
+        const anteprima = {
+            ...articolo,
+            like:heartChange
+        }
+        setArticolo(anteprima);
+        const id = location;
+        let config = {
+            headers: {
+                authorization: 'Bearer '+ localStorage.getItem("token"),
+            }
+          }
+        axios.put('http://localhost:4001/articolo/update/' + id, anteprima,config)
+            .then(response => {
+                props.onInitArticoli();
+            })
+            .catch(error => console.log(error));
+    }
+
+
+    let articoloVisualizzato;
+    let colore = 'dark';
+    let tags;
+    console.log("ri-render");
     console.log(articolo);
     if(articolo != null){
         if (articolo?.tags.length) {
@@ -58,7 +107,7 @@ const Articolo: React.FC = (props)=>{
         articolo.like.map((object:any) => {
             if (object.username === localStorage.getItem("username")) {
                 if (object.like) {
-                    colore = 'red';
+                    colore = 'danger';
                 }
             }
             return null;
@@ -83,6 +132,7 @@ const Articolo: React.FC = (props)=>{
                     <IonCardSubtitle color="dark" class="ion-margin-top">{articolo.testo}</IonCardSubtitle>
                     {tags}
                 </IonItem>}
+                <ActionBar color={colore} disableMore={true} viewComments={() => viewCommentsHandler()} onClick={() => clickHeartHandler()} id={""} showdropdown={false} modalDelete={() => {}} clickMenu={()=>{}} ricerca={false}/>
                 </IonCardContent>
             </div>
         </IonCard>
@@ -96,4 +146,15 @@ const Articolo: React.FC = (props)=>{
     );
 }
 
-export default Articolo;
+const mapStateToProps = (state:any) => {
+    return {
+        error: state.articolo.error,
+    };
+};
+const mapDispatchToProps = (dispatch:any) => {
+    return {
+        onInitArticoli: () => dispatch(actions.initArticoli()),
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Articolo);

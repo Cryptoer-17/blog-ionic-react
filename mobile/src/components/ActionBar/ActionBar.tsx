@@ -16,16 +16,16 @@ const ActionBar: React.FC<{
     ricerca:boolean
 }> = (props) => {
     const { disableMore,showdropdown, id, ricerca,viewComments,modalDelete, clickMenu,color, onClick } = props;
-
+console.log(color);
   return (
     <IonGrid>
         <IonRow>
             <IonCol sizeSm="7" size="7">
-                <IonButtons>
-                    <IonButton color="dark">
-                        <IonIcon  icon={heart} ></IonIcon>
+                <IonButtons >
+                    <IonButton  onClick={props.onClick} color={color}>
+                        <IonIcon  icon={heart}></IonIcon>
                     </IonButton>
-                    <IonButton color="dark">
+                    <IonButton id="messageIcon" onClick={props.viewComments} color="dark">
                         <IonIcon  icon={chatbubbleEllipsesOutline} ></IonIcon>
                     </IonButton>
                 </IonButtons>
