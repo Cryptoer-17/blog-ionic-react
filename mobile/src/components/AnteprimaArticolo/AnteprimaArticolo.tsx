@@ -74,7 +74,7 @@ const AnteprimaArticolo: React.FC<{
             </IonCardContent>
         </div>
        </IonItem>
-       <ActionBar id={id} showdropdown={true}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
+       <ActionBar id={id} showdropdown={showDropdown}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
       
    </IonCard>
       

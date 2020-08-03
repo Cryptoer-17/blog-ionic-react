@@ -31,10 +31,9 @@ const ActionBar: React.FC<{
                 </IonButtons>
             </IonCol>
             <IonCol sizeSm="2" size="2">
-         
-                <IonButton fill="clear" >
-                    <IonIcon icon={ellipsisHorizontalOutline}></IonIcon>
-                </IonButton>
+               {disableMore || ricerca ? null : <IonButton fill="clear" color="dark">
+                    <IonIcon icon={ellipsisHorizontalOutline} size="large"></IonIcon>
+                </IonButton> }
                 <div className={showdropdown ? 'DropdownContentBlock' : 'DropdownContent'}>
                     <IonButton onClick={() => props.modalDelete()}>Elimina</IonButton>
                     <IonButton routerLink={'/modifica/'+id} >
@@ -49,18 +48,3 @@ const ActionBar: React.FC<{
 
 export default ActionBar;
 
-
-/*<div className={classes.ActionBar}>
-{ricerca ? null : <div className={classes.Actions}>
-    <FaHeart className={classes.Like} style={{ color: color }} onClick={props.onClick} />
-    <div id="messageIcon" onClick={props.viewComments}><FaRegCommentDots className={classes.Comments} /></div>
-</div>}
-{disableMore || ricerca ? null :
-    <div className={classes.MoreDiv} >
-        <FaEllipsisH className={classes.More} onClick={()=>props.clickMenu(props.id)} />
-        <div className={classes.DropdownContent} style={showdropdown ? { display: 'block' } : null} >
-            <button type="button"  onClick={() => props.modalDelete()} style={{ cursor: 'pointer',background:'none',border:'none',fontSize:'1.1rem', fontFamily:'none' }}>Elimina</button>
-            <NavLink to={"/modifica/" + id}/*className={classes.Link} activeClassName={classes.LinkAttivo}*//*>Modifica</NavLink>
-        </div>
-    </div>}
-</div>*/
