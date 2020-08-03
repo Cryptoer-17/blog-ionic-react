@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem, IonGrid, IonRow, IonCol, IonButtons, IonButton,IonIcon, IonFab, IonFabButton, IonFabList, IonLabel } from '@ionic/react';
+import { IonGrid, IonRow, IonCol, IonButtons, IonButton,IonIcon} from '@ionic/react';
 import { heart, chatbubbleEllipsesOutline, ellipsisHorizontalOutline} from 'ionicons/icons';
 import './ActionBar.css';
 

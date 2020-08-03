@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonCardTitle, IonThumbnail, IonImg, IonGrid, IonRow, IonCol, IonFab, IonFabButton, IonFabList, IonIcon } from '@ionic/react';
+import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubtitle, IonImg} from '@ionic/react';
 import ActionBar from '../ActionBar/ActionBar';
 import Info from '../InfoArticolo/InfoArticolo';
 import './AnteprimaArticolo.css';
-import { chatbubbleEllipsesOutline } from 'ionicons/icons';
+import {  } from 'ionicons/icons';
 
 const AnteprimaArticolo: React.FC<{
     id:string,

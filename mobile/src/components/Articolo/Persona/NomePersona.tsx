@@ -15,7 +15,6 @@ const NomePersona: React.FC<{
         return null;
     });
 
-    console.log(colore);
   return (
     <>
     <IonTitle size="small" class="ion-margin-bottom" color={colore}>{props.children}</IonTitle>

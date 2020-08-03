@@ -1,7 +1,7 @@
 import React from 'react';
 import BackDrop from '../Backdrop/Backdrop';
 import './Modal.css';
-import { IonBackdrop } from '@ionic/react';
+import {  IonModal } from '@ionic/react';
 
 const Modal: React.FC<{
     show:boolean,
@@ -12,15 +12,20 @@ const Modal: React.FC<{
 
   return (
    <>
-    {show ? <div className= {'Modal'}>
-        {props.children}
-    </div> : null}
-    <BackDrop show ={show}  clicked = { props.modalClosed }/>
+    <IonModal isOpen={show}>
+            {props.children}
+    </IonModal>
+    {/*<BackDrop show ={show}  clicked = { props.modalClosed }/>*/}
    </>
   );
 };
 
 export default Modal;
+
+/*  {show ? <div className= {'Modal'}>
+        {props.children}
+    </div> : null}
+    <BackDrop show ={show}  clicked = { props.modalClosed }/> */
 
 
 /*<div> 

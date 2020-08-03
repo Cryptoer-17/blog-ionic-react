@@ -5,7 +5,7 @@ import Modal from '../../UI/Modal/Modal';
 import EliminaMessaggio from '../EliminaMessaggio/EliminaMessaggio';
 import Messaggio from '../Messaggio/Messaggio';
 import './Comments.css';
-import { IonCard, IonCardContent, IonCardHeader,IonIcon, IonButton, IonBackdrop } from '@ionic/react';
+import { IonCard, IonCardContent, IonIcon, IonButton } from '@ionic/react';
 import { closeOutline} from 'ionicons/icons';
 
 
