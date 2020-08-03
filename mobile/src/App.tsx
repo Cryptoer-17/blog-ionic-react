@@ -6,9 +6,10 @@ import Home from './pages/Home/Home';
 import MainPage from './pages/MainPage/MainPage';
 import Navigation from './pages/Navigation/Navigation';
 import Profilo from './pages/Profilo/Profilo';
+import Modifica from './pages/Modifica/Modifca';
 import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
-import * as moment from 'moment';
+import moment from 'moment';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -96,9 +97,10 @@ return(
     <Navigation />
     <IonReactRouter>
       <IonRouterOutlet>
-      {localStorage.getItem("userId") ? <Route path="/home"render={(props) =>(<Home {...props} spinner={loading} errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
+      {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props} spinner={loading} errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
       {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")} exact render={()=>(<Profilo></Profilo>)}/> :null}
-        <Route exact path="/" render={() => <Redirect to="/home" />} />
+      {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
+        <Route exact path="/" render={() => <Redirect to="/home" /> } />
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>)
@@ -106,6 +108,8 @@ return(
 
 /*
 {localStorage.getItem("userId") ?    <Route path={"/profilo" + (key ? "/:key" : "")} exact  render={() =>(<AsyncProfilo  profilo={tempArray} clickUpdateArticolo={this.updateArticoloHandler} key={key} mount={() => this.componentDidMount()}/>)} /> : null }
+{localStorage.getItem("userId") ?  <Route path="/modifica/:id"  render = {(props)=>(<Modifica {...props} mount={() => this.componentDidMount()}/>)} /> : null }
+
 */
 
 const mapStateToProps = (state:any) =>{

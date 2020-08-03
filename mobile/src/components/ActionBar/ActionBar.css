@@ -20,13 +20,5 @@
     position: absolute;
   }
 
-  .Modifica{
-      width: 130%;
-        font-size: 0.9rem;
-       margin-left: 2%;
-        border-radius: 3px 3px 3px 3px;
-  }
 
-  .Modifica a{
-      width: 120%;
-  }
+  

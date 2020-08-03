@@ -36,10 +36,10 @@ const ActionBar: React.FC<{
                     <IonIcon icon={ellipsisHorizontalOutline}></IonIcon>
                 </IonButton>
                 <div className={showdropdown ? 'DropdownContentBlock' : 'DropdownContent'}>
-                    <IonButton>Delete</IonButton>
-                    <IonItem routerLink={"/modifica/" + id} lines="none" className={'Modifica'} color="primary" button={true}>
-                       MODIFY
-                    </IonItem>
+                    <IonButton onClick={() => props.modalDelete()}>Elimina</IonButton>
+                    <IonButton routerLink={'/modifica/'+id} >
+                        Modifica
+                    </IonButton>
                 </div>
             </IonCol>
         </IonRow>
