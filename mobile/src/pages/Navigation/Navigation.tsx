@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem } from "@ionic/react";
+import { IonContent, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem, IonText, IonLabel } from "@ionic/react";
 import { NavLink } from 'react-router-dom';
 import { personCircleOutline} from 'ionicons/icons';
 import Ricerca from '../../components/Ricerca/Ricerca';
@@ -40,9 +40,11 @@ const Navigation: React.FC<{
                     Blog
                 </IonButton>
                 <IonButton routerLink={"/profilo" + (idProfilo ? "/"+idProfilo+"" : null)}>
-                <IonIcon slot="start" icon={personCircleOutline}/>
+                    <IonIcon  icon={personCircleOutline}/>
+                    {localStorage.getItem("username") ? <IonLabel class="ion-text-lowercase">{localStorage.getItem("username")}</IonLabel> : null}
                 </IonButton>
             </IonButtons>
+            
             <IonItem lines="none" class="ion-text-center">
                 <Ricerca />
             </IonItem>

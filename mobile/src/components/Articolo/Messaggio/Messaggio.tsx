@@ -13,6 +13,7 @@ const Messaggio: React.FC<{
         setMessaggio(event.target.value)
     }
     const showUsernameModal = () => {
+        console.log(showUsername);
         setShowUsername(!showUsername);  
     }
 
