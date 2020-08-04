@@ -17,7 +17,6 @@ const Articolo: React.FC<{
     const [articolo, setArticolo]:any = useState(null);
     const [loading, setLoading] = useState(false);
     const [comments, setComments] = useState(false);
-    const [render, setRender] = useState(false);
     let location = useLocation().pathname.slice(10);
 
     useEffect(()=>{
@@ -113,9 +112,7 @@ const Articolo: React.FC<{
             .catch(error => console.log(error));
     }
 
-    const riRender = ()=>{
-        setRender(!render);
-    }
+  
 
 
     let articoloVisualizzato;
@@ -169,7 +166,7 @@ const Articolo: React.FC<{
         <IonContent scrollEvents={true}>
             <br></br><br></br><br></br>
             {articoloVisualizzato}
-            {comments && <Comments {...props} cmpDidMount={()=>riRender()} articolo={articolo} clickSendMessage={()=>handlerSendMessage(props)} />}
+            {comments && <Comments {...props} cmpDidMount={()=>window.location.reload()} articolo={articolo} clickSendMessage={()=>handlerSendMessage(props)} />}
         </IonContent>
     );
 }
