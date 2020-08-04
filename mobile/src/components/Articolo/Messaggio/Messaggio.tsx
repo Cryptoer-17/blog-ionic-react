@@ -14,11 +14,25 @@ const Messaggio: React.FC<{
     const showUsernameModal = () => {
         setShowUsername(!showUsername);  
     }
+
+    const handlerKeyPressed = (event:any)=>{
+        if(event.key === 'Enter'){
+            if(localStorage.getItem("username")){
+                if(messaggio !== ''){
+                    props.clickSendMessage(messaggio);
+                    setMessaggio('');
+                }     
+            }else{
+                showUsernameModal();
+            }
+                
+        }
+    }
   return (
     <>
         {/*<Username show ={showUsername} modalClosed ={showUsernameModal}/>*/}
         <IonItem>
-            <IonInput type="text" value={messaggio} placeholder="Scrivi un commento..." onIonChange={changeMessage} onClick={(localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')}: ()=>showUsernameModal())}></IonInput>
+            <IonInput type="text" value={messaggio} placeholder="Scrivi un commento..." onIonChange={changeMessage} onKeyPress={handlerKeyPressed}/*onClick={(localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')}: ()=>showUsernameModal())}*/></IonInput>
         </IonItem> 
         <IonButton onClick={  (localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')} : ()=>showUsernameModal())}>INVIA</IonButton>
     </>

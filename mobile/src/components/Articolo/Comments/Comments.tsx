@@ -12,7 +12,7 @@ import { closeOutline} from 'ionicons/icons';
 const Comments: React.FC<{
     cmpDidMount:()=>void,
     articolo:any,
-    clickSendMessage:()=>void
+    clickSendMessage:(props:any)=>void
 }> = (props) => {
     
     const [showModalDelete,setShowModalDelete] = useState(false);

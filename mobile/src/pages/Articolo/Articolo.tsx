@@ -19,6 +19,8 @@ const Articolo: React.FC<{
     const [comments, setComments] = useState(false);
     let location = useLocation().pathname.slice(10);
 
+    const {onInitArticoli} = props; 
+
     useEffect(()=>{
         const id = location;
     
@@ -53,16 +55,17 @@ const Articolo: React.FC<{
     }
 
     const handlerSendMessage = (props:any) => {
+        console.log(props);
         let messaggio;
         const messaggi = [
-            ...props.articolo.messaggi,
+            ...articolo.messaggi,
             messaggio = {
                 username: localStorage.getItem("username"),
                 testo: props
             }
         ]
         const anteprima = {
-            ...props.articolo,
+            ...articolo,
             messaggi: messaggi,
         }
         setArticolo(anteprima);
@@ -74,7 +77,7 @@ const Articolo: React.FC<{
           }
         axios.put('http://localhost:4001/articolo/update/' + id, anteprima,config)
             .then(response => {
-                props.onInitArticoli();
+                onInitArticoli();
             })
             .catch(error => console.log(error));
     }
@@ -166,7 +169,7 @@ const Articolo: React.FC<{
         <IonContent scrollEvents={true}>
             <br></br><br></br><br></br>
             {articoloVisualizzato}
-            {comments && <Comments {...props} cmpDidMount={()=>window.location.reload()} articolo={articolo} clickSendMessage={()=>handlerSendMessage(props)} />}
+            {comments && <Comments {...props} cmpDidMount={()=>window.location.reload()} articolo={articolo} clickSendMessage={(props)=>handlerSendMessage(props)} />}
         </IonContent>
     );
 }
