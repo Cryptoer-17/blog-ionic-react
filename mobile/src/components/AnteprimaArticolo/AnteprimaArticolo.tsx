@@ -30,6 +30,7 @@ const AnteprimaArticolo: React.FC<{
   const viewMessageArticle = (id:string) => {
     document.getElementById(id)!.click()
     setTimeout(() => {
+        console.log("entrato");
         document.getElementById("messageIcon")!.click();
     }, 1000);
 }
@@ -56,8 +57,8 @@ const AnteprimaArticolo: React.FC<{
        <IonCardHeader>
         <Info autore={autore} categoria={categoria} data={data} tempoLettura={minuti} />
        </IonCardHeader>
-       <IonItem routerLink={'/articolo/'+id} lines="none">
-        <div className="CardContent">
+       <IonItem routerLink={'/articolo/'+id} lines="none" >
+        <div className="CardContent" id={id}>
             <IonCardContent >
                 <IonItem lines="none" >
                         <IonTitle class="ion-text-center" className="Titolo"><b>{titolo}</b></IonTitle>
@@ -78,26 +79,7 @@ const AnteprimaArticolo: React.FC<{
       
    </IonCard>
       
-    
-  {/*<NavLink to={"/articolo/" + id} style={{
-       textDecoration: 'none',
-       color: 'black'
-   }}>
-       <div id={id} className={classes.Titolo}>
-           <h1>{titolo}</h1>
-       </div>{sottotitolo ? <div id="divSottotitolo" className={classes.Sottotitolo}>
-           <h5>{sottotitolo} </h5>
-       </div> : null}
-       {img ? <div className={classes.Imgdiv}>
-           <img className={classes.Img} src={img} alt="" />
-       </div> : null}
-       {descrizione ?
-           <div className={classes.Testo}>
-               <p>{descrizione}</p>
-           </div>
-       : null}  </NavLink>
-  <ActionBar id={id} showdropdown={showDropdown} viewComments={() => this.viewMessageArticle(id)} modalDelete={() => this.clickModalDelete()} clickMenu={this.props.clickMenuHandler} disableMore={this.props.disableMore} className={classes.Actions} color={colore} onClick={clickHeart} ricerca={ricerca} />*/}
-    
+
 
     
   return (
@@ -110,4 +92,3 @@ const AnteprimaArticolo: React.FC<{
 
 export default AnteprimaArticolo;
 
-//mettere il tag routerLink dopo aver inserito IonItem o qualcosa del genere. Per ora senza link

@@ -12,7 +12,7 @@ import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import asyncComponent from './hoc_/asyncComponent/asyncComponent';
-
+import {Switch} from 'react-router-dom';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -104,13 +104,13 @@ return(
   <IonApp>
     <Navigation idProfilo={key}/>
     <IonReactRouter>
-      <IonRouterOutlet>
+      <Switch>
       {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props}  spinner={loading}  errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} error="s" articoli={[]} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
       {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo></Profilo>)}/> :null}
       {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
       {localStorage.getItem("userId") ?  <Route path="/articolo/:id" component ={asyncArticolo} /> : null}
         <Route exact path="/" render={() => <Redirect to="/home" /> } />
-      </IonRouterOutlet>
+      </Switch>
     </IonReactRouter>
   </IonApp>)
 };
