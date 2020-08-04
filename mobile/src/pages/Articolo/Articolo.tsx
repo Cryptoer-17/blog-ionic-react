@@ -44,7 +44,7 @@ const Articolo: React.FC<{
         .catch(error => {
             setLoading(false)
         });
-    },[])
+    },[location])
 
 
     const viewCommentsHandler = ()=> {

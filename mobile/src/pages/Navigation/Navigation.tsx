@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem,  IonLabel } from "@ionic/react";
+import {  IonHeader, IonToolbar, IonButtons,  IonButton, IonIcon, IonItem,  IonLabel } from "@ionic/react";
 import { personCircleOutline} from 'ionicons/icons';
 import Ricerca from '../../components/Ricerca/Ricerca';
 import { connect } from 'react-redux';

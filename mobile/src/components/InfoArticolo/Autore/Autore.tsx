@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonItem,IonIcon, IonCardSubtitle, IonButton } from '@ionic/react';
+import { IonIcon, IonCardSubtitle } from '@ionic/react';
 import { personCircleOutline} from 'ionicons/icons';
 import './Autore.css';
 const Autore: React.FC<{

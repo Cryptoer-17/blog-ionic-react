@@ -1,13 +1,12 @@
-import React, { useEffect, Props } from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { IonApp } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home/Home';
 import MainPage from './pages/MainPage/MainPage';
 import Navigation from './pages/Navigation/Navigation';
 import Profilo from './pages/Profilo/Profilo';
 import Modifica from './pages/Modifica/Modifca';
-import Articolo from './pages/Articolo/Articolo';
 import * as actions from './store/actions/index';
 import {connect} from 'react-redux';
 import moment from 'moment';

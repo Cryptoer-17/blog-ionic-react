@@ -25,7 +25,7 @@ const Comments: React.FC<{
             document.getElementById("divCommts")!.style.overflow = 'scroll';
         }
     }
-    },[]);
+    },[props.articolo.messaggi]);
 
   const clickModalDelete = ()=> {
       setShowModalDelete(true);
