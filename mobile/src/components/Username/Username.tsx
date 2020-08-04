@@ -39,7 +39,8 @@ const Username: React.FC<{
     let contenutoModale = <Spinner/>
 
     if(!loading){
-
+        console.log("entrato");
+        console.log(show);
         contenutoModale = <React.Fragment><IonText>
             Prima di poter pubblicare degli articoli o scrivere un commento, devi scegliere un username.
         </IonText>
@@ -72,7 +73,7 @@ const Username: React.FC<{
 
 const mapStateToProps = (state:any) =>{
     return{
-         user: state.login.user,
+         user: state.auth.user,
          loadingUsername:state.profilo.loading,
          profiloReducer:state.profilo.profilo,
          profili: state.profilo.profili

@@ -20,3 +20,17 @@
 .backdrop{
     opacity: 0.5;
 }
+
+.BackgroudTransparent{
+    height: 100%;
+    width: 100%;
+    background-color: greenyellow;
+}
+
+.classe-prova.modal-wrapper{
+    background-color: grey;
+}
+
+.modal-wrapper{
+    background-color: grey;
+}

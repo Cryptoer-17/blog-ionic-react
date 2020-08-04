@@ -31,7 +31,7 @@ const Messaggio: React.FC<{
     }
   return (
     <>
-        {/*<Username show ={showUsername} modalClosed ={showUsernameModal}/>*/}
+        <Username show ={showUsername} modalClosed ={showUsernameModal} loading={false} />
         <IonItem color="light">
             <IonInput type="text" color="dark" value={messaggio} placeholder="Scrivi un commento..." onIonChange={changeMessage} onKeyPress={handlerKeyPressed}/*onClick={(localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')}: ()=>showUsernameModal())}*/></IonInput>
         </IonItem> 

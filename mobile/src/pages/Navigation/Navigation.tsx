@@ -1,14 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IonContent, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem } from "@ionic/react";
 import { NavLink } from 'react-router-dom';
 import { personCircleOutline} from 'ionicons/icons';
 import Ricerca from '../../components/Ricerca/Ricerca';
+import { connect } from 'react-redux';
+import Logout from '../../components/Login/Logout';
 
 const Navigation: React.FC<{
-    idProfilo:string
+    idProfilo:string,
+    error:string
 }> = (props)=>{
 
-    const {idProfilo} = props;
+    const {idProfilo,error} = props;
+
+    const [show, setShow] = useState(false);
+    const [showmsg, setShowMsg] = useState(false);
+
+    const showMessage = () => {
+        setShowMsg(true);
+    }
+    const hideMessage = () => {
+        setShowMsg(false);
+    }
+
+    const showModal = () => {
+        hideMessage();
+        setShow(true);
+    }
+    const hideModal = () => {
+        setShow(false);
+    }
+
 
     return(
         <IonHeader>
@@ -24,13 +46,24 @@ const Navigation: React.FC<{
             <IonItem lines="none" class="ion-text-center">
                 <Ricerca />
             </IonItem>
-            <IonButton slot="end" fill="clear" color="dark">
+            <IonButton slot="end" fill="clear" color="dark" onClick={showModal}>
                     Logout
             </IonButton>   
-           
+            {(show) ? <Logout hideModal={hideModal}></Logout>: null}
         </IonToolbar>
     </IonHeader>
     );
 }
 
-export default Navigation;
+const mapStateToProps = (state:any) => {
+
+    return {
+        loading: state.auth.loading,
+        error: state.auth.error,
+        tokenId: state.auth.token,
+        userId: state.auth.userId,
+        loginRedirectPath: state.auth.loginRedirectPath
+    };
+};
+
+export default connect (mapStateToProps)(Navigation);

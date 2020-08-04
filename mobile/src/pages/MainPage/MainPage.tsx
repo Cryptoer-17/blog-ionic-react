@@ -40,13 +40,10 @@ const MainPage: React.FC = ()=>{
             <div className="Img">
            
             </div>    
-            <IonItem>
+            <IonItem lines="none">
                 <IonModal isOpen={showModal} cssClass='modal'>
                     <Login hideModal={() => setShowModal(false)}></Login>
                 </IonModal>
-                <IonThumbnail>
-                   {/* <IonImg src={'src/assets/images/logoGoogle.png'}></IonImg>*/}
-                </IonThumbnail>
             </IonItem>       
         </IonContent>
         {/*<IonContent>

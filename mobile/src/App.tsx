@@ -33,6 +33,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
+/* Global Style */
+import './Global.css';
+
+
 const asyncArticolo = asyncComponent(() =>{
   return import('./pages/Articolo/Articolo');
 });

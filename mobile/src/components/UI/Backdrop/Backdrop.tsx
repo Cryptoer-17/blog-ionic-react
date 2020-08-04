@@ -10,7 +10,6 @@ const Backdrop: React.FC<{
 }> = (props) => {
     console.log(props.show);
   return (
-      /*props.show ? <div className={'Backdrop'} onClick={props.clicked}></div> : null*/
       props.show ? <IonBackdrop color="dark" class="opacity"/> : null
   );
 };
