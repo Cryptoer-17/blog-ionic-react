@@ -37,8 +37,9 @@ const EliminaMessaggio: React.FC<{
   return (
     <>
             {loading ? <Spinner /> : null}
-            <IonTitle>SEI SICURO DI VOLER ELIMINARE IL MESSAGGIO?</IonTitle>
-            <IonButton class="btn-hover-delete" onClick={clickBtnSi}>SI</IonButton>
+            <IonTitle>SEI SICURO DI VOLER </IonTitle>
+            <IonTitle>ELIMINARE IL MESSAGGIO?</IonTitle>
+            <IonButton class="btn-hover-delete ion-margin-start" onClick={clickBtnSi}>SI</IonButton>
             <IonButton class="btn-hover-nodelete" onClick={props.hideModal}>NO</IonButton>
     </>
   );

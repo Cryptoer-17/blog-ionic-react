@@ -1,19 +1,24 @@
 import React from 'react';
 import BackDrop from '../Backdrop/Backdrop';
 import './Modal.css';
-import {  IonModal } from '@ionic/react';
+import {  IonModal, IonCard, IonCardContent, IonTitle, IonText } from '@ionic/react';
 
 const Modal: React.FC<{
     show:boolean,
-    modalClosed:()=>void
+    modalClosed:()=>void,
 }> = (props) => {
 
     const {show} = props;
+    
 
   return (
    <>
     <IonModal isOpen={show}>
-            {props.children}
+      <IonCard>
+        <IonCardContent>
+         {props.children}
+        </IonCardContent>
+      </IonCard>
     </IonModal>
     {/*<BackDrop show ={show}  clicked = { props.modalClosed }/>*/}
    </>
