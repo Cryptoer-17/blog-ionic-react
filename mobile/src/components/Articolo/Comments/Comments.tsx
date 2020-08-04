@@ -33,6 +33,7 @@ const Comments: React.FC<{
       setShowModalDelete(true);
   }
   const hideModalDelete = () => {
+    console.log("entrato");
       setShowModalDelete(false);
   }
 
@@ -75,7 +76,7 @@ const Comments: React.FC<{
         } else commenti = null;
 
         if (showModalDelete) {
-          showModalDeleteVar = <Modal show={showModalDelete} modalClosed={()=>{}}><EliminaMessaggio {...props} cmpDidMount={props.cmpDidMount} indexmsg={indexmsg} articolo={articolo} hideModal={() => hideModalDelete()} /*mount={this.props.mount}*/ /></Modal>
+          showModalDeleteVar = <Modal show={showModalDelete} modalClosed={hideModalDelete}><EliminaMessaggio {...props} cmpDidMount={props.cmpDidMount} indexmsg={indexmsg} articolo={articolo} hideModal={() => hideModalDelete()} /*mount={this.props.mount}*/ /></Modal>
       }
 
   return (

@@ -10,11 +10,11 @@ const Modal: React.FC<{
 
     const {show} = props;
     
-
+  
   return (
    <>
-   <IonBackdrop visible={show} class="backdrop"></IonBackdrop>
-    <IonModal isOpen={show} >
+   <IonBackdrop visible={show}  class="backdrop"></IonBackdrop>
+    <IonModal isOpen={show} onDidDismiss={props.modalClosed}>
       <IonCard>
         <IonCardContent>
          {props.children}
