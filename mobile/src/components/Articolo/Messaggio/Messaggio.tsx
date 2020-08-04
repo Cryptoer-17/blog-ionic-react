@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Username from '../../Username/Username';
 import { IonItem, IonInput, IonButton } from '@ionic/react';
+import './Messaggio.css';
 const Messaggio: React.FC<{
     clickSendMessage:(props:any)=>void
 }> = (props) => {
@@ -31,10 +32,10 @@ const Messaggio: React.FC<{
   return (
     <>
         {/*<Username show ={showUsername} modalClosed ={showUsernameModal}/>*/}
-        <IonItem>
-            <IonInput type="text" value={messaggio} placeholder="Scrivi un commento..." onIonChange={changeMessage} onKeyPress={handlerKeyPressed}/*onClick={(localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')}: ()=>showUsernameModal())}*/></IonInput>
+        <IonItem color="light">
+            <IonInput type="text" color="dark" value={messaggio} placeholder="Scrivi un commento..." onIonChange={changeMessage} onKeyPress={handlerKeyPressed}/*onClick={(localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')}: ()=>showUsernameModal())}*/></IonInput>
         </IonItem> 
-        <IonButton onClick={  (localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')} : ()=>showUsernameModal())}>INVIA</IonButton>
+        <IonButton class="ion-float-right send-button" fill="outline" color="dark" onClick={  (localStorage.getItem("username")? ()=>{props.clickSendMessage(messaggio);setMessaggio('')} : ()=>showUsernameModal())}>INVIA</IonButton>
     </>
   );
 };

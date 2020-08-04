@@ -40,13 +40,13 @@ const AnteprimaArticolo: React.FC<{
 
     
   let showModalDeleteVar;
-  let colore = 'black';
+  let colore = 'dark';
   let variabile;
   
   like.map((object) => {
     if (object.username === localStorage.getItem("username")) {
         if (object.like) {
-            colore = 'red';
+            colore = 'danger';
         }
     }
     return null;

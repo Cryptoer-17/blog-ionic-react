@@ -47,13 +47,13 @@ const App: React.FC<{
 }> = (props) => {
   const {loading,error} = props;
 
-  const forceUpdate = useEffect(()=>{
+  const forceUpdate = ()=>{
     const userId = localStorage.getItem("userId");
     if(userId){
       props.onInitArticoli();
       props.onGetProfilo();
-    };
-  },[]);
+    }
+  };
 
 
   useEffect(()=>{
@@ -105,7 +105,7 @@ return(
     <Navigation idProfilo={key}/>
     <IonReactRouter>
       <IonRouterOutlet>
-      {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props} spinner={loading} errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
+      {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props}  spinner={loading}  errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} error="s" articoli={[]} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
       {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo></Profilo>)}/> :null}
       {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
       {localStorage.getItem("userId") ?  <Route path="/articolo/:id" component ={asyncArticolo} /> : null}

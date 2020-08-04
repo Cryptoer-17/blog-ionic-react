@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import AnteprimaArticolo from '../../components/AnteprimaArticolo/AnteprimaArticolo';
 import moment from 'moment';
-
+import axios from 'axios';
 
 const Home: React.FC<{
 articoli:any[],
@@ -17,13 +17,13 @@ mount:()=>void,
 error:string,
 }> = (props) => {
 
-const clickHeartHandler = (art:any)=>{
+  
+  let {articoli,spinner,errore,mount,error} = props;
 
-}
- /* clickHeartHandler(art){
-    let length = art.articolo.like.length;
+const clickHeartHandler = (art:any)=>{
+  let length = art.articolo.like.length;
     let c = 0;
-    let heartChange = art.articolo.like.map((object)=>{
+    let heartChange = art.articolo.like.map((object:any)=>{
        if(object.username === localStorage.getItem("username")){
           object.like = !object.like
        }
@@ -48,15 +48,15 @@ const clickHeartHandler = (art:any)=>{
      }
     axios.put('http://localhost:4001/articolo/update/'+ id,anteprima,config)
     .then(response => {
-       this.props.mount();
+       mount();
     })
     .catch(error => console.log(error));
-}*/
+}
+ 
 
 
   /*let {spinner, articoli , errore,mount,error} = props;*/
 
-  let {articoli,spinner,errore,mount,error} = props;
   const contentRef:any = useRef(null);
     
   const scrollTop = ()=>{
