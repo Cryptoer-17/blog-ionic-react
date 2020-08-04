@@ -26,17 +26,3 @@ const Modal: React.FC<{
 };
 
 export default Modal;
-
-/*  {show ? <div className= {'Modal'}>
-        {props.children}
-    </div> : null}
-    <BackDrop show ={show}  clicked = { props.modalClosed }/> */
-
-
-/*<div> 
-      <div className= {classes.Modal}  style = {{ transfrom: show ? 'translateY(0)' : 'translateY(-100)',
-        opacity: show ? '1':'0', visibility: show ? 'visible' : 'hidden'}}>
-        {props.children}
-      </div>   
-      <Backdrop show ={show}  clicked = { props.modalClosed }/>
-    </div> */

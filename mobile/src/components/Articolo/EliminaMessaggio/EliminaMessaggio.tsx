@@ -39,8 +39,19 @@ const EliminaMessaggio: React.FC<{
             {loading ? <Spinner /> : null}
             <IonTitle>SEI SICURO DI VOLER </IonTitle>
             <IonTitle>ELIMINARE IL MESSAGGIO?</IonTitle>
-            <IonButton class="btn-hover-delete ion-margin-start" onClick={clickBtnSi} >SI</IonButton>
-            <IonButton class="btn-hover-nodelete" onClick={props.hideModal}>NO</IonButton>
+            <IonButton 
+            id="buttonDelete" 
+            class="ion-margin-start" 
+            onClick={clickBtnSi} 
+            onMouseEnter={()=>document.getElementById('buttonDelete')!.setAttribute("color","danger")} 
+            onMouseLeave={()=>document.getElementById('buttonDelete')!.setAttribute("color","primary")}
+            >SI</IonButton>
+            <IonButton 
+            id="buttonNoDelete" 
+            onClick={props.hideModal}
+            onMouseEnter={()=>document.getElementById('buttonNoDelete')!.setAttribute("color","success")} 
+            onMouseLeave={()=>document.getElementById('buttonNoDelete')!.setAttribute("color","primary")}
+            >NO</IonButton>
     </>
   );
 };
