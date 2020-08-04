@@ -1,7 +1,7 @@
 import React from 'react';
 import BackDrop from '../Backdrop/Backdrop';
 import './Modal.css';
-import {  IonModal, IonCard, IonCardContent, IonTitle, IonText } from '@ionic/react';
+import {  IonModal, IonCard, IonCardContent, IonTitle, IonText, IonBackdrop } from '@ionic/react';
 
 const Modal: React.FC<{
     show:boolean,
@@ -13,7 +13,8 @@ const Modal: React.FC<{
 
   return (
    <>
-    <IonModal isOpen={show}>
+   <IonBackdrop visible={show} class="backdrop"></IonBackdrop>
+    <IonModal isOpen={show} cssClass="my-modal-class">
       <IonCard>
         <IonCardContent>
          {props.children}

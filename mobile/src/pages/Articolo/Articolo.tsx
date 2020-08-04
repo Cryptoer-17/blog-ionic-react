@@ -142,7 +142,7 @@ const Articolo: React.FC<{
         });
         let data = moment(articolo.data).toDate().toISOString().substr(0,10)
         articoloVisualizzato = <IonCard>
-            <IonCardHeader>
+            <IonCardHeader translucent={true} mode="ios">
                 <Info  autore={articolo.autore} categoria={articolo.categoria} data={data} tempoLettura={articolo.minuti} />
             </IonCardHeader>
             <div className="CardContent">
