@@ -1,8 +1,6 @@
 import React from 'react';
 import { IonTitle } from '@ionic/react';
 
-
-
 const NomePersona: React.FC<{
     userArray:any
 }>= (props) => {

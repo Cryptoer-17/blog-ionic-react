@@ -55,7 +55,6 @@ const Articolo: React.FC<{
     }
 
     const handlerSendMessage = (props:any) => {
-        console.log(props);
         let messaggio;
         const messaggi = [
             ...articolo.messaggi,
@@ -116,7 +115,6 @@ const Articolo: React.FC<{
     }
 
   
-
 
     let articoloVisualizzato;
     let colore = 'dark';

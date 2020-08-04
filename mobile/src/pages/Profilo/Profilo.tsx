@@ -1,6 +1,5 @@
 import React from 'react';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem, IonLabel, IonPage } from "@ionic/react";
-import { NavLink } from 'react-router-dom';
+import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage } from "@ionic/react";
 
 
 const Profilo: React.FC = ()=>{

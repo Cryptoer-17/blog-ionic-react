@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonItem, IonThumbnail,  IonModal, IonTitle, IonImg, IonCard } from '@ionic/react';
+import { IonPage, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonItem,   IonModal, IonTitle} from '@ionic/react';
 import Login from "../../components/Login/Login";
 
 import './MainPage.css';
@@ -46,18 +46,6 @@ const MainPage: React.FC = ()=>{
                 </IonModal>
             </IonItem>       
         </IonContent>
-        {/*<IonContent>
-            <IonItem>
-                <IonModal isOpen={showModal} cssClass='modal'>
-                    <Login></Login>
-                    <p>This is modal content</p>
-                    <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
-                </IonModal>
-                <IonThumbnail>
-                   {/* <IonImg src={'src/assets/images/logoGoogle.png'}></IonImg>*//*}
-                </IonThumbnail>
-            </IonItem>
-        </IonContent> */}
     </IonPage>
     );
 }

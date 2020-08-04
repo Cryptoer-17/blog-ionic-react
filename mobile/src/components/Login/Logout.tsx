@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../UI/Modal/Modal';
-import { IonTitle, IonButton, IonItem } from '@ionic/react';
+import { IonTitle, IonButton } from '@ionic/react';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import './Logout.css';

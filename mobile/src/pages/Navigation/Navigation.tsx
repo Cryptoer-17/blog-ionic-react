@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem, IonText, IonLabel } from "@ionic/react";
-import { NavLink } from 'react-router-dom';
+import {  IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonIcon, IonItem,  IonLabel } from "@ionic/react";
 import { personCircleOutline} from 'ionicons/icons';
 import Ricerca from '../../components/Ricerca/Ricerca';
 import { connect } from 'react-redux';

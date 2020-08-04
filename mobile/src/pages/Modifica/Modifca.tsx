@@ -1,9 +1,7 @@
 import React from 'react';
-import { IonItem, IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
-
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/react";
 
 const Modifica: React.FC = ()=>{
-
 
     return(
         <IonPage>

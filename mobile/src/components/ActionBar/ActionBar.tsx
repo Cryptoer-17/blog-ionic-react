@@ -3,7 +3,6 @@ import { IonGrid, IonRow, IonCol, IonButtons, IonButton,IonIcon} from '@ionic/re
 import { heart, chatbubbleEllipsesOutline, ellipsisHorizontalOutline} from 'ionicons/icons';
 import './ActionBar.css';
 
-
 const ActionBar: React.FC<{
     id:string,
     showdropdown:boolean,

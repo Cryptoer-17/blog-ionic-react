@@ -3,7 +3,6 @@ import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubti
 import ActionBar from '../ActionBar/ActionBar';
 import Info from '../InfoArticolo/InfoArticolo';
 import './AnteprimaArticolo.css';
-import {  } from 'ionicons/icons';
 
 const AnteprimaArticolo: React.FC<{
     id:string,
@@ -30,7 +29,6 @@ const AnteprimaArticolo: React.FC<{
   const viewMessageArticle = (id:string) => {
     document.getElementById(id)!.click()
     setTimeout(() => {
-        console.log("entrato");
         document.getElementById("messageIcon")!.click();
     }, 1000);
 }
@@ -79,8 +77,6 @@ const AnteprimaArticolo: React.FC<{
       
    </IonCard>
       
-
-
     
   return (
     <div >

@@ -1,6 +1,5 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonCard } from '@ionic/react';
+import { IonContent, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import React, { useRef } from 'react';
-import ExploreContainer from '../../components/ExploreContainer';
 import './Home.css';
 import ScrollUpButton from '../../components/UI/ScrollUpButton/ScrollUpButton';
 import {connect} from 'react-redux';
@@ -54,9 +53,6 @@ const clickHeartHandler = (art:any)=>{
 }
  
 
-
-  /*let {spinner, articoli , errore,mount,error} = props;*/
-
   const contentRef:any = useRef(null);
     
   const scrollTop = ()=>{
@@ -65,7 +61,6 @@ const clickHeartHandler = (art:any)=>{
     }
     
   }
-
 
 
   let errorMessage = null;
@@ -108,23 +103,13 @@ const clickHeartHandler = (art:any)=>{
 
   let errorVar;
    if(error === "Auth token is expired"){
-     /* errorVar = document.getElementById("btnLoginLogout").click()  */ 
+      errorVar = document.getElementById("btnLoginLogout")!.click()   
    }
 
 
-
-
-  
-
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent scrollEvents={true} ref={contentRef}>
-        
         <IonToolbar>
             <IonTitle class="ion-text-center">Blog</IonTitle>
         </IonToolbar> 
@@ -144,7 +129,6 @@ const clickHeartHandler = (art:any)=>{
 };
 
 const mapStateToProps = (state:any) =>{
-  
   return{
      articoli : state.articolo.articoli,
      error:state.articolo.error

@@ -1,7 +1,6 @@
 import React from 'react';
 import { IonTitle } from '@ionic/react';
 
-
 const Commento: React.FC = (props) => {
   return (
     <>

@@ -13,7 +13,6 @@ const Messaggio: React.FC<{
         setMessaggio(event.target.value)
     }
     const showUsernameModal = () => {
-        console.log(showUsername);
         setShowUsername(!showUsername);  
     }
 
@@ -26,8 +25,7 @@ const Messaggio: React.FC<{
                 }     
             }else{
                 showUsernameModal();
-            }
-                
+            }           
         }
     }
   return (

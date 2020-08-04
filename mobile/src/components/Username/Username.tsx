@@ -2,11 +2,10 @@ import React, { useState } from 'react';
 import * as actions from '../../store/actions/index';
 import {connect } from 'react-redux';
 import Spinner from '../UI/Spinner/Spinner';
-import { IonText, IonInput, IonList, IonItem, IonButton, IonModal, IonTitle, IonIcon, IonLabel } from '@ionic/react';
+import { IonInput, IonList, IonItem, IonButton,  IonTitle, IonIcon, IonLabel } from '@ionic/react';
 import Modal from '../UI/Modal/Modal';
 import { thumbsUp, thumbsDown} from 'ionicons/icons';
 import checkValidity from '../../utility/validation';
-import updateObject from '../../utility/updateObject';
 
 const Username: React.FC<{
     show:boolean,
@@ -25,7 +24,6 @@ const Username: React.FC<{
     const checkValidityOfUsername = (event:any)=>{
         setUsername(event.target.value);
         let validUsername = checkValidity(event.target.value, {required:true,minLength:4,maxLength:15,isUsername:true});
-        console.log(validUsername);
         let formIsValid = validUsername;
         let error = '';
         for (let key in props.profili){ //controllo unicità dell'username
@@ -35,8 +33,7 @@ const Username: React.FC<{
             }
         }
         setErrorMsg(error);
-        setIsFormValid(formIsValid);
-      
+        setIsFormValid(formIsValid);  
     }
 
     const handlerClickConfirm = ()=>{
@@ -51,13 +48,10 @@ const Username: React.FC<{
           
     }
 
-
-
     let contenutoModale = <Spinner/>
-
+    
     if(!loading){
-        console.log("renderizzato");
-        console.log("show");
+
         contenutoModale = <React.Fragment><br></br><br></br><br></br><IonTitle size="small" color="dark">
              Prima di poter pubblicare degli articoli o scrivere un commento, devi scegliere un username.
         </IonTitle>
@@ -95,7 +89,6 @@ const Username: React.FC<{
         </IonList>
         <IonButton onClick={modalClosed} fill="clear" color="dark">Annulla</IonButton><IonButton color={!isFormValid ? "medium" : "light"} disabled={!isFormValid} onClick ={()=>handlerClickConfirm()}><IonLabel color="dark">Conferma</IonLabel></IonButton>
         </React.Fragment>
-
     }
 
 

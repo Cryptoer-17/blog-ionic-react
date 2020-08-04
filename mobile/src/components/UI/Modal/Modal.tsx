@@ -1,6 +1,6 @@
 import React from 'react';
 import './Modal.css';
-import {  IonModal, IonCard, IonCardContent,  IonBackdrop } from '@ionic/react';
+import {  IonModal, IonCard, IonCardContent } from '@ionic/react';
 
 const Modal: React.FC<{
     show:boolean,
@@ -12,7 +12,6 @@ const Modal: React.FC<{
   
   return (
    <>
-   {/*<IonBackdrop visible={show}  class="backdrop"></IonBackdrop>*/}
     <IonModal isOpen={show} animated={true} onDidDismiss={props.modalClosed} cssClass="classe-prova">
       <IonCard>
         <IonCardContent>

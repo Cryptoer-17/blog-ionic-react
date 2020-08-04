@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/react';
+import {  IonItem, IonInput, IonButton, IonIcon } from '@ionic/react';
 import { searchOutline} from 'ionicons/icons';
 import './Ricerca.css';
 

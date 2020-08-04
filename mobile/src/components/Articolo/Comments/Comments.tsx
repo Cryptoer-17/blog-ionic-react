@@ -17,8 +17,6 @@ const Comments: React.FC<{
     
     const [showModalDelete,setShowModalDelete] = useState(false);
     const [indexmsg,setIndexSmg] = useState(0);
-    console.log(props);
-
 
     useEffect(()=>{
       if (props.articolo.messaggi !== undefined) {
@@ -33,12 +31,10 @@ const Comments: React.FC<{
       setShowModalDelete(true);
   }
   const hideModalDelete = () => {
-    console.log("entrato");
       setShowModalDelete(false);
   }
 
   const modalRemoveComment = (index:number)=>{
-    console.log("cliccato");
       setShowModalDelete(true);
       setIndexSmg(index);
   }
@@ -88,11 +84,8 @@ const Comments: React.FC<{
                       {commenti}
                   </div>
           <Messaggio clickSendMessage={clickSendMessage} />
-      </IonCardContent>
-                  
+      </IonCardContent>    
     </IonCard>
-    
-  
     </>
   );
 };
