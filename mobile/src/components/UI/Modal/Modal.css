@@ -17,11 +17,6 @@
     opacity:1;
 }
 
-.my-modal-class{
-    height: 20%;
-    margin-top: 70%;
-}
-
 .backdrop{
     opacity: 0.5;
 }

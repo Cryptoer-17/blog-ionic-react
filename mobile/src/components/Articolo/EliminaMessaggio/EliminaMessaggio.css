@@ -1,10 +1,10 @@
 
 
 .btn-hover-delete:hover{
-    color: "danger";
+    background-color: red;
 }
 
 
 .btn-hover-nodelete:hover{
-   color: "success";
+   background-color: green;
 }

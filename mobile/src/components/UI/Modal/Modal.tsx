@@ -14,14 +14,13 @@ const Modal: React.FC<{
   return (
    <>
    <IonBackdrop visible={show} class="backdrop"></IonBackdrop>
-    <IonModal isOpen={show} cssClass="my-modal-class">
+    <IonModal isOpen={show} >
       <IonCard>
         <IonCardContent>
          {props.children}
         </IonCardContent>
       </IonCard>
     </IonModal>
-    {/*<BackDrop show ={show}  clicked = { props.modalClosed }/>*/}
    </>
   );
 };
