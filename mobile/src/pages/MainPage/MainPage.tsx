@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonItem, IonThumbnail, IonImg, IonModal } from '@ionic/react';
-import ExploreContainer from '../../components/ExploreContainer';
+import { IonPage, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonItem, IonThumbnail,  IonModal, IonTitle, IonImg, IonCard } from '@ionic/react';
 import Login from "../../components/Login/Login";
 
 import './MainPage.css';
@@ -20,17 +19,37 @@ const MainPage: React.FC = ()=>{
             <IonToolbar>
                 <IonButtons slot="start">
                     <IonButton >
-                        Blog
+                        <b>Blog</b>
                     </IonButton>
                 </IonButtons>
                 <IonButtons slot="end">
                     <IonButton onClick={modalLoginRegistration}>
-                        Login
+                        <b>Login</b>
                     </IonButton>
                 </IonButtons>
             </IonToolbar>
         </IonHeader>
-        <IonContent>
+        <br></br><br></br><br></br><br></br>
+        <IonContent class="ion-no-padding">
+            <IonItem lines="none" >
+                <IonTitle size="small" class="ion-text-center">Crea il tuo blog</IonTitle>
+            </IonItem>
+            <IonItem lines="none" >
+                <IonTitle size="large" class="ion-text-center title-inizia-ora"><b>INIZIA ORA</b></IonTitle>
+            </IonItem>
+            <div className="Img">
+           
+            </div>    
+            <IonItem>
+                <IonModal isOpen={showModal} cssClass='modal'>
+                    <Login hideModal={() => setShowModal(false)}></Login>
+                </IonModal>
+                <IonThumbnail>
+                   {/* <IonImg src={'src/assets/images/logoGoogle.png'}></IonImg>*/}
+                </IonThumbnail>
+            </IonItem>       
+        </IonContent>
+        {/*<IonContent>
             <IonItem>
                 <IonModal isOpen={showModal} cssClass='modal'>
                     <Login></Login>
@@ -38,16 +57,10 @@ const MainPage: React.FC = ()=>{
                     <IonButton onClick={() => setShowModal(false)}>Close Modal</IonButton>
                 </IonModal>
                 <IonThumbnail>
-                   {/* <IonImg src={'src/assets/images/logoGoogle.png'}></IonImg>*/}
+                   {/* <IonImg src={'src/assets/images/logoGoogle.png'}></IonImg>*//*}
                 </IonThumbnail>
             </IonItem>
-      {/*      <IonHeader collapse="condense">
-            <IonToolbar>
-                <IonTitle size="large">Blank</IonTitle>
-            </IonToolbar>
-            </IonHeader>
-            <ExploreContainer />*/}
-      </IonContent> 
+        </IonContent> */}
     </IonPage>
     );
 }

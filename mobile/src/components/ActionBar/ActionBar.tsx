@@ -35,7 +35,7 @@ const ActionBar: React.FC<{
                 </IonButton> }
                 <div className={showdropdown ? 'DropdownContentBlock' : 'DropdownContent'}>
                     <IonButton onClick={() => props.modalDelete()}>Elimina</IonButton>
-                    <IonButton href={'/modifica/'+id} >
+                    <IonButton routerLink={'/modifica/'+id} >
                         Modifica
                     </IonButton>
                 </div>

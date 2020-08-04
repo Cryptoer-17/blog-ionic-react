@@ -102,7 +102,7 @@ const App: React.FC<{
 
 return(
   <IonApp>
-    <Navigation idProfilo={key}/>
+    {localStorage.getItem("userId") ? <Navigation idProfilo={key} /> : null}
     <IonReactRouter>
       <Switch>
       {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props}  spinner={loading}  errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} error="s" articoli={[]} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}

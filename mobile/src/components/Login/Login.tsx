@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton } from '@ionic/react';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton, IonIcon } from '@ionic/react';
 import './Login.css';
 import checkValidity from '../../utility/validation';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
+import { closeOutline} from 'ionicons/icons';
 
 
 const Login: React.FC<{
     onLogin: (textEmail:string,textPassword:string,isSignup:boolean)=> void; 
+    hideModal:()=>void
 }> = props =>{  
     const [textEmail, setTextEmail] = useState<string>('');
     const [emailValid, setEmailValid] = useState<boolean>(true);
@@ -48,6 +50,9 @@ const Login: React.FC<{
         <IonHeader className="ion-no-border">
             <IonToolbar>
                 <IonTitle class="ion-text-center">Login</IonTitle>
+                <IonButton fill="clear" class="delete-icon" color="dark" onClick={props.hideModal}>
+                    <IonIcon icon={closeOutline}></IonIcon>
+                </IonButton>
             </IonToolbar>
        </IonHeader>
        <IonContent>
@@ -99,7 +104,7 @@ const Login: React.FC<{
                 </IonRow>
                 <IonRow>
                     <IonCol>
-                        <IonButton expand="block" disabled={!validationText()} onClick={handlerClickRegistration}>Refistrati</IonButton>
+                        <IonButton expand="block" disabled={!validationText()} onClick={handlerClickRegistration}>Registrati</IonButton>
                     </IonCol>
                 </IonRow>
             </IonGrid>

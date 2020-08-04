@@ -1,3 +1,9 @@
 .Invalid{
     border-bottom: 3px solid red;
 }
+
+.delete-icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
