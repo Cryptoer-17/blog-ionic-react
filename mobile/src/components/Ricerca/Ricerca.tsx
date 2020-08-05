@@ -21,7 +21,6 @@ const Ricerca: React.FC<{
     }
 
     const clickHandler = () =>{
-        console.log(props);
         if(textRicerca !== ""){
             onStartRicerca(textRicerca);
         }

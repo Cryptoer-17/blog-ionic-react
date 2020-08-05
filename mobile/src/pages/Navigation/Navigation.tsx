@@ -9,7 +9,6 @@ const Navigation: React.FC<{
     error:string
 }> = (props)=>{
 
-    console.log(props);
 
     const {idProfilo,error} = props;
 

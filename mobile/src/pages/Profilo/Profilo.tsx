@@ -339,6 +339,12 @@ const Profilo: React.FC<{
                     <IonText><b>MODIFICA I TUOI DATI</b></IonText>
                 </IonItem>
                 {form}
+                <IonItem lines="none">
+                    <IonText><b>MODIFICA LA TUA FOTO PROFILO</b></IonText>
+                </IonItem>
+                <IonItem>
+                    {/* foto profilo */}
+                </IonItem>
             </IonCardContent>
         </IonCard>
     );

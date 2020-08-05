@@ -16,8 +16,6 @@ mount:()=>void,
 error:string,
 }> = (props) => {
 
- console.log(props);
-  
   let {articoli,spinner,errore,mount,error} = props;
 
 const clickHeartHandler = (art:any)=>{
