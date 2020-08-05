@@ -24,14 +24,13 @@ const Ricerca: React.FC<{
         console.log(props);
         if(textRicerca !== ""){
             onStartRicerca(textRicerca);
-            // history.push("/ricerca");
         }
     }
 
   
 
   return (
-         <IonItem  lines="none" >
+         <IonItem  lines="none" class="ricerca" >
             <IonInput 
             type="text" 
             value={textRicerca} 

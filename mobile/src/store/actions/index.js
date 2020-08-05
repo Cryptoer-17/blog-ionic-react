@@ -1,6 +1,8 @@
 export {
 login,
 logout,
+/*updateEmail,
+updatePassword,*/
 }from './auth';
 
 export {

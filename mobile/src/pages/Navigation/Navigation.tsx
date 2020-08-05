@@ -40,7 +40,7 @@ const Navigation: React.FC<{
                 <IonButton routerLink="/home">
                     Blog
                 </IonButton>
-                <IonButton routerLink={"/profilo" + (idProfilo ? "/"+idProfilo+"" : null)}>
+                <IonButton routerLink={"/profilo" + (idProfilo ? "/" + idProfilo : "")}>
                     <IonIcon  icon={personCircleOutline}/>
                     {localStorage.getItem("username") ? <IonLabel class="ion-text-lowercase">{localStorage.getItem("username")}</IonLabel> : null}
                 </IonButton>
