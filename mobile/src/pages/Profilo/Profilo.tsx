@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent, IonImg } from "@ionic/react";
+import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent, IonImg, IonRadio, IonRadioGroup, IonSelect, IonSelectOption } from "@ionic/react";
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import { paperPlane,mail} from 'ionicons/icons';
@@ -17,6 +17,8 @@ const Profilo: React.FC<{
 }> = (props)=>{
 
     const { loading, mount, loadingLogin, esito, esitoLogin, profilo, articoli } = props;
+
+    console.log(profilo);
 
     const [anteprimaImg,setAnteprimaImg]=useState(null);
     const [presentazione,setPresentazione]=useState(false);
@@ -286,18 +288,37 @@ const Profilo: React.FC<{
         }
     console.log(formElemetsArray);
     let form = (
-        
         formElemetsArray.map(formElement=>{
-            return <IonItem  key={formElement.id}>
-                <IonInput 
-                type={formElement.config.elementType} 
+            console.log(formElement);
+            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' ?(<IonItem  key={formElement.id}>
+                 <IonInput 
+                type={formElement.config.elementConfig.type} 
+                placeholder={formElement.config.elementConfig.placeholder}
                 value={formElement.config.value} 
                 onIonChange={(event) => inputChangedHandler(event, formElement.id)}
                /* className={!emailValid  ? 'Invalid' : ''}*/
-                />
-
-               
-            </IonItem>
+                /></IonItem>):formElement.id === 'sesso' ? <IonItem key={formElement.id}><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
+                    <IonLabel>Sesso:</IonLabel>
+                    <IonItem lines="none">
+                        <IonLabel>F</IonLabel>
+                        <IonRadio slot="start" value={formElement.config.elementConfig.options[0].value} />
+                    </IonItem>
+                    <IonItem lines="none">
+                        <IonLabel>M</IonLabel>
+                        <IonRadio slot="start" value={formElement.config.elementConfig.options[1].value} />
+                    </IonItem>
+                </IonRadioGroup></IonItem> : <IonItem key={formElement.id}>
+                    <IonLabel>Nazionalità:</IonLabel>
+                    <IonSelect value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
+                        <IonSelectOption value={formElement.config.elementConfig.options[0].value}>Italia</IonSelectOption>
+                        <IonSelectOption value={formElement.config.elementConfig.options[1].value}>Irlanda</IonSelectOption>
+                        <IonSelectOption value={formElement.config.elementConfig.options[2].value}>Svezia</IonSelectOption>
+                        <IonSelectOption value={formElement.config.elementConfig.options[3].value}>Finlandia</IonSelectOption>
+                        <IonSelectOption value={formElement.config.elementConfig.options[4].value}>Grecia</IonSelectOption>
+                        <IonSelectOption value={formElement.config.elementConfig.options[5].value}>Spagna</IonSelectOption>
+                        <IonSelectOption value={formElement.config.elementConfig.options[6].value}>Inghilterra</IonSelectOption>
+                    </IonSelect>
+                    </IonItem>
         })
     );
 
