@@ -1,6 +1,6 @@
 import React from 'react';
 import Modal from '../UI/Modal/Modal';
-import { IonTitle, IonButton, IonIcon } from '@ionic/react';
+import { IonTitle, IonButton, IonIcon, IonItem } from '@ionic/react';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { closeOutline} from 'ionicons/icons';
@@ -34,13 +34,15 @@ if(props.error === "Auth token is expired"){
   return (
     <>
     <Modal show = {true}  modalClosed = {  hideModal }>  
-        <IonButton class="close-modal" fill="clear" color="dark">
+        <IonButton class="close-modal" fill="clear" color="dark" onClick={hideModal}>
           <IonIcon icon={closeOutline} slot="icon-only"></IonIcon>
         </IonButton>
         <br></br><br></br><br></br><br></br><br></br>
         <IonTitle color="dark" class="ion-text-center"><b>Logout</b></IonTitle>
         <br></br><br></br>
-        <IonButton id="btnLogout" size="large"  color="dark" fill="outline"  class="button-logout" onClick = {() => {onLogout(); hideModal();  } }>Esci</IonButton>
+        <IonItem lines="none">
+          <IonButton id="btnLogout" size="large"  color="dark" fill="outline" class="button-logout" onClick = {() => {onLogout(); hideModal();  } }>Esci</IonButton>
+        </IonItem>
         {error}
     </Modal>
     </>
