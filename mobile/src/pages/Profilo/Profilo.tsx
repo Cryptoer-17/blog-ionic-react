@@ -290,14 +290,14 @@ const Profilo: React.FC<{
     let form = (
         formElemetsArray.map(formElement=>{
             console.log(formElement);
-            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' ?(<IonItem  key={formElement.id}>
+            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' && formElement.id !== 'username' ?(<IonItem  key={formElement.id} class="ion-margin-top">
                  <IonInput 
                 type={formElement.config.elementConfig.type} 
                 placeholder={formElement.config.elementConfig.placeholder}
                 value={formElement.config.value} 
                 onIonChange={(event) => inputChangedHandler(event, formElement.id)}
                /* className={!emailValid  ? 'Invalid' : ''}*/
-                /></IonItem>):formElement.id === 'sesso' ? <IonItem key={formElement.id}><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
+                /></IonItem>):formElement.id === 'sesso' ? <IonItem key={formElement.id} class="ion-margin-top"><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
                     <IonLabel>Sesso:</IonLabel>
                     <IonItem lines="none">
                         <IonLabel>F</IonLabel>
@@ -307,7 +307,7 @@ const Profilo: React.FC<{
                         <IonLabel>M</IonLabel>
                         <IonRadio slot="start" value={formElement.config.elementConfig.options[1].value} />
                     </IonItem>
-                </IonRadioGroup></IonItem> : <IonItem key={formElement.id}>
+                </IonRadioGroup></IonItem> : formElement.id === 'nazionalita' ? <IonItem key={formElement.id} class="ion-margin-top">
                     <IonLabel>Nazionalità:</IonLabel>
                     <IonSelect value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
                         <IonSelectOption value={formElement.config.elementConfig.options[0].value}>Italia</IonSelectOption>
@@ -318,7 +318,15 @@ const Profilo: React.FC<{
                         <IonSelectOption value={formElement.config.elementConfig.options[5].value}>Spagna</IonSelectOption>
                         <IonSelectOption value={formElement.config.elementConfig.options[6].value}>Inghilterra</IonSelectOption>
                     </IonSelect>
-                    </IonItem>
+                    </IonItem> : <React.Fragment  key={formElement.id}><IonItem lines="none" class="ion-margin-top">
+                        <IonText><b>MODIFICA IL TUO USERNAME</b></IonText>
+                    </IonItem><IonItem>
+                 <IonInput 
+                type={formElement.config.elementConfig.type} 
+                placeholder={formElement.config.elementConfig.placeholder}
+                value={formElement.config.value} 
+                onIonChange={(event) => inputChangedHandler(event, formElement.id)}/></IonItem></React.Fragment>
+                    
         })
     );
 
