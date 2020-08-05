@@ -19,14 +19,14 @@ const ActionBar: React.FC<{
     <IonGrid>
         <IonRow>
             <IonCol sizeSm="7" size="7">
-                <IonButtons >
+               {ricerca ? null : <IonButtons >
                     <IonButton  onClick={props.onClick} color={color}>
                         <IonIcon  icon={heart}></IonIcon>
                     </IonButton>
                     <IonButton id="messageIcon" onClick={props.viewComments} color="dark">
                         <IonIcon  icon={chatbubbleEllipsesOutline} ></IonIcon>
                     </IonButton>
-                </IonButtons>
+                </IonButtons>}
             </IonCol>
             <IonCol sizeSm="2" size="2">
                {disableMore || ricerca ? null : <IonButton fill="clear" color="dark">

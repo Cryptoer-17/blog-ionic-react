@@ -16,6 +16,7 @@ mount:()=>void,
 error:string,
 }> = (props) => {
 
+ console.log(props);
   
   let {articoli,spinner,errore,mount,error} = props;
 
@@ -87,7 +88,7 @@ const clickHeartHandler = (art:any)=>{
         img = {art.articolo.img}
         like = {art.articolo.like}
         sottotitolo = {art.articolo.sottotitolo}
-      /*  testo = {art.articolo.testo}*/
+        testo = {art.articolo.testo}
         titolo = {art.articolo.titolo}
         data = {data}
         minuti = {art.articolo.minuti}

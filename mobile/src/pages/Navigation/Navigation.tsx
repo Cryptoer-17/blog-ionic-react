@@ -4,11 +4,12 @@ import { personCircleOutline} from 'ionicons/icons';
 import Ricerca from '../../components/Ricerca/Ricerca';
 import { connect } from 'react-redux';
 import Logout from '../../components/Login/Logout';
-
 const Navigation: React.FC<{
     idProfilo:string,
     error:string
 }> = (props)=>{
+
+    console.log(props);
 
     const {idProfilo,error} = props;
 
@@ -30,6 +31,7 @@ const Navigation: React.FC<{
         setShow(false);
     }
 
+   
 
     return(
         <IonHeader>

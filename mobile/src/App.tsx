@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, BrowserRouter } from 'react-router-dom';
 import { IonApp } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home/Home';
@@ -12,7 +12,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import asyncComponent from './hoc_/asyncComponent/asyncComponent';
 import {Switch} from 'react-router-dom';
-
+import RisultatiRicerca from './pages/RisultatiRicerca/RisultatiRicerca';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -41,12 +41,13 @@ const asyncArticolo = asyncComponent(() =>{
 });
 
 
+
 const App: React.FC<{
   onInitArticoli:()=>void,
   onGetProfilo:()=>void,
   profilo:any[],
   loading:boolean,
-  error:string
+  error:string,
 }> = (props) => {
   const {loading,error} = props;
 
@@ -103,18 +104,23 @@ const App: React.FC<{
    }
  } 
 
+
+
 return(
   <IonApp>
-    {localStorage.getItem("userId") ? <Navigation idProfilo={key} /> : null}
     <IonReactRouter>
+      {localStorage.getItem("userId") ? <Navigation idProfilo={key}/> : null }
       <Switch>
       {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props}  spinner={loading}  errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} error="s" articoli={[]} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
       {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo></Profilo>)}/> :null}
       {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
       {localStorage.getItem("userId") ?  <Route path="/articolo/:id" component ={asyncArticolo} /> : null}
+      {localStorage.getItem("userId") ?  <Route path="/ricerca"  render = {(props)=>(<RisultatiRicerca {...props} />)} exact={true}/> : null }
+
         <Route exact path="/" render={() => <Redirect to="/home" /> } />
       </Switch>
     </IonReactRouter>
+    
   </IonApp>)
 };
 

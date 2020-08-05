@@ -1,0 +1,16 @@
+.title-filtra-per{
+    font-size: revert;
+}
+
+.buttons{
+    margin: auto;
+}
+
+.OpzioneSelezionata{
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.text-nothing-result{
+    margin: auto;
+}

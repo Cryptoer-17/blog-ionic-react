@@ -19,7 +19,8 @@ const AnteprimaArticolo: React.FC<{
     showDropdown:boolean,
     clickMenuHandler:()=>void,
     disableMore:boolean,
-    ricerca:boolean
+    ricerca:boolean,
+    testo:string
 }>= (props) => {
 
   const { autore, titolo, sottotitolo,categoria, img, descrizione, clickHeart, data, minuti, id ,showDropdown, like,ricerca,clickMenuHandler,disableMore} = props;
