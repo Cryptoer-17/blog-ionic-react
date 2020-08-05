@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent } from "@ionic/react";
+import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent, IonImg } from "@ionic/react";
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-import { paperPlane} from 'ionicons/icons';
-
+import { paperPlane,mail} from 'ionicons/icons';
+import checkValidity from '../../utility/validation';
 import './Profilo.css';
 
 const Profilo: React.FC<{
@@ -21,7 +21,7 @@ const Profilo: React.FC<{
     const [anteprimaImg,setAnteprimaImg]=useState(null);
     const [presentazione,setPresentazione]=useState(false);
     const [presentazioneInput, setPresentazioneInput] = useState(false);
-    const [modificaDati,setModificaDati]=useState(null);
+    const [modificaDati,setModificaDati]=useState(false);
     const [showDropdown,setShowDropdown]=useState(null);
     const [messageModalPassord,setMessageModalPassord]=useState(null);
     const [modalPassword,setModalPassword]=useState(null);
@@ -29,9 +29,98 @@ const Profilo: React.FC<{
     const [email,setEmail]=useState(null);
     const [emailIsValid,setEmailIsValid]=useState(null);
     const [password,setPassword]=useState(null);
-    const [profileForm,setProfileForm]=useState();
+    const [profileForm,setProfileForm]:any=useState({
+        nome:{ elementType: 'input',
+                elementConfig: {
+                type: 'text',
+                placeholder: 'Tuo nome'
+                },
+                value: '' + profilo.nome + '',
+                valid: true,
+                touched: false
+            },
+            cognome: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Tuo cognome'
+                },
+                value: '' + profilo.cognome + '',
+                valid: true,
+                touched: false
+            },
+            dataNascita: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'date'
+                },
+                validation: {
+                    isDate: true
+                },
+                value: '' + profilo.dataNascita + '',
+                valid: true,
+                touched: false
+            },
+            sesso: {
+                elementType: 'radio',
+                elementConfig: {
+                    type: 'radio',
+                    options: [
+                        { value: 'f', displayValue: 'F' },
+                        { value: 'm', displayValue: 'M' }
+                    ]
+                },
+                value: '' + profilo.sesso + '',
+                valid: true,
+                touched: false
+
+            },
+            numeroTelefono: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'Tuo numero  telefono'
+                },
+                value: '' + profilo.numeroTelefono + '',
+                validation: {
+                    minLength: 10,
+                    maxLength: 10
+                },
+                valid: true,
+                touched: false
+            },
+            nazionalita: {
+                elementType: 'select',
+                elementConfig: {
+                    options: [
+                        { value: 'italia', displayValue: 'Italia' },
+                        { value: 'irlanda', displayValue: 'Irlanda' },
+                        { value: 'svezia', displayValue: 'Svezia' },
+                        { value: 'finlandia', displayValue: 'Finlandia' },
+                        { value: 'grecia', displayValue: 'Grecia' },
+                        { value: 'spagna', displayValue: 'Spagna' },
+                        { value: 'inghilterra', displayValue: 'Inghilterra' }
+                    ]
+                },
+                value: '' + profilo.nazionalità + '',
+                valid: true
+            },
+            username: {
+                elementType: 'input',
+                elementConfig: {
+                    type: 'text',
+                    placeholder: 'username'
+                },
+                value: '' + profilo.username + '',
+                validation: {
+                    isUsername: true
+                },
+                valid: true,
+                touched: false
+            }
+    });
     const [passwordIsValid,setPasswordIsValid]=useState(null);
-    const [formIsValid,setFormIsValid]=useState(null);
+    const [formIsValid,setFormIsValid]=useState(false);
     const [idArticoloCambiamenti,setIdArticoloCambiamenti]=useState(null);
     const [show,setShow]=useState(false);
     const [errorMessage,seterrorMessage]=useState(null);
@@ -144,6 +233,33 @@ const Profilo: React.FC<{
         */
     }
 
+    const handlerModificaDati = ()=> {
+        setModificaDati( !modificaDati)
+        setTimeout(() => {
+            window.scrollTo(0, 609)
+        }, 40);
+    }
+
+    const inputChangedHandler = (event:any, inputIdentifier:any) => {
+        const updatedprofileForm = {
+            ...profileForm
+        }
+        const updatedFormElement = {
+            ...updatedprofileForm[inputIdentifier]
+        }
+        updatedFormElement.value = event.target.value;
+        updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        updatedFormElement.touched = true;
+        updatedprofileForm[inputIdentifier] = updatedFormElement;
+        let formIsValid = true;
+        for (let inputIdentifier in updatedprofileForm) {
+            formIsValid = updatedprofileForm[inputIdentifier].valid && formIsValid;
+        }
+        setProfileForm(updatedprofileForm);
+        setFormIsValid(formIsValid);
+
+    }
+
     let emailVar;
     let modificaEmail;
     let modificaPassword;
@@ -156,15 +272,62 @@ const Profilo: React.FC<{
     {presentazione === false && presentazioneInput === false? 
         presentazioneVisualizzata = <IonButton onClick={() => handlerClickPresentazioneInput()} fill="clear"><IonLabel class="ion-text-lowercase label-breve-presentazione" color="primary">Aggiungi una breve presentazione</IonLabel></IonButton>
         :presentazioneInput === true && ((presentazioneVisualizzata=<IonItem><IonInput type="text" placeholder="breve presentazione di te" onIonChange={descrizioneChangeHandler} value={descrizione}></IonInput></IonItem>) &&
-        (btnInviaInfo = <IonButton onClick={orderHandler} color="dark"><IonIcon icon={paperPlane}></IonIcon><IonLabel>Invia breve presentazione</IonLabel></IonButton>))
+        (btnInviaInfo = <IonButton class="ion-float-right" onClick={orderHandler} fill="outline" color="dark"><IonIcon icon={paperPlane} slot="start"></IonIcon><IonLabel>Invia breve presentazione</IonLabel></IonButton>))
     }
 
-   /* {
-        presentazione === null ?
-            presentazioneVisualizzata = <button className={classes.BtnPresentazione} onClick={() => this.handlerClickPresentazione()}><i>Aggiungi una breve presentazione</i></button>
-            : presentazione === false && ((presentazioneVisualizzata = <div style={{ marginTop: '-27px', height: '49%' }}><blockquote></blockquote><Input type="text" config={{ placeholder: 'breve presentazione di te' }} changed={this.descrizioneChangeHandler} 
-            value={descrizione} click = {this.doNothing}/></div>) && (btnInviaInfo = <button onClick={this.orderHandler} className={classes.ButtonSend}  ><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Invia breve presentazione</button>))
-    }*/
+
+    const formElemetsArray = [];
+        for (let key in profileForm) {
+            formElemetsArray.push({
+                id: key,
+                config: profileForm[key],
+
+            })
+        }
+    console.log(formElemetsArray);
+    let form = (
+        
+        formElemetsArray.map(formElement=>{
+            return <IonItem  key={formElement.id}>
+                <IonInput 
+                type={formElement.config.elementType} 
+                value={formElement.config.value} 
+                onIonChange={(event) => inputChangedHandler(event, formElement.id)}
+               /* className={!emailValid  ? 'Invalid' : ''}*/
+                />
+
+               
+            </IonItem>
+        })
+    );
+
+    let pageModificaDati = (
+        <IonCard>
+            <IonCardContent>
+                {/* modificaEmail */}
+                {/* modificaPassword */}
+                <IonItem lines="none">
+                    <IonText><b>MODIFICA I TUOI DATI</b></IonText>
+                </IonItem>
+                {form}
+            </IonCardContent>
+        </IonCard>
+    );
+
+    /*let pageModificaDati = (<div className={classes.ModificaDati}>
+        /*{modificaEmail}
+        {modificaPassword}
+       <h3>MODIFICA I TUOI DATI</h3>
+       {form}
+       <h3>MODIFICA LA TUA FOTO PROFILO</h3>
+       <div className={classes.DivFoto} >
+           <button className={classes.CaricaImgButton} onClick={() => document.getElementById("inputFile").click()}> <i className="material-icons" style={{ verticalAlign: 'middle' }}>photo_camera</i> Carica foto profilo</button>
+
+           {anteprimaImg ? anteprimaImg : null}</div>
+       <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={event => this.convertFile(event.target.files[0])} style={{ width: '0px' }}/* style = {{display:'none', visibility:'hidden',zIndex:'-200'}}*//* />
+       <button className={classes.ButtonSend} onClick={this.orderHandler} disabled={!formIsValid} style={{ position: 'absolute', right: '0px', bottom: '0px' }}><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Invia dati</button>
+   </div>);*/
+  
 
     return(
         <IonPage>
@@ -175,7 +338,7 @@ const Profilo: React.FC<{
             </IonHeader>
             <IonContent>
                 <IonTitle class="ion-text-center text-profilo-persona ion-margin-top" size="large">Profilo Persona</IonTitle>
-                <IonCard>
+                <IonCard class="ion-margin-bottom">
                     <IonCardContent>
                         <IonItem lines="none">
                             <IonText ><b>INFORMAZIONI</b></IonText>
@@ -184,9 +347,56 @@ const Profilo: React.FC<{
                             <IonText >BREVE PRESENTAZIONE:</IonText>
                             {presentazioneVisualizzata}
                         </IonItem>
+                        {btnInviaInfo}
                     </IonCardContent>
                 </IonCard>
-                
+                <IonCard>
+                    <IonCardContent>
+                        <IonItem>
+                            <IonText><b>DATI PERSONALI</b></IonText>
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText >Email:</IonText>
+                            <IonText> {emailVar}</IonText>
+                        </IonItem>
+                        <IonItem>
+                            <IonText >Username:</IonText>
+                            {profilo.username !== "" ? <IonText>{profilo.username}</IonText> : <IonText><b>non ancora inserito</b></IonText>}
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText>Nome:</IonText>
+                            {profilo.nome !== "" ? <IonText>{profilo.nome}</IonText> : <IonText><b>non ancora inserito</b></IonText>}
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText>Cognome:</IonText>
+                            {profilo.cognome !== "" ? <IonText>{profilo.cognome}</IonText> : <IonText><b>non ancora inserito</b></IonText>}      
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText>Data di nascita:</IonText>
+                            {profilo.dataNascita !== "" ? <IonText>{profilo.dataNascita}</IonText> : <IonText><b>non ancora inserita</b></IonText>}
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText>Sesso:</IonText>
+                            {profilo.sesso !== "" ? <IonText>{profilo.sesso}</IonText> : <IonText><b>non ancora inserito</b></IonText>}
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText>Numero di telefono:</IonText>
+                            {profilo.numeroTelefono !== "" ? <IonText>{profilo.numeroTelefono}</IonText> : <IonText><b>non ancora inserito</b></IonText>}
+                        </IonItem>
+                        <IonItem>
+                            <IonText>Nazionalità:</IonText>
+                            {profilo.nazionalità !== "" ? <IonText>{profilo.nazionalità}</IonText> : <IonText><b>non ancora inserita</b></IonText>}
+                        </IonItem>
+                        <IonItem lines="none">
+                            <IonText>Foto profilo:</IonText>
+                            {profilo.img !== undefined && profilo.img !== ''? <IonImg src={profilo.img} alt=""></IonImg>: <IonText><b>Non ancora inserita</b></IonText>}
+                        </IonItem>
+                        <IonButton class="ion-float-right" fill="outline" color="dark" onClick={() => handlerModificaDati()}><IonIcon icon={mail} slot="start"></IonIcon><IonLabel>Mostra dati da modificare</IonLabel></IonButton>
+                    </IonCardContent>
+                </IonCard>
+
+                {(modificaDati) ? pageModificaDati : null}
+
             </IonContent>
         </IonPage>
     );
