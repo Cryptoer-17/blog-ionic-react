@@ -3,5 +3,11 @@
 }
 
 .button-logout{
-    margin-left: 44%;
+    margin-left: 37%;
+}
+
+.close-modal{
+    position: absolute;
+    top: 0;
+    right: 0;
 }
