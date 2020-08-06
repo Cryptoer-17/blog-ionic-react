@@ -4,7 +4,9 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import { paperPlane,mail, camera, closeOutline} from 'ionicons/icons';
 import checkValidity from '../../utility/validation';
+import history from '../../utility/history';
 import './Profilo.css';
+import Modal from '../../components/UI/Modal/Modal';
 
 const Profilo: React.FC<{
     loading:boolean,
@@ -180,7 +182,7 @@ const Profilo: React.FC<{
              descrizione: descrizione
         }
 
-
+        console.log(profili);
         //faccio il controllo che l'username scelto se inserito, non sià già in uso
        let c = 0;
         if(formData.username.trim() !== ''){
@@ -192,7 +194,7 @@ const Profilo: React.FC<{
             }
         }
 
-        if(c<2){
+       if(c<1){
             if (profiloReducer.length) {
                     onUpdateData(profile, profiloReducer[0].profilo._id);
                     articoli.map((articolo:any) => {
@@ -215,7 +217,7 @@ const Profilo: React.FC<{
                             onUpdateArticolo(updateArticolo, articolo.articolo._id);
                             setTimeout(()=>{
                                 window.location.reload();
-                            },1000)
+                            },2500)
                         }
                         else if (articolo.articolo.userId !== localStorage.getItem("userId")) {
                             let messaggioUpdate;
@@ -234,7 +236,7 @@ const Profilo: React.FC<{
                             onUpdateArticolo(updateArticolo, articolo.articolo._id);
                             setTimeout(()=>{
                                 window.location.reload();
-                            },1000)
+                            },2500)
                         }
                         return null;
                     })
@@ -242,16 +244,20 @@ const Profilo: React.FC<{
                 else {
                     onSendData(profile);
                     setTimeout(()=>{
+                        history.push('/home')
                         window.location.reload();
-                    },1000)
+                    },2000)
                 }
            /* setTimeout(() => {
                 if (caricamentoProfilo === "I dati sono stati inviati/modificati con successo.") {
                     window.location.reload();
                 }
             }, 2000);*/
-        }else {
+       }else {
             seterrorMessage('Errore nell\'aggiornare il profilo. L\'username scelto è già in uso');
+            setTimeout(()=>{
+                window.location.reload();
+            },2500)
         }
 
         
@@ -421,6 +427,15 @@ const Profilo: React.FC<{
         </IonCard>
     );
 
+
+    let modal = null;
+    if (loading === false) {
+        modal = (<Modal show={show} modalClosed={/*this.hideModal*/ ()=>{}}>
+             <IonLabel color="dark">{esito === '' ? null : esito}</IonLabel>
+            <IonLabel color="dark">{errorMessage === '' ? null : errorMessage}</IonLabel>
+        </Modal>);
+    }
+
     
 
     return(
@@ -431,6 +446,7 @@ const Profilo: React.FC<{
             </IonToolbar>
             </IonHeader>
             <IonContent>
+            {!loading ? modal : null}
                 <IonTitle class="ion-text-center text-profilo-persona ion-margin-top" size="large">Profilo Persona</IonTitle>
                 <IonCard class="ion-margin-bottom">
                     <IonCardContent>
