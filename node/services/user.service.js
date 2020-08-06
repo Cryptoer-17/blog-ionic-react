@@ -136,6 +136,10 @@ module.exports = {
     if (!validateUpdate(user, id)) {
       return { success: false, errors: ["usererror"] };
     }
+    let emailErrors = await emailExists(user.email);
+    if (emailErrors.length > 0) {
+      return { success: false, errors: ["email exists "] };
+    }
     const filter = { _id: id };
     const user_find = await userRepository.findOneById(id);
     if(user_find){

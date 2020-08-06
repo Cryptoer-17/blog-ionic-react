@@ -17,3 +17,7 @@
     /*border-bottom: 3px solid red;*/
     border-color: var(--ion-color-danger, #f1453d);;
 }
+
+.btn-change-email{
+    margin-left: auto;
+}

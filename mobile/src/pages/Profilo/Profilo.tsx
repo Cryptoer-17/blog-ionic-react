@@ -20,10 +20,11 @@ const Profilo: React.FC<{
     profiloReducer:any,
     onUpdateData:(profile:any, profiloReducer:any)=>void,
     onUpdateArticolo:(updateArticolo:any, idArticolo:string)=>void,
-    onSendData:(profile:any)=>void
+    onSendData:(profile:any)=>void,
+    onChangeEmail:(email:string)=>void
 }> = (props)=>{
 
-    const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData } = props;
+    const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData, onChangeEmail } = props;
 
     
 
@@ -35,8 +36,20 @@ const Profilo: React.FC<{
     const [messageModalPassord,setMessageModalPassord]=useState(null);
     const [modalPassword,setModalPassword]=useState(null);
     const [descrizione,setDescrizione]=useState<string>();
-    const [email,setEmail]=useState(null);
-    const [emailIsValid,setEmailIsValid]=useState(null);
+    const [email,setEmail]=useState<any>({
+        elementType: 'input',
+        elementConfig: {
+            type: 'text',
+            placeholder: 'email'
+        },
+        value: '' + localStorage.getItem("email") + '',
+        validation: {
+            isEmail: true
+        },
+        valid: true,
+        touched: false
+    },);
+    const [emailIsValid,setEmailIsValid]=useState<boolean>();
     const [password,setPassword]=useState(null);
     const [profileForm,setProfileForm]:any=useState();
     const [passwordIsValid,setPasswordIsValid]=useState(null);
@@ -320,6 +333,27 @@ const Profilo: React.FC<{
     }
 
 
+    const inputChangeEmail = (event:any) => {
+        const updateEmail ={
+            ...email
+        }
+        updateEmail.value=event.target.value;
+        updateEmail.valid = checkValidity(updateEmail.value,updateEmail.validation);
+        updateEmail.touched = true;
+
+        let emailIsValid = updateEmail.valid;
+        setEmail(updateEmail);
+        setEmailIsValid(emailIsValid);
+    }
+
+    const handlerChangeEmail = ()=>{
+        showModal();
+        onChangeEmail(email.value);
+        setTimeout(() => {   
+                window.location.reload();
+        }, 2500)
+    }
+
     let emailVar;
     let modificaEmail;
     let modificaPassword;
@@ -328,7 +362,49 @@ const Profilo: React.FC<{
     let presentazioneVisualizzata;
     let btnInviaInfo = null;
 
-    console.log(presentazione);
+    modificaEmail = (
+        <React.Fragment>
+            <IonItem lines="none">
+                <IonText><b>MODIFICA EMAIL</b></IonText>
+            </IonItem>
+            <IonItem>
+                <IonInput 
+                value={email.value}
+                onIonChange={(event)=>inputChangeEmail(event)}
+                ></IonInput>
+            </IonItem>
+            <IonItem lines="none">   
+                <IonButton 
+                    onClick={handlerChangeEmail} 
+                    disabled={!emailIsValid}
+                    color="dark"
+                    class="btn-change-email"
+                    fill="outline"
+                    >
+                        <IonIcon icon={paperPlane} slot="start"></IonIcon>
+                        <IonLabel>Modifica l'e-mail</IonLabel>
+                </IonButton>
+            </IonItem>
+           
+        </React.Fragment>
+    )
+    /*
+    modificaEmail = (<div><h3>MODIFICA EMAIL</h3>
+        <Input
+            type={email.elementType}
+            config={email.elementConfig}
+            value={email.value}
+            changed={(event) => this.inputChangeEmail(event)}
+            touched={email.touched}
+            shouldValidate={email.validation}
+            valid={email.valid}
+            click = {this.doNothing}
+        />
+    <button className={classes.ButtonSend} onClick={this.handlerChangeEmail} disabled={!emailIsValid} ><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Modifica l'e-mail</button>
+        <br/>
+    </div>)*/
+
+
     {presentazione === false && presentazioneInput === false? 
         presentazioneVisualizzata = <IonButton onClick={() => handlerClickPresentazioneInput()} fill="clear"><IonLabel class="ion-text-lowercase label-breve-presentazione" color="primary">Aggiungi una breve presentazione</IonLabel></IonButton>
         :presentazioneInput === true && ((presentazioneVisualizzata=<IonItem><IonInput type="text" placeholder="breve presentazione di te" onIonChange={descrizioneChangeHandler} value={descrizione}></IonInput></IonItem>) &&
@@ -406,7 +482,7 @@ const Profilo: React.FC<{
     let pageModificaDati = (
         <IonCard>
             <IonCardContent>
-                {/* modificaEmail */}
+                { modificaEmail}
                 {/* modificaPassword */}
                 <IonItem lines="none">
                     <IonText><b>MODIFICA I TUOI DATI</b></IonText>
@@ -429,9 +505,10 @@ const Profilo: React.FC<{
 
 
     let modal = null;
-    if (loading === false) {
+    if (loading === false ||  loadingLogin === false) {
         modal = (<Modal show={show} modalClosed={/*this.hideModal*/ ()=>{}}>
              <IonLabel color="dark">{esito === '' ? null : esito}</IonLabel>
+             <IonLabel color="dark">{esitoLogin === '' ? null : esitoLogin}</IonLabel>
             <IonLabel color="dark">{errorMessage === '' ? null : errorMessage}</IonLabel>
         </Modal>);
     }
@@ -532,8 +609,8 @@ const mapDispatchToProps = (dispatch:any) => {
         onSendData: (data:any) => dispatch(actions.sendData(data)),
         onUpdateData: (data:any, idProfilo:string) => dispatch(actions.updateData(data, idProfilo)),
         onUpdateArticolo: (articolo:any, idArticolo:string) => dispatch(actions.updateArticolo(articolo, idArticolo)),
-      /*  onChangeEmail : (email:string) => dispatch(actions.updateEmail(email)),
-        onChangePassword:(password:string) => dispatch(actions.updatePassword(password))*/
+        onChangeEmail : (email:string) => dispatch(actions.updateEmail(email)),
+      /*  onChangePassword:(password:string) => dispatch(actions.updatePassword(password))*/
     };
 };
 

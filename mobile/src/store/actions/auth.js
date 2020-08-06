@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { body } from 'ionicons/icons';
 import { resolve } from 'dns';
 
-/*
+
 export const updateEmailStart = () =>{
     return{
         type:actionTypes.UPDATE_EMAIL_START
@@ -48,7 +48,7 @@ export const updateEmail = (email) =>{
         })
     }
 }
-
+/*
 export const updatePasswordStart = ()=>{
     return {
         type:actionTypes.UPDATE_PASSWORD_START

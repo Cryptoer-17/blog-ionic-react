@@ -13,7 +13,7 @@ const initialState = {
 }
 
 
-/*
+
 const updateEmailStart = (state) =>{
     return updateObject( state, {error: null,  loading : true} );
 }
@@ -25,7 +25,7 @@ const updateEmailFail = (state) =>{
 const updateEmailSuccess = (state)=>{
     return updateObject (state , {error : null, loading : false, esitoCaricamento: "Il cambio e-mail è stato completato"} );
 }
-
+/*
 const updatePasswordStart = (state)=>{
     return updateObject (state, {error:null, loading:true});
 } 
@@ -87,10 +87,10 @@ const reducer = (state = initialState,action) => {
         case actionTypes.LOGOUT: return logout(state,action);   
         case actionTypes.SET_LOGIN_REDIRECT_PATH : return setLoginRedirectPath(state,action);
 
-      /*  case actionTypes.UPDATE_EMAIL_START:return updateEmailStart(state,action);
+        case actionTypes.UPDATE_EMAIL_START:return updateEmailStart(state,action);
         case actionTypes.UPDATE_EMAIL_FAIL:return updateEmailFail(state, action);
         case actionTypes.UPDATE_EMAIL_SUCCESS : return updateEmailSuccess(state,action);
-
+        /*
         case actionTypes.UPDATE_PASSWORD_START: return updatePasswordStart(state,action);
         case actionTypes.UPDATE_PASSWORD_SUCCESS: return updatePasswordSuccess(state,action);
         case actionTypes.UPDATE_PASSWORD_FAIL : return updatePasswordFail(state,action);*/
