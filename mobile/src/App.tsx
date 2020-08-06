@@ -48,8 +48,9 @@ const App: React.FC<{
   profilo:any[],
   loading:boolean,
   error:string,
+  esito:string
 }> = (props) => {
-  const {loading,error} = props;
+  const {loading,error,esito} = props;
 
   const forceUpdate = ()=>{
     const userId = localStorage.getItem("userId");
@@ -61,6 +62,7 @@ const App: React.FC<{
 
 
   useEffect(()=>{
+    console.log('useEffect');
     const userId = localStorage.getItem("userId");
     if(userId){
       props.onInitArticoli();
@@ -112,7 +114,7 @@ return(
       {localStorage.getItem("userId") ? <Navigation idProfilo={key}/> : null }
       <Switch>
       {localStorage.getItem("userId") ? <Route path="/home" render={(props) =>(<Home {...props}  spinner={loading}  errore={error} /*clickUpdateArticolo={this.updateArticoloHandler}*/ mount={forceUpdate} error="s" articoli={[]} />)}exact={true} /> : <Route path="/home" component={MainPage} exact={true} />}
-      {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo  mount={()=>{}} profilo={tempArray} ></Profilo>)}/> :null}
+      {localStorage.getItem("userId") ? <Route path={"/profilo" + (key ? "/:key" : "")}  render={()=>(<Profilo  mount={()=>{}} profilo={tempArray} esito={esito}></Profilo>)}/> :null}
       {localStorage.getItem("userId") ? <Route  path="/modifica/:id" render = {(props)=>(<Modifica/>)} /> : null}
       {localStorage.getItem("userId") ?  <Route path="/articolo/:id" component ={asyncArticolo} /> : null}
       {localStorage.getItem("userId") ?  <Route path="/ricerca"  render = {(props)=>(<RisultatiRicerca {...props} />)} exact={true}/> : null }
@@ -136,6 +138,8 @@ const mapStateToProps = (state:any) =>{
       loading: state.articolo.loading,
       error : state.articolo.error,
       profilo: state.profilo.profilo,
+      esito: state.profilo.esitoCaricamento,
+
   };
 };
 

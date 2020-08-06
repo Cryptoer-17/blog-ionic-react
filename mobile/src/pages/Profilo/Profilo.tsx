@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent, IonImg, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonThumbnail } from "@ionic/react";
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ const Profilo: React.FC<{
     loading:boolean,
     mount:()=>void,
     loadingLogin:boolean,
-    esito:any,
+    esito:string,
     esitoLogin:string,
     profilo:any,
     articoli:any,
@@ -23,7 +23,7 @@ const Profilo: React.FC<{
 
     const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData } = props;
 
-
+    
 
     const [anteprimaImg,setAnteprimaImg]:any=useState();
     const [presentazione,setPresentazione]=useState(false);
@@ -32,106 +32,118 @@ const Profilo: React.FC<{
     const [showDropdown,setShowDropdown]=useState(null);
     const [messageModalPassord,setMessageModalPassord]=useState(null);
     const [modalPassword,setModalPassword]=useState(null);
-    const [descrizione,setDescrizione]=useState<string>('' + profilo.descrizione + '');
+    const [descrizione,setDescrizione]=useState<string>();
     const [email,setEmail]=useState(null);
     const [emailIsValid,setEmailIsValid]=useState(null);
     const [password,setPassword]=useState(null);
-    const [profileForm,setProfileForm]:any=useState({
-        nome:{ elementType: 'input',
-                elementConfig: {
-                type: 'text',
-                placeholder: 'Tuo nome'
-                },
-                value: '' + profilo.nome + '',
-                valid: true,
-                touched: false
-            },
-            cognome: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Tuo cognome'
-                },
-                value: '' + profilo.cognome + '',
-                valid: true,
-                touched: false
-            },
-            dataNascita: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'date'
-                },
-                validation: {
-                    isDate: true
-                },
-                value: '' + profilo.dataNascita + '',
-                valid: true,
-                touched: false
-            },
-            sesso: {
-                elementType: 'radio',
-                elementConfig: {
-                    type: 'radio',
-                    options: [
-                        { value: 'f', displayValue: 'F' },
-                        { value: 'm', displayValue: 'M' }
-                    ]
-                },
-                value: '' + profilo.sesso + '',
-                valid: true,
-                touched: false
-
-            },
-            numeroTelefono: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'Tuo numero  telefono'
-                },
-                value: '' + profilo.numeroTelefono + '',
-                validation: {
-                    minLength: 10,
-                    maxLength: 10
-                },
-                valid: true,
-                touched: false
-            },
-            nazionalita: {
-                elementType: 'select',
-                elementConfig: {
-                    options: [
-                        { value: 'italia', displayValue: 'Italia' },
-                        { value: 'irlanda', displayValue: 'Irlanda' },
-                        { value: 'svezia', displayValue: 'Svezia' },
-                        { value: 'finlandia', displayValue: 'Finlandia' },
-                        { value: 'grecia', displayValue: 'Grecia' },
-                        { value: 'spagna', displayValue: 'Spagna' },
-                        { value: 'inghilterra', displayValue: 'Inghilterra' }
-                    ]
-                },
-                value: '' + profilo.nazionalità + '',
-                valid: true
-            },
-            username: {
-                elementType: 'input',
-                elementConfig: {
-                    type: 'text',
-                    placeholder: 'username'
-                },
-                value: '' + profilo.username + '',
-                validation: {
-                    isUsername: true
-                },
-                valid: true,
-                touched: false
-            }
-    });
+    const [profileForm,setProfileForm]:any=useState();
     const [passwordIsValid,setPasswordIsValid]=useState(null);
-    const [formIsValid,setFormIsValid]=useState(false);
+    const [formIsValid,setFormIsValid]=useState(true);
     const [idArticoloCambiamenti,setIdArticoloCambiamenti]=useState(null);
     const [show,setShow]=useState(false);
     const [errorMessage,seterrorMessage]=useState<string>('');
-    const [img,setImg]= useState<any>(profilo.img === undefined ? null : profilo.img);
+    const [img,setImg]= useState<any>();
+
+
+    useEffect(()=>{
+        setDescrizione('' + profilo.descrizione + '');
+        if(profilo.descrizione.length>0){
+            setPresentazioneInput(true);
+        }
+        setImg(profilo.img === undefined ? null : profilo.img);
+        setProfileForm({
+            nome:{ elementType: 'input',
+                    elementConfig: {
+                    type: 'text',
+                    placeholder: 'Tuo nome'
+                    },
+                    value: '' + profilo.nome + '',
+                    valid: true,
+                    touched: false
+                },
+                cognome: {
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Tuo cognome'
+                    },
+                    value: '' + profilo.cognome + '',
+                    valid: true,
+                    touched: false
+                },
+                dataNascita: {
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'date'
+                    },
+                    validation: {
+                        isDate: true
+                    },
+                    value: '' + profilo.dataNascita + '',
+                    valid: true,
+                    touched: false
+                },
+                sesso: {
+                    elementType: 'radio',
+                    elementConfig: {
+                        type: 'radio',
+                        options: [
+                            { value: 'f', displayValue: 'F' },
+                            { value: 'm', displayValue: 'M' }
+                        ]
+                    },
+                    value: '' + profilo.sesso + '',
+                    valid: true,
+                    touched: false
+    
+                },
+                numeroTelefono: {
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'Tuo numero  telefono'
+                    },
+                    value: '' + profilo.numeroTelefono + '',
+                    validation: {
+                        minLength: 10,
+                        maxLength: 10,
+                        isNumeric:true
+                    },
+                    valid: true,
+                    touched: false
+                },
+                nazionalita: {
+                    elementType: 'select',
+                    elementConfig: {
+                        options: [
+                            { value: 'italia', displayValue: 'Italia' },
+                            { value: 'irlanda', displayValue: 'Irlanda' },
+                            { value: 'svezia', displayValue: 'Svezia' },
+                            { value: 'finlandia', displayValue: 'Finlandia' },
+                            { value: 'grecia', displayValue: 'Grecia' },
+                            { value: 'spagna', displayValue: 'Spagna' },
+                            { value: 'inghilterra', displayValue: 'Inghilterra' }
+                        ]
+                    },
+                    value: '' + profilo.nazionalità + '',
+                    valid: true
+                },
+                username: {
+                    elementType: 'input',
+                    elementConfig: {
+                        type: 'text',
+                        placeholder: 'username'
+                    },
+                    value: '' + profilo.username + '',
+                    validation: {
+                        isUsername: true
+                    },
+                    valid: true,
+                    touched: false
+                }
+        })
+    },[profilo])
+
 
     const handlerClickPresentazioneInput = ()=> {
         
@@ -181,14 +193,10 @@ const Profilo: React.FC<{
         }
 
         if(c<2){
-            //se il profilo è già in firebase allora faccio un update del profilo e poi se è cambiato anche l'username glielo cambio in tutta l'app
-            //altrimenti mando il nuovo profilo.
             if (profiloReducer.length) {
                     onUpdateData(profile, profiloReducer[0].profilo._id);
                     articoli.map((articolo:any) => {
-                    
-                        //faccio il map per ogni articolo per cambiare l'autore e l'username nei messaggi
-                        //se non è il proprietario dell'articolo faccio solo il controllo sui messaggi e cambi l'username
+                  
                     if (articolo.articolo.userId === localStorage.getItem("userId")) {
                             let messaggioUpdate;
                             if (articolo.articolo.messaggi !== undefined) {
@@ -205,6 +213,9 @@ const Profilo: React.FC<{
                                 messaggi: (messaggioUpdate === undefined ? [] : messaggioUpdate),
                             }
                             onUpdateArticolo(updateArticolo, articolo.articolo._id);
+                            setTimeout(()=>{
+                                window.location.reload();
+                            },1000)
                         }
                         else if (articolo.articolo.userId !== localStorage.getItem("userId")) {
                             let messaggioUpdate;
@@ -221,18 +232,24 @@ const Profilo: React.FC<{
                                 messaggi: (messaggioUpdate === undefined ? [] : messaggioUpdate),
                             }
                             onUpdateArticolo(updateArticolo, articolo.articolo._id);
+                            setTimeout(()=>{
+                                window.location.reload();
+                            },1000)
                         }
                         return null;
                     })
                 }
                 else {
                     onSendData(profile);
+                    setTimeout(()=>{
+                        window.location.reload();
+                    },1000)
                 }
-            setTimeout(() => {
-                if (props.esito === "I dati sono stati inviati/modificati con successo.") {
+           /* setTimeout(() => {
+                if (caricamentoProfilo === "I dati sono stati inviati/modificati con successo.") {
                     window.location.reload();
                 }
-            }, 1000);
+            }, 2000);*/
         }else {
             seterrorMessage('Errore nell\'aggiornare il profilo. L\'username scelto è già in uso');
         }
@@ -309,9 +326,10 @@ const Profilo: React.FC<{
     {presentazione === false && presentazioneInput === false? 
         presentazioneVisualizzata = <IonButton onClick={() => handlerClickPresentazioneInput()} fill="clear"><IonLabel class="ion-text-lowercase label-breve-presentazione" color="primary">Aggiungi una breve presentazione</IonLabel></IonButton>
         :presentazioneInput === true && ((presentazioneVisualizzata=<IonItem><IonInput type="text" placeholder="breve presentazione di te" onIonChange={descrizioneChangeHandler} value={descrizione}></IonInput></IonItem>) &&
-        (btnInviaInfo = <IonButton class="ion-float-right" onClick={orderHandler} fill="outline" color="dark"><IonIcon icon={paperPlane} slot="start"></IonIcon><IonLabel>Invia breve presentazione</IonLabel></IonButton>))
+        (btnInviaInfo = <IonButton class="ion-float-right" onClick={orderHandler} fill="outline" color="dark" disabled={!formIsValid}><IonIcon icon={paperPlane} slot="start"></IonIcon><IonLabel>Invia breve presentazione</IonLabel></IonButton>))
     }
 
+    console.log(profileForm);
 
     const formElemetsArray = [];
         for (let key in profileForm) {
@@ -321,7 +339,6 @@ const Profilo: React.FC<{
 
             })
         }
-    console.log(formElemetsArray);
     let form = (
         formElemetsArray.map(formElement=>{
             console.log(formElement);
@@ -335,7 +352,7 @@ const Profilo: React.FC<{
                /* className={!emailValid  ? 'Invalid' : ''}*/
                 /></IonItem>
                  {!formElement.config.valid && formElement.config.touched && formElement.id === 'numeroTelefono' && (
-                    <IonItem lines="none"><IonLabel>Il campo deve essere di 10 caratteri</IonLabel></IonItem>)}
+                    <IonItem lines="none"><IonLabel>Il campo deve contenere 10 numeri</IonLabel></IonItem>)}
                 </React.Fragment>
                 
                 ):formElement.id === 'sesso' ? <IonItem key={formElement.id} class="ion-margin-top"><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
@@ -484,7 +501,6 @@ const mapStateToProps = (state:any) => {
     return {
         articoli: state.articolo.articoli,
         loading: state.profilo.loading,
-        esito: state.profilo.esitoCaricamento,
         profiloReducer: state.profilo.profilo,
         loadingLogin: state.auth.loading,
         esitoLogin:state.auth.esitoCaricamento,
