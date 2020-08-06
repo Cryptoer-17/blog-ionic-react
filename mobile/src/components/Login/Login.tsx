@@ -5,16 +5,26 @@ import checkValidity from '../../utility/validation';
 import {connect} from 'react-redux';
 import * as actions from '../../store/actions/index';
 import { closeOutline} from 'ionicons/icons';
+import Modal from '../UI/Modal/Modal';
+import Spinner from '../UI/Spinner/Spinner';
 
 
 const Login: React.FC<{
     onLogin: (textEmail:string,textPassword:string,isSignup:boolean)=> void; 
-    hideModal:()=>void
+    hideModal:()=>void,
+    error:string,
+    loading:boolean
 }> = props =>{  
+
+    const {error, loading} = props;
+    console.log(error);
+
     const [textEmail, setTextEmail] = useState<string>('');
     const [emailValid, setEmailValid] = useState<boolean>(true);
     const [textPassword, setTextPassword] = useState<string>('');
     const [passwordValid, setPasswordValid] = useState<boolean>(true);
+    const [showmsg, setShowMsg] = useState<boolean>(false);
+    const [message, setMessage] = useState<string>('');
 
     const validationText = ()=>{
         return emailValid && passwordValid && textEmail!== '' && textPassword !== '';
@@ -31,22 +41,23 @@ const Login: React.FC<{
     }
 
     const handlerClickLogin = () =>{
-        props.onLogin(textEmail,textPassword,true);
-        setTimeout(()=>{
-            window.location.reload();
-        },1000)
+        props.onLogin(textEmail,textPassword,true);    
+        setShowMsg(true);
+        setMessage("Login effettuato correttamente");
     }
 
     const handlerClickRegistration = ()=>{
         props.onLogin(textEmail,textPassword,false);
-        setTimeout(()=>{
-            window.location.reload();
-        },1000)
-        
+        setShowMsg(true);
+        setMessage("Registrazione effettuata correttamente");
     }
 
-    return (
-    <IonPage>
+    
+    let form;
+    let errorVar = null;
+    let messageSuccess = null;
+
+    form = (<IonPage>
         <IonHeader className="ion-no-border">
             <IonToolbar>
                 <IonTitle class="ion-text-center">Login</IonTitle>
@@ -108,16 +119,34 @@ const Login: React.FC<{
             </IonGrid>
         </form>
        </IonContent>
-    </IonPage>
+    </IonPage>)
+
+
+    if (loading) {
+        form = <Spinner />
+    }
+
+    if (error) {
+        errorVar = (
+            <Modal show={true} modalClosed={()=>{}}>{error} </Modal>
+        );
+    }
+    else if (error === null && localStorage.getItem('userId') !== null && showmsg) {
+        messageSuccess = (<Modal show={showmsg} modalClosed={()=>{}} >{message}</Modal>
+        );
+    }
+
+    return (
+        <React.Fragment>
+            {form}
+            {/*messageSuccess*/}
+            {/*errorVar*/}
+        </React.Fragment>
     );
   };
 
-  
-const mapStateToProps = (state:any) =>{
-    return{
-        error : state.auth.error
-    };
-};
+
+
 
 const mapDispatchToProps = (dispatch:any) => {
     return{
@@ -125,4 +154,4 @@ const mapDispatchToProps = (dispatch:any) => {
     };
   };
   
-  export default connect(mapStateToProps,mapDispatchToProps)(Login);
+  export default connect(null,mapDispatchToProps)(Login);

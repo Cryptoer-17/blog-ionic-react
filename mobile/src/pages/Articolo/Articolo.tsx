@@ -10,6 +10,7 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import Comments from '../../components/Articolo/Comments/Comments';
 import './Articolo.css';
+import Spinner from '../../components/UI/Spinner/Spinner';
 
 const Articolo: React.FC<{
     onInitArticoli:()=>void
@@ -139,7 +140,7 @@ const Articolo: React.FC<{
             return null;
         });
         let data = moment(articolo.data).toDate().toISOString().substr(0,10)
-        articoloVisualizzato = <IonCard>
+        articoloVisualizzato = (<IonCard>
             <IonCardHeader translucent={true} mode="ios">
                 <Info  autore={articolo.autore} categoria={articolo.categoria} data={data} tempoLettura={articolo.minuti} />
             </IonCardHeader>
@@ -161,8 +162,14 @@ const Articolo: React.FC<{
                 <ActionBar color={colore} disableMore={true} viewComments={() => viewCommentsHandler()} onClick={() => clickHeartHandler()} id={""} showdropdown={false} modalDelete={() => {}} clickMenu={()=>{}} ricerca={false}/>
                 </IonCardContent>
             </div>
-        </IonCard>
+        </IonCard>)
+
     }
+
+    if (loading) {
+        articoloVisualizzato = <Spinner />;
+    }
+
     return(
         <IonContent scrollEvents={true}>
             <br></br><br></br><br></br>

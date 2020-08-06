@@ -320,7 +320,7 @@ const Profilo: React.FC<{
     let form = (
         formElemetsArray.map(formElement=>{
             console.log(formElement);
-            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' && formElement.id !== 'username' ?(<IonItem  key={formElement.id} class="ion-margin-top" className={!formElement.config.elementConfig.valid && formElement.config.touched ? 'Invalid' : ''}>
+            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' && formElement.id !== 'username' ?(<React.Fragment key={formElement.id}><IonItem class="ion-margin-top" className={!formElement.config.valid && formElement.config.touched ? 'Invalid' : ''}>
                  <IonInput 
                 type={formElement.config.elementConfig.type} 
                 placeholder={formElement.config.elementConfig.placeholder}
@@ -328,7 +328,12 @@ const Profilo: React.FC<{
                 onIonChange={(event) => inputChangedHandler(event, formElement.id)}
                 
                /* className={!emailValid  ? 'Invalid' : ''}*/
-                /></IonItem>):formElement.id === 'sesso' ? <IonItem key={formElement.id} class="ion-margin-top"><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
+                /></IonItem>
+                 {!formElement.config.valid && formElement.config.touched && formElement.id === 'numeroTelefono' && (
+                    <IonItem lines="none"><IonLabel>Il campo deve essere di 10 caratteri</IonLabel></IonItem>)}
+                </React.Fragment>
+                
+                ):formElement.id === 'sesso' ? <IonItem key={formElement.id} class="ion-margin-top"><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
                     <IonLabel>Sesso:</IonLabel>
                     <IonItem lines="none">
                         <IonLabel>F</IonLabel>
@@ -351,13 +356,20 @@ const Profilo: React.FC<{
                     </IonSelect>
                     </IonItem> : <React.Fragment  key={formElement.id}><IonItem lines="none" class="ion-margin-top">
                         <IonText><b>MODIFICA IL TUO USERNAME</b></IonText>
-                    </IonItem><IonItem className={!formElement.config.elementConfig.valid && formElement.config.touched ? 'Invalid' : ''}>
+                    </IonItem><IonItem className={!formElement.config.valid && formElement.config.touched ? 'Invalid' : ''}>
                  <IonInput 
                 type={formElement.config.elementConfig.type} 
                 placeholder={formElement.config.elementConfig.placeholder}
                 value={formElement.config.value} 
                 onIonChange={(event) => inputChangedHandler(event, formElement.id)}
-                /></IonItem></React.Fragment>
+        /></IonItem>
+        {!formElement.config.valid && formElement.config.touched && (
+            <IonItem lines="none"><IonLabel>L'username può contenere:</IonLabel></IonItem>)}
+        {!formElement.config.valid && formElement.config.touched && (
+            <IonItem lines="none"><IonLabel>lettere, numeri, underscore (_)</IonLabel></IonItem>)}
+        {!formElement.config.valid && formElement.config.touched && (
+            <IonItem lines="none"><IonLabel>deve essere fra i 4 e i 15 caratteri</IonLabel></IonItem>)}
+        </React.Fragment>
                     
         })
     );

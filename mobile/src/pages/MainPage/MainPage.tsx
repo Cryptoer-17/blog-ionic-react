@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { IonPage, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonItem,   IonModal, IonTitle} from '@ionic/react';
 import Login from "../../components/Login/Login";
-
+import * as actions from '../../store/actions/index';
+import {connect } from 'react-redux';
 import './MainPage.css';
 
-const MainPage: React.FC = ()=>{
+const MainPage: React.FC<{
+    error:string,
+    loading:boolean
+}> = (props)=>{
+
+    const{error,loading} = props;
+
     const [showModal, setShowModal] = useState(false);
 
 
@@ -42,7 +49,7 @@ const MainPage: React.FC = ()=>{
             </div>    
             <IonItem lines="none">
                 <IonModal isOpen={showModal} cssClass='modal'>
-                    <Login hideModal={() => setShowModal(false)}></Login>
+                    <Login hideModal={() => setShowModal(false)} error={error} loading={loading}></Login>
                 </IonModal>
             </IonItem>       
         </IonContent>
@@ -50,4 +57,12 @@ const MainPage: React.FC = ()=>{
     );
 }
 
-export default MainPage;
+  
+const mapStateToProps = (state:any) =>{
+    return{
+        error : state.auth.error,
+        loading:state.auth.loading
+    };
+};
+
+export default connect(mapStateToProps)(MainPage);

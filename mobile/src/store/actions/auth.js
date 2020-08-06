@@ -152,7 +152,7 @@ export const login = (email, password,isSignup) =>{
             dispatch(loginFail(err)); 
             setTimeout(() =>{
             dispatch(logout());
-            },  3000);
+            },  13000);
         });
     }; 
 }
