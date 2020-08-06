@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent, IonImg, IonRadio, IonRadioGroup, IonSelect, IonSelectOption } from "@ionic/react";
+import { IonContent, IonHeader, IonToolbar,  IonTitle, IonPage, IonItem, IonButtons, IonButton, IonRouterLink, IonInput, IonIcon, IonLabel, IonText, IonCard, IonCardContent, IonImg, IonRadio, IonRadioGroup, IonSelect, IonSelectOption, IonThumbnail } from "@ionic/react";
 import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
-import { paperPlane,mail} from 'ionicons/icons';
+import { paperPlane,mail, camera, closeOutline} from 'ionicons/icons';
 import checkValidity from '../../utility/validation';
 import './Profilo.css';
 
@@ -20,7 +20,7 @@ const Profilo: React.FC<{
 
     console.log(profilo);
 
-    const [anteprimaImg,setAnteprimaImg]=useState(null);
+    const [anteprimaImg,setAnteprimaImg]:any=useState();
     const [presentazione,setPresentazione]=useState(false);
     const [presentazioneInput, setPresentazioneInput] = useState(false);
     const [modificaDati,setModificaDati]=useState(false);
@@ -126,7 +126,7 @@ const Profilo: React.FC<{
     const [idArticoloCambiamenti,setIdArticoloCambiamenti]=useState(null);
     const [show,setShow]=useState(false);
     const [errorMessage,seterrorMessage]=useState(null);
-    const [img,setImg]= useState(null);
+    const [img,setImg]:any= useState();
 
     const handlerClickPresentazioneInput = ()=> {
         
@@ -262,6 +262,35 @@ const Profilo: React.FC<{
 
     }
 
+
+    const convertFile = (e:any) => {
+        let reader = new FileReader();
+        console.log("cliccato");
+        if (e !== undefined) {
+            reader.readAsDataURL(e);
+            reader.onloadend = () => {
+                let readerRes:string = reader.result as string;
+                setImg(reader.result);
+                setAnteprimaImg(<IonItem lines="none"><IonThumbnail><IonImg src={readerRes} alt=""></IonImg></IonThumbnail><IonButton class="btn-close-img" color="dark" fill="clear" onClick = {()=>clickCloseImg()}><IonIcon icon={closeOutline} slot="start"></IonIcon></IonButton></IonItem>)
+            }
+        }
+        else {
+            setImg(null);
+            setAnteprimaImg(null);
+            let inputFile:any = document.getElementById("inputFile");
+            inputFile.value = null; /** vedere se click close è corretto */
+        }
+    };
+
+
+    const clickCloseImg = ()=> {      
+        setAnteprimaImg(null);
+        setImg(null);   
+        let inputFile:any = document.getElementById("inputFile");
+        inputFile.value = null; /** vedere se click close è corretto */
+    }
+
+
     let emailVar;
     let modificaEmail;
     let modificaPassword;
@@ -342,9 +371,14 @@ const Profilo: React.FC<{
                 <IonItem lines="none">
                     <IonText><b>MODIFICA LA TUA FOTO PROFILO</b></IonText>
                 </IonItem>
-                <IonItem>
-                    {/* foto profilo */}
+                <IonItem lines="none">
+                    <IonButton onClick={() => document.getElementById("inputFile")!.click()} color="dark" fill="outline"><IonIcon icon={camera} slot="start"></IonIcon><IonLabel>Carica foto profilo</IonLabel></IonButton>
+                    <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={(event:any) => convertFile(event.target.files[0])} style={{ width: '0px' }}/>
+                    {anteprimaImg ? anteprimaImg : null}
                 </IonItem>
+                 <IonItem lines="none" class="ion-float-right">
+                    <IonButton onClick={orderHandler} disabled={!formIsValid} color="dark" fill="outline"><IonIcon icon={paperPlane} slot="start"></IonIcon><IonLabel>Invia dati</IonLabel></IonButton>
+                 </IonItem>
             </IonCardContent>
         </IonCard>
     );

@@ -5,3 +5,9 @@
 .label-breve-presentazione{
     font-style: italic;
 }
+
+.btn-close-img{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
