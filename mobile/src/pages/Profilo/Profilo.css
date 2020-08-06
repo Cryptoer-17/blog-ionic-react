@@ -11,3 +11,9 @@
     top: 0;
     right: 0;
 }
+
+
+.Invalid{
+    /*border-bottom: 3px solid red;*/
+    border-color: var(--ion-color-danger, #f1453d);;
+}

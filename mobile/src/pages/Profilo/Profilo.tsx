@@ -251,6 +251,7 @@ const Profilo: React.FC<{
         }
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
+        console.log(updatedFormElement);
         updatedFormElement.touched = true;
         updatedprofileForm[inputIdentifier] = updatedFormElement;
         let formIsValid = true;
@@ -319,12 +320,13 @@ const Profilo: React.FC<{
     let form = (
         formElemetsArray.map(formElement=>{
             console.log(formElement);
-            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' && formElement.id !== 'username' ?(<IonItem  key={formElement.id} class="ion-margin-top">
+            return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' && formElement.id !== 'username' ?(<IonItem  key={formElement.id} class="ion-margin-top" className={!formElement.config.elementConfig.valid && formElement.config.touched ? 'Invalid' : ''}>
                  <IonInput 
                 type={formElement.config.elementConfig.type} 
                 placeholder={formElement.config.elementConfig.placeholder}
                 value={formElement.config.value} 
                 onIonChange={(event) => inputChangedHandler(event, formElement.id)}
+                
                /* className={!emailValid  ? 'Invalid' : ''}*/
                 /></IonItem>):formElement.id === 'sesso' ? <IonItem key={formElement.id} class="ion-margin-top"><IonRadioGroup  value={formElement.config.value} onIonChange={(event) => inputChangedHandler(event, formElement.id)}>
                     <IonLabel>Sesso:</IonLabel>
@@ -349,12 +351,13 @@ const Profilo: React.FC<{
                     </IonSelect>
                     </IonItem> : <React.Fragment  key={formElement.id}><IonItem lines="none" class="ion-margin-top">
                         <IonText><b>MODIFICA IL TUO USERNAME</b></IonText>
-                    </IonItem><IonItem>
+                    </IonItem><IonItem className={!formElement.config.elementConfig.valid && formElement.config.touched ? 'Invalid' : ''}>
                  <IonInput 
                 type={formElement.config.elementConfig.type} 
                 placeholder={formElement.config.elementConfig.placeholder}
                 value={formElement.config.value} 
-                onIonChange={(event) => inputChangedHandler(event, formElement.id)}/></IonItem></React.Fragment>
+                onIonChange={(event) => inputChangedHandler(event, formElement.id)}
+                /></IonItem></React.Fragment>
                     
         })
     );
@@ -383,20 +386,7 @@ const Profilo: React.FC<{
         </IonCard>
     );
 
-    /*let pageModificaDati = (<div className={classes.ModificaDati}>
-        /*{modificaEmail}
-        {modificaPassword}
-       <h3>MODIFICA I TUOI DATI</h3>
-       {form}
-       <h3>MODIFICA LA TUA FOTO PROFILO</h3>
-       <div className={classes.DivFoto} >
-           <button className={classes.CaricaImgButton} onClick={() => document.getElementById("inputFile").click()}> <i className="material-icons" style={{ verticalAlign: 'middle' }}>photo_camera</i> Carica foto profilo</button>
-
-           {anteprimaImg ? anteprimaImg : null}</div>
-       <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={event => this.convertFile(event.target.files[0])} style={{ width: '0px' }}/* style = {{display:'none', visibility:'hidden',zIndex:'-200'}}*//* />
-       <button className={classes.ButtonSend} onClick={this.orderHandler} disabled={!formIsValid} style={{ position: 'absolute', right: '0px', bottom: '0px' }}><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Invia dati</button>
-   </div>);*/
-  
+    
 
     return(
         <IonPage>

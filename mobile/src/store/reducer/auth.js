@@ -1,5 +1,6 @@
 import * as actionTypes from '../actions/actionTypes';
 import updateObject from '../../utility/updateObject';
+import history from '../../utility/history';
 
 const initialState = {
     token: null,
@@ -67,6 +68,7 @@ const logout = (state,action) =>{
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("expirationDate");
+    history.push('/home');
     window.location.reload();
     return updateObject( state, initialState );
 }
