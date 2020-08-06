@@ -10,15 +10,20 @@ const Profilo: React.FC<{
     loading:boolean,
     mount:()=>void,
     loadingLogin:boolean,
-    esito:string,
+    esito:any,
     esitoLogin:string,
     profilo:any,
-    articoli:any
+    articoli:any,
+    profili:any,
+    profiloReducer:any,
+    onUpdateData:(profile:any, profiloReducer:any)=>void,
+    onUpdateArticolo:(updateArticolo:any, idArticolo:string)=>void,
+    onSendData:(profile:any)=>void
 }> = (props)=>{
 
-    const { loading, mount, loadingLogin, esito, esitoLogin, profilo, articoli } = props;
+    const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData } = props;
 
-    console.log(profilo);
+
 
     const [anteprimaImg,setAnteprimaImg]:any=useState();
     const [presentazione,setPresentazione]=useState(false);
@@ -27,7 +32,7 @@ const Profilo: React.FC<{
     const [showDropdown,setShowDropdown]=useState(null);
     const [messageModalPassord,setMessageModalPassord]=useState(null);
     const [modalPassword,setModalPassword]=useState(null);
-    const [descrizione,setDescrizione]=useState(null);
+    const [descrizione,setDescrizione]=useState<string>('' + profilo.descrizione + '');
     const [email,setEmail]=useState(null);
     const [emailIsValid,setEmailIsValid]=useState(null);
     const [password,setPassword]=useState(null);
@@ -125,8 +130,8 @@ const Profilo: React.FC<{
     const [formIsValid,setFormIsValid]=useState(false);
     const [idArticoloCambiamenti,setIdArticoloCambiamenti]=useState(null);
     const [show,setShow]=useState(false);
-    const [errorMessage,seterrorMessage]=useState(null);
-    const [img,setImg]:any= useState();
+    const [errorMessage,seterrorMessage]=useState<string>('');
+    const [img,setImg]= useState<any>(profilo.img === undefined ? null : profilo.img);
 
     const handlerClickPresentazioneInput = ()=> {
         
@@ -141,98 +146,98 @@ const Profilo: React.FC<{
         setShow(true);
     }
 
+
     const orderHandler = () => {
-    /* showModal();
-        const formData = {};
+
+     showModal();
+        const formData:any = {};
         for (let formElementIdentifier in profileForm) {
             formData[formElementIdentifier] = profileForm[formElementIdentifier].value;
         }
         const profile = {
-            _id:this.state.idProfilo,
+           _id:profilo._id,
             nome: formData.nome,
             cognome: formData.cognome,
             dataNascita: formData.dataNascita.trim(),
             sesso: formData.sesso.trim(),
             numeroTelefono: formData.numeroTelefono.trim(),
             nazionalità: (formData.nazionalita.trim() === '' ? 'italia' : formData.nazionalita.trim()),
-            img: this.state.img,
+            img: img,
             username: formData.username.trim(),
-            userId: localStorage.getItem('userId').trim(),
-            descrizione: this.state.descrizione
+            userId: localStorage.getItem('userId')!.trim(),
+             descrizione: descrizione
         }
 
-*/
+
         //faccio il controllo che l'username scelto se inserito, non sià già in uso
-   /* COMMENTATO     let c = 0;
+       let c = 0;
         if(formData.username.trim() !== ''){
-            let profili = this.props.profili;
-            for(let x in profili){
-                if(profili[x].username ===  formData.username.trim()){
+            let profiliReducer = profili;
+            for(let x in profiliReducer){
+                if(profiliReducer[x].username ===  formData.username.trim()){
                     c++;
                 }
             }
         }
 
-        if(c<2){*/
+        if(c<2){
             //se il profilo è già in firebase allora faccio un update del profilo e poi se è cambiato anche l'username glielo cambio in tutta l'app
-        //altrimenti mando il nuovo profilo.
-/* COMMENTATO       if (this.props.profiloReducer.length) {
-            this.props.onUpdateData(profile, this.props.profiloReducer[0].profilo._id);
-            this.props.articoli.map((articolo) => {
-                */
-                //faccio il map per ogni articolo per cambiare l'autore e l'username nei messaggi
-                //se non è il proprietario dell'articolo faccio solo il controllo sui messaggi e cambi l'username
-            /* COMMENTATO    if (articolo.articolo.userId === localStorage.getItem("userId")) {
-                    let messaggioUpdate;
-                    if (articolo.articolo.messaggi !== undefined) {
-                        messaggioUpdate = articolo.articolo.messaggi.map((messaggio) => {
-                            if (messaggio.username === localStorage.getItem("username")) {
-                                messaggio.username = profile.username
+            //altrimenti mando il nuovo profilo.
+            if (profiloReducer.length) {
+                    onUpdateData(profile, profiloReducer[0].profilo._id);
+                    articoli.map((articolo:any) => {
+                    
+                        //faccio il map per ogni articolo per cambiare l'autore e l'username nei messaggi
+                        //se non è il proprietario dell'articolo faccio solo il controllo sui messaggi e cambi l'username
+                    if (articolo.articolo.userId === localStorage.getItem("userId")) {
+                            let messaggioUpdate;
+                            if (articolo.articolo.messaggi !== undefined) {
+                                messaggioUpdate = articolo.articolo.messaggi.map((messaggio:any) => {
+                                    if (messaggio.username === localStorage.getItem("username")) {
+                                        messaggio.username = profile.username
+                                    }
+                                    return messaggio;
+                                })
                             }
-                            return messaggio;
-                        })
-                    }
-                    let updateArticolo = {
-                        ...articolo.articolo,
-                        autore: profile.username,
-                        messaggi: (messaggioUpdate === undefined ? [] : messaggioUpdate),
-                    }
-                    this.props.onUpdateArticolo(updateArticolo, articolo.articolo._id);
-                }
-                else if (articolo.articolo.userId !== localStorage.getItem("userId")) {
-                    let messaggioUpdate;
-                    if (articolo.articolo.messaggi !== undefined) {
-                        messaggioUpdate = articolo.articolo.messaggi.map((messaggio) => {
-                            if (messaggio.username === localStorage.getItem("username")) {
-                                messaggio.username = profile.username
+                            let updateArticolo = {
+                                ...articolo.articolo,
+                                autore: profile.username,
+                                messaggi: (messaggioUpdate === undefined ? [] : messaggioUpdate),
                             }
-                            return messaggio;
-                        })
-                    }
-                    let updateArticolo = {
-                        ...articolo.articolo,
-                        messaggi: (messaggioUpdate === undefined ? [] : messaggioUpdate),
-                    }
-                    this.props.onUpdateArticolo(updateArticolo, articolo.articolo._id);
+                            onUpdateArticolo(updateArticolo, articolo.articolo._id);
+                        }
+                        else if (articolo.articolo.userId !== localStorage.getItem("userId")) {
+                            let messaggioUpdate;
+                            if (articolo.articolo.messaggi !== undefined) {
+                                messaggioUpdate = articolo.articolo.messaggi.map((messaggio:any) => {
+                                    if (messaggio.username === localStorage.getItem("username")) {
+                                        messaggio.username = profile.username
+                                    }
+                                    return messaggio;
+                                })
+                            }
+                            let updateArticolo = {
+                                ...articolo.articolo,
+                                messaggi: (messaggioUpdate === undefined ? [] : messaggioUpdate),
+                            }
+                            onUpdateArticolo(updateArticolo, articolo.articolo._id);
+                        }
+                        return null;
+                    })
                 }
-                return null;
-            })
-        }
-        else {
-            this.props.onSendData(profile);
-        }
-        setTimeout(() => {
-            if (this.props.esito === "I dati sono stati inviati/modificati con successo.") {
-                window.location.reload();
-            }
-        }, 1000);
+                else {
+                    onSendData(profile);
+                }
+            setTimeout(() => {
+                if (props.esito === "I dati sono stati inviati/modificati con successo.") {
+                    window.location.reload();
+                }
+            }, 1000);
         }else {
-            this.setState({
-                errorMessage:'Errore nell\'aggiornare il profilo. L\'username scelto è già in uso'
-            })
+            seterrorMessage('Errore nell\'aggiornare il profilo. L\'username scelto è già in uso');
         }
 
-        */
+        
     }
 
     const handlerModificaDati = ()=> {
@@ -374,6 +379,7 @@ const Profilo: React.FC<{
         })
     );
 
+    
     let pageModificaDati = (
         <IonCard>
             <IonCardContent>

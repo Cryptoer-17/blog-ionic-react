@@ -148,7 +148,7 @@ const Login: React.FC<{
         );
     }
     else if (error === null && localStorage.getItem('userId') !== null && showmsg) {
-        messageSuccess = (<Modal show={showmsg} modalClosed={()=>{}} >{message}</Modal>
+        messageSuccess = (<Modal show={showmsg} modalClosed={()=>{}} ><IonLabel color="dark">{message}</IonLabel></Modal>
         );
     }
 
