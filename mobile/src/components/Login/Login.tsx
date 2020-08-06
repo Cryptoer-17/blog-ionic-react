@@ -12,12 +12,11 @@ import Spinner from '../UI/Spinner/Spinner';
 const Login: React.FC<{
     onLogin: (textEmail:string,textPassword:string,isSignup:boolean)=> void; 
     hideModal:()=>void,
-    error:string,
+    error:any,
     loading:boolean
 }> = props =>{  
 
     const {error, loading} = props;
-    console.log(error);
 
     const [textEmail, setTextEmail] = useState<string>('');
     const [emailValid, setEmailValid] = useState<boolean>(true);
@@ -44,12 +43,18 @@ const Login: React.FC<{
         props.onLogin(textEmail,textPassword,true);    
         setShowMsg(true);
         setMessage("Login effettuato correttamente");
+        setTimeout(()=>{
+            window.location.reload();
+        },1800)
     }
 
     const handlerClickRegistration = ()=>{
         props.onLogin(textEmail,textPassword,false);
         setShowMsg(true);
         setMessage("Registrazione effettuata correttamente");
+        setTimeout(()=>{
+            window.location.reload();
+        },1800)
     }
 
     
@@ -128,7 +133,18 @@ const Login: React.FC<{
 
     if (error) {
         errorVar = (
-            <Modal show={true} modalClosed={()=>{}}>{error} </Modal>
+            <Modal show={true} modalClosed={()=>{}}>{
+                <React.Fragment>
+                    <IonItem>
+                    <IonTitle><b>Errore!!</b></IonTitle>
+                </IonItem> 
+               { error.map((err:string,index:number)=>{
+                    return <IonItem key={index} lines="none">
+                            <IonLabel >{err}</IonLabel>
+                        </IonItem>
+                    })}
+                </React.Fragment>
+                } </Modal>
         );
     }
     else if (error === null && localStorage.getItem('userId') !== null && showmsg) {
@@ -139,8 +155,8 @@ const Login: React.FC<{
     return (
         <React.Fragment>
             {form}
-            {/*messageSuccess*/}
-            {/*errorVar*/}
+            {messageSuccess}
+            {errorVar}
         </React.Fragment>
     );
   };

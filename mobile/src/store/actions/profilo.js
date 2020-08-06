@@ -84,7 +84,7 @@ export const setUsername = (username) =>{
             if(profilo!==null){
             axios.put('http://localhost:4001/profilo/update/'+ id,profilo,config).then(res =>  
                 dispatch(sendDataSuccess(profilo))
-                ).catch( err => dispatch(sendDataFail(err), console.log(err)) );
+                ).catch( err => dispatch(sendDataFail(err.response.data), console.log(err)) );
             }  
             else{
                 profilo = {
@@ -100,7 +100,7 @@ export const setUsername = (username) =>{
                     descrizione:''
                 }
                 axios.post('http://localhost:4001/profilo/save',profilo,config).then(res=>dispatch(sendDataSuccess(profilo))
-                ).catch(err => dispatch(sendDataFail(err), console.log(err)) );
+                ).catch(err => dispatch(sendDataFail(err), console.log(err.response.data)) );
             }   
         });                          
     } 
@@ -139,7 +139,7 @@ export const sendDataFail = (error) =>{
         dispatch(sendDataSuccess(dati))
       })
     .catch(error => { 
-        dispatch(sendDataFail(error));
+        dispatch(sendDataFail(error.response.data));
     });
     }
 };
@@ -178,7 +178,7 @@ export const updateData = (dato,idProfilo) =>{
             dispatch(updateDataSuccess(dato))
           })
         .catch(error => { 
-            dispatch(updateDataFail(error));
+            dispatch(updateDataFail(error.response.data));
         });
     }
 }

@@ -84,7 +84,7 @@ export const postArticolo = (articolo) => {
             dispatch(postArticoloSuccess(articolo))
           })
         .catch(error => { 
-            dispatch(postArticoloFail(error));
+            dispatch(postArticoloFail(error.response.data));
         });
     }
 }
@@ -128,7 +128,7 @@ export const updateArticolo = (articolo,idArticolo) =>{
             dispatch(updateArticoloSuccess(articolo))
           })
         .catch(error => { 
-            dispatch(postArticoloFail(error));
+            dispatch(postArticoloFail(error.response.data));
         });
     }
 }
@@ -155,7 +155,7 @@ export const deleteArticolo = (articolo) =>{
             dispatch(deleteArticoloSuccess(articolo))
           })
         .catch(error => { 
-            dispatch(postArticoloFail(error));
+            dispatch(postArticoloFail(error.response.data));
         });
     }
 }

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Logout from '../../components/Login/Logout';
 const Navigation: React.FC<{
     idProfilo:string,
-    error:string
+    error:any
 }> = (props)=>{
 
 

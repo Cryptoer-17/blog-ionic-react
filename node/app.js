@@ -54,6 +54,9 @@ app.use(function (req, res, next) {
     "X-Requested-With,content-type"
   );
   res.setHeader("Access-Control-Allow-Credentials", true);
+  res.setHeader(
+    "Content-Type", 
+    "application/json; charset=utf-8");
   next();
 });
 

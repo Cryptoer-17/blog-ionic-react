@@ -1,6 +1,8 @@
 import * as actionTypes from './actionTypes';
 import axios from 'axios';
 import * as moment from 'moment';
+import { body } from 'ionicons/icons';
+import { resolve } from 'dns';
 
 /*
 export const updateEmailStart = () =>{
@@ -123,6 +125,13 @@ export const loginSuccess = (token,userId) =>{
 export const login = (email, password,isSignup) =>{
     return dispatch =>{
         dispatch(loginStart());
+
+        let config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept':'*/*'
+            }
+          }
         const authData = {
           username : email,
           password : password,
@@ -135,7 +144,7 @@ export const login = (email, password,isSignup) =>{
             console.log("isSignup")
             url = 'http://localhost:4001/register';
         }
-        axios.post(url,authData )
+        axios.post(url,authData,config )
         .then(response =>{
             const express = response.data.expiresIn;
             const expiresIn = moment(express).toDate().getTime();
@@ -148,11 +157,10 @@ export const login = (email, password,isSignup) =>{
             // dispatch(checkLoginTimeout(response.data.expiresIn));
         })
         .catch( err =>{
-            console.log(err);
-            dispatch(loginFail(err)); 
+            dispatch(loginFail(err.response.data)); 
             setTimeout(() =>{
             dispatch(logout());
-            },  13000);
+            },  2000);
         });
     }; 
 }

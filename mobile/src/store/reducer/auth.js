@@ -68,8 +68,8 @@ const logout = (state,action) =>{
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.removeItem("expirationDate");
-    /*history.push('/home');
-    window.location.reload();*/
+    history.push('/home');
+    window.location.reload();
     return updateObject( state, initialState );
 }
 
