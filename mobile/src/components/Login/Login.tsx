@@ -60,13 +60,12 @@ const Login: React.FC<{
             <IonGrid>
                 <IonRow>
                     <IonCol>
-                        <IonItem>
+                        <IonItem className={!emailValid  ? 'Invalid' : ''}>
                             <IonLabel position="floating"> Email</IonLabel>
                             <IonInput 
                             type="text" 
                             value={textEmail} 
-                            onIonChange={e => changeTextEmail(e.detail.value!)} 
-                            className={!emailValid  ? 'Invalid' : ''}
+                            onIonChange={e => changeTextEmail(e.detail.value!)}                        
                             ></IonInput>
                         </IonItem>
                         {!emailValid && <IonItem lines="none">
@@ -76,13 +75,12 @@ const Login: React.FC<{
                 </IonRow>
                 <IonRow>
                     <IonCol>
-                        <IonItem>
+                        <IonItem className={!passwordValid ? 'Invalid' : ''}>
                             <IonLabel position="floating"> Password</IonLabel>
                             <IonInput 
                             type="password" 
                             value={textPassword}
-                            onIonChange={e => changeTextPassword(e.detail.value!)}
-                            className={!passwordValid ? 'Invalid' : ''}
+                            onIonChange={e => changeTextPassword(e.detail.value!)}    
                             ></IonInput>
                         </IonItem>
                         {!passwordValid && <IonItem lines="none">
