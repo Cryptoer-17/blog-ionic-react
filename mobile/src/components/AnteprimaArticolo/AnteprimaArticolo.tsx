@@ -3,6 +3,8 @@ import { IonItem, IonCard, IonCardHeader, IonCardContent, IonTitle, IonCardSubti
 import ActionBar from '../ActionBar/ActionBar';
 import Info from '../InfoArticolo/InfoArticolo';
 import './AnteprimaArticolo.css';
+import Modal from '../UI/Modal/Modal';
+import EliminaArticolo from '../Articolo/EliminaArticolo/EliminaArticolo';
 
 const AnteprimaArticolo: React.FC<{
     id:string,
@@ -20,12 +22,15 @@ const AnteprimaArticolo: React.FC<{
     clickMenuHandler:(props:any)=>void,
     disableMore:boolean,
     ricerca:boolean,
-    testo:string
+    testo:string,
+    mount:()=>void
 }>= (props) => {
 
-  const { autore, titolo, sottotitolo,categoria, img, descrizione, clickHeart, data, minuti, id ,showDropdown, like,ricerca,clickMenuHandler,disableMore} = props;
-  const [, setShowModalDelete] = useState(false);
+  const { autore, titolo, sottotitolo,categoria, img, descrizione, clickHeart, data, minuti, id ,showDropdown, like,ricerca,clickMenuHandler,disableMore,mount} = props;
+  const [showModalDelete, setShowModalDelete] = useState(false);
   
+
+
   const viewMessageArticle = (id:string) => {
         document.getElementById(id)!.click()
         setTimeout(() => {
@@ -35,6 +40,10 @@ const AnteprimaArticolo: React.FC<{
 
     const clickModalDelete = () => {
         setShowModalDelete(true);
+    }
+
+    const hideModalDelete = ()=> {
+        setShowModalDelete(false);
     }
     
   let showModalDeleteVar;
@@ -50,7 +59,7 @@ const AnteprimaArticolo: React.FC<{
     return null;
   });
  
-   variabile = <IonCard>
+   variabile = (<IonCard>
        <IonCardHeader>
         <Info autore={autore} categoria={categoria} data={data} tempoLettura={minuti} />
        </IonCardHeader>
@@ -73,8 +82,13 @@ const AnteprimaArticolo: React.FC<{
         </div>
        </IonItem>
        <ActionBar id={id} showdropdown={showDropdown}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
-   </IonCard>
-      
+   </IonCard>)
+    
+    if (showModalDelete) {
+        showModalDeleteVar = <Modal show={showModalDelete} modalClosed={()=>{}}><EliminaArticolo {...props} hideModal={() => hideModalDelete()} mount={mount} /></Modal>
+    }
+
+
   return (
     <div >
         {showModalDeleteVar ? showModalDeleteVar : null}

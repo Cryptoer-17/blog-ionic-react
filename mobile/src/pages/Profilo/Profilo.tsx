@@ -698,6 +698,7 @@ const Profilo: React.FC<{
         let articoliVisualizzati;
         articoliVisualizzati = personal_article.map((art) => {
             if (art.articolo.userId === localStorage.getItem('userId')) {
+                console.log(mount);
                 return (
                     <AnteprimaArticolo
                         id={art.articolo._id}
@@ -713,7 +714,7 @@ const Profilo: React.FC<{
                         minuti={art.articolo.minuti}
                         disableMore={false}
                         showDropdown={idArticoloCambiamenti === art.articolo._id ? showDropdown : false}
-                   /*     mount={mount}*/
+                        mount={mount}
                         clickMenuHandler={clickMenuHandler}
                     /*    UpdateArticolo={this.props.clickUpdateArticolo}*/
                         clickHeart={() => clickHeartHandler(art)}

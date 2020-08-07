@@ -91,7 +91,7 @@ const clickHeartHandler = (art:any)=>{
         data = {data}
         minuti = {art.articolo.minuti}
         disableMore = {true}
-       /* mount = {mount}*/
+        mount = {mount}
         clickHeart = {() => clickHeartHandler(art)} 
         showDropdown={false}
         clickMenuHandler={()=>{}}

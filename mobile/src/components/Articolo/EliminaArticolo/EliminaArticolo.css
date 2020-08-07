@@ -1,0 +1,12 @@
+.BtnDiv{
+    margin: auto;
+    --ion-box-shadow-color:	var(--ion-color-danger, #f1453d);
+    box-shadow: -3px 3px 5px 1px;
+}
+
+.btn-si{
+    box-shadow: -3px 3px 5px 1px black;
+}
+.btn-no{
+    box-shadow: -3px 3px 5px 1px black;
+}   
