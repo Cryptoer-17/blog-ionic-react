@@ -25,7 +25,7 @@ const updateEmailFail = (state) =>{
 const updateEmailSuccess = (state)=>{
     return updateObject (state , {error : null, loading : false, esitoCaricamento: "Il cambio e-mail è stato completato"} );
 }
-/*
+
 const updatePasswordStart = (state)=>{
     return updateObject (state, {error:null, loading:true});
 } 
@@ -37,7 +37,7 @@ const updatePasswordSuccess = (state) =>{
 const updatePasswordFail = (state) =>{
     return updateObject (state, {error:null, loading:false, esitoCaricamento: "La procedure di cambio password non è stata completata. Si prega di riprovare più tardi"})
 }
-*/
+
 
 
 const loginStart = (state) =>{
@@ -90,10 +90,10 @@ const reducer = (state = initialState,action) => {
         case actionTypes.UPDATE_EMAIL_START:return updateEmailStart(state,action);
         case actionTypes.UPDATE_EMAIL_FAIL:return updateEmailFail(state, action);
         case actionTypes.UPDATE_EMAIL_SUCCESS : return updateEmailSuccess(state,action);
-        /*
+        
         case actionTypes.UPDATE_PASSWORD_START: return updatePasswordStart(state,action);
         case actionTypes.UPDATE_PASSWORD_SUCCESS: return updatePasswordSuccess(state,action);
-        case actionTypes.UPDATE_PASSWORD_FAIL : return updatePasswordFail(state,action);*/
+        case actionTypes.UPDATE_PASSWORD_FAIL : return updatePasswordFail(state,action);
 
         default: return state;
     }

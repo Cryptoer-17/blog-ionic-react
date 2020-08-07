@@ -2,7 +2,7 @@ export {
 login,
 logout,
 updateEmail,
-/*updatePassword,*/
+updatePassword,
 }from './auth';
 
 export {

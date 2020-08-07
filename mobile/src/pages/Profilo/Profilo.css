@@ -21,3 +21,13 @@
 .btn-change-email{
     margin-left: auto;
 }
+
+.btn-change-psw{
+    margin-left: auto;
+}
+
+.btn-close-modal-msg-err{
+    position: absolute;
+    top: 0;
+    right: 0;
+}

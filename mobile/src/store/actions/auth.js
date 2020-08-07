@@ -48,7 +48,7 @@ export const updateEmail = (email) =>{
         })
     }
 }
-/*
+
 export const updatePasswordStart = ()=>{
     return {
         type:actionTypes.UPDATE_PASSWORD_START
@@ -92,7 +92,7 @@ export const updatePassword = (props)=>{
             dispatch(updatePasswordFail())
         })
     }
-}*/
+}
 
 
 

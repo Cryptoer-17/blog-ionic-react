@@ -116,6 +116,7 @@ module.exports = {
     const filter = { _id: id };
     const user_find = await userRepository.findOneByUsername(user.username);
     if(user_find){
+      console.log(user.password);
       const hash = await bcrypt.hashSync(user.password, saltRounds);
     const updateUserPassword ={
       ...user_find._doc,

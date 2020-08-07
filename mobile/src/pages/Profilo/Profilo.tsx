@@ -7,6 +7,7 @@ import checkValidity from '../../utility/validation';
 import history from '../../utility/history';
 import './Profilo.css';
 import Modal from '../../components/UI/Modal/Modal';
+import axios from 'axios';
 
 const Profilo: React.FC<{
     loading:boolean,
@@ -21,10 +22,12 @@ const Profilo: React.FC<{
     onUpdateData:(profile:any, profiloReducer:any)=>void,
     onUpdateArticolo:(updateArticolo:any, idArticolo:string)=>void,
     onSendData:(profile:any)=>void,
-    onChangeEmail:(email:string)=>void
+    onChangeEmail:(email:string)=>void,
+    onChangePassword:(password:string)=>void
 }> = (props)=>{
 
-    const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData, onChangeEmail } = props;
+    const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData, onChangeEmail,
+        onChangePassword } = props;
 
     
 
@@ -33,8 +36,8 @@ const Profilo: React.FC<{
     const [presentazioneInput, setPresentazioneInput] = useState(false);
     const [modificaDati,setModificaDati]=useState(false);
     const [showDropdown,setShowDropdown]=useState(null);
-    const [messageModalPassord,setMessageModalPassord]=useState(null);
-    const [modalPassword,setModalPassword]=useState(null);
+    const [messageModalPassord,setMessageModalPassord]=useState<any>();
+    const [modalPassword,setModalPassword]=useState<boolean>(false);
     const [descrizione,setDescrizione]=useState<string>();
     const [email,setEmail]=useState<any>({
         elementType: 'input',
@@ -50,9 +53,52 @@ const Profilo: React.FC<{
         touched: false
     },);
     const [emailIsValid,setEmailIsValid]=useState<boolean>();
-    const [password,setPassword]=useState(null);
+    const [password,setPassword]=useState<any>({
+        oldpassword:{
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Vecchia password'
+            },
+            validation: {
+                minLength: 6,
+                required:true
+            },
+            value: '',
+            valid: false,
+            touched: false
+        },
+        newpassword1:{
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Nuova password'
+            },
+            validation: {
+                minLength: 6,
+                required:true
+            },
+            value: '',
+            valid: false,
+            touched: false
+        },
+        newpassword2:{
+            elementType: 'input',
+            elementConfig: {
+                type: 'password',
+                placeholder: 'Nuova password'
+            },
+            validation: {
+                minLength: 6,
+                required:true
+            },
+            value: '',
+            valid: false,
+            touched: false
+        }
+    });
     const [profileForm,setProfileForm]:any=useState();
-    const [passwordIsValid,setPasswordIsValid]=useState(null);
+    const [passwordIsValid,setPasswordIsValid]=useState<boolean>(false);
     const [formIsValid,setFormIsValid]=useState(true);
     const [idArticoloCambiamenti,setIdArticoloCambiamenti]=useState(null);
     const [show,setShow]=useState(false);
@@ -167,6 +213,13 @@ const Profilo: React.FC<{
 
     const descrizioneChangeHandler = (event:any) => {
         setDescrizione(event.target.value);
+    }
+
+    const hideModalPassword = () => {
+        setModalPassword(false);
+    }
+    const showModalPassword = () => {
+        setModalPassword(true);
     }
 
     const showModal = () => {
@@ -351,7 +404,94 @@ const Profilo: React.FC<{
         onChangeEmail(email.value);
         setTimeout(() => {   
                 window.location.reload();
-        }, 2500)
+        }, 4000)
+    }
+
+    const inputChangePassword = (event:any , inputIdentifier:any) =>{
+        const updatedPasswordForm = {
+            ...password
+        }
+        const updatedPasswordElement = {
+            ...updatedPasswordForm[inputIdentifier]
+        }
+        updatedPasswordElement.value = event.target.value;
+        updatedPasswordElement.valid = checkValidity(updatedPasswordElement.value, updatedPasswordElement.validation);
+        updatedPasswordElement.touched = true;
+        updatedPasswordForm[inputIdentifier] = updatedPasswordElement;
+        let passwordIsValid = true;
+        for(let inputIdentifier in updatedPasswordForm){
+            passwordIsValid = updatedPasswordForm[inputIdentifier].valid && passwordIsValid;
+        }
+        setPassword(updatedPasswordForm);
+        setPasswordIsValid(passwordIsValid);
+
+    }
+
+
+    const passswordChangeHandler = ()=>{
+       let errorePassword=false;
+        let passwordData:any = {};
+        for (let passwordElementIdentifier in password) {
+            passwordData[passwordElementIdentifier] = password[passwordElementIdentifier].value;
+        }
+         const psw ={
+            oldpassword:passwordData.oldpassword,
+            newpassword1:passwordData.newpassword1,
+            newpassword2:passwordData.newpassword2
+        }
+        let url = 'http://localhost:4001/login';
+        const authData ={
+            username : localStorage.getItem("email"),
+            password:psw.oldpassword,
+          }
+          axios.post(url,authData)
+          .then(response=>{
+          })
+          .catch(error =>{
+            errorePassword=true;
+            showModalPassword();
+            setMessageModalPassord(<Modal show={true} modalClosed={()=>hideModalPassword()}>
+                <IonItem>
+                    <IonText><b>Errore!!</b></IonText>
+                </IonItem>
+                <IonItem lines="none">
+                    <IonText color="dark">La vecchia password inserita non corrisponde a quella memorizzata,
+                     si prega di reinserire correttamente la vecchia password.</IonText>
+                </IonItem>
+        </Modal>)
+           setTimeout(()=>{
+                window.location.reload();
+           },4500)
+
+          })
+
+          if(psw.newpassword1 !== psw.newpassword2){
+              console.log("entrato");
+            errorePassword=true;
+            showModalPassword();
+            setMessageModalPassord(<Modal show={true} modalClosed={()=>hideModalPassword()}>
+                <IonItem>
+                    <IonText color="dark"><b>Errore!!</b></IonText>
+                </IonItem>
+                <IonItem lines="none">
+                    <IonText color="dark">Purtroppo la nuova password inserita non risulta uguale in entrambi i campi, 
+                    si prega di reinserire correttamente la nuova password da utilizzare.</IonText>
+                </IonItem>   
+            </Modal>)
+            setTimeout(()=>{
+                window.location.reload();
+            },4500)
+          }
+
+          if(!errorePassword){
+              //completo il cambio password
+              showModal();
+              onChangePassword(psw.newpassword1);
+              setTimeout(() => {
+                    window.location.reload();
+            }, 2500)
+          }
+
     }
 
     let emailVar;
@@ -362,18 +502,68 @@ const Profilo: React.FC<{
     let presentazioneVisualizzata;
     let btnInviaInfo = null;
 
+
+
+    let passwordElementsArray = [];
+        for(let key in password){
+            passwordElementsArray.push({
+                id:key,
+                psw:password[key]
+            })
+        }
+
+        modificaPassword = (<React.Fragment><IonItem lines="none">
+            <IonText><b>MODIFICA PASSWORD</b></IonText>
+        </IonItem>
+        {passwordElementsArray.map((elementArray)=>{
+            console.log(elementArray);
+            return <IonItem key={elementArray.id} className={!elementArray.psw.valid && elementArray.psw.touched ? 'Invalid' : ''}>
+                <IonInput  
+                type="password" 
+                value={elementArray.psw.value} 
+                placeholder={elementArray.psw.elementConfig.placeholder}
+                onIonChange={(event) => inputChangePassword(event, elementArray.id)}></IonInput>
+            </IonItem>
+        })}
+        <IonItem lines="none">
+            <IonButton color="dark" fill="outline" onClick={passswordChangeHandler} disabled={!passwordIsValid} class="btn-change-psw">
+                <IonIcon slot="start" icon={paperPlane}></IonIcon>
+                <IonLabel>Modifica la password</IonLabel>
+            </IonButton>
+        </IonItem>
+        </React.Fragment>)
+   /*     modificaPassword = ( <div><h3>MODIFICA PASSWORD</h3>
+           {passwordElementsArray.map(elementArray=>(
+               <Input
+                    key={elementArray.id}
+                    type={elementArray.psw.elementType}
+                    config={elementArray.psw.elementConfig}
+                    value={elementArray.psw.value}
+                    changed={(event) => this.inputChangePassword(event, elementArray.id)}
+                    touched = {elementArray.psw.touched}
+                    shouldValidate = {elementArray.psw.validation}
+                    valid = {elementArray.psw.valid}
+                    click = {this.doNothing}
+               />
+           ))}
+          <button className={classes.ButtonSend} onClick={this.passswordChangeHandler} disabled={!passwordIsValid} ><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Modifica la password</button>
+            <br/>
+        </div>
+        )*/
+
+
     modificaEmail = (
         <React.Fragment>
             <IonItem lines="none">
                 <IonText><b>MODIFICA EMAIL</b></IonText>
             </IonItem>
-            <IonItem>
+            <IonItem className={!emailIsValid && email.touched ? 'Invalid' : ''}>
                 <IonInput 
                 value={email.value}
                 onIonChange={(event)=>inputChangeEmail(event)}
                 ></IonInput>
             </IonItem>
-            <IonItem lines="none">   
+            <IonItem lines="none" >   
                 <IonButton 
                     onClick={handlerChangeEmail} 
                     disabled={!emailIsValid}
@@ -388,22 +578,7 @@ const Profilo: React.FC<{
            
         </React.Fragment>
     )
-    /*
-    modificaEmail = (<div><h3>MODIFICA EMAIL</h3>
-        <Input
-            type={email.elementType}
-            config={email.elementConfig}
-            value={email.value}
-            changed={(event) => this.inputChangeEmail(event)}
-            touched={email.touched}
-            shouldValidate={email.validation}
-            valid={email.valid}
-            click = {this.doNothing}
-        />
-    <button className={classes.ButtonSend} onClick={this.handlerChangeEmail} disabled={!emailIsValid} ><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Modifica l'e-mail</button>
-        <br/>
-    </div>)*/
-
+  
 
     {presentazione === false && presentazioneInput === false? 
         presentazioneVisualizzata = <IonButton onClick={() => handlerClickPresentazioneInput()} fill="clear"><IonLabel class="ion-text-lowercase label-breve-presentazione" color="primary">Aggiungi una breve presentazione</IonLabel></IonButton>
@@ -483,7 +658,7 @@ const Profilo: React.FC<{
         <IonCard>
             <IonCardContent>
                 { modificaEmail}
-                {/* modificaPassword */}
+                {modificaPassword}
                 <IonItem lines="none">
                     <IonText><b>MODIFICA I TUOI DATI</b></IonText>
                 </IonItem>
@@ -523,6 +698,7 @@ const Profilo: React.FC<{
             </IonToolbar>
             </IonHeader>
             <IonContent>
+            {modalPassword ? messageModalPassord : null}
             {!loading ? modal : null}
                 <IonTitle class="ion-text-center text-profilo-persona ion-margin-top" size="large">Profilo Persona</IonTitle>
                 <IonCard class="ion-margin-bottom">
@@ -610,7 +786,7 @@ const mapDispatchToProps = (dispatch:any) => {
         onUpdateData: (data:any, idProfilo:string) => dispatch(actions.updateData(data, idProfilo)),
         onUpdateArticolo: (articolo:any, idArticolo:string) => dispatch(actions.updateArticolo(articolo, idArticolo)),
         onChangeEmail : (email:string) => dispatch(actions.updateEmail(email)),
-      /*  onChangePassword:(password:string) => dispatch(actions.updatePassword(password))*/
+        onChangePassword:(password:string) => dispatch(actions.updatePassword(password))
     };
 };
 
