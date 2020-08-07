@@ -123,13 +123,14 @@ const Articolo: React.FC<{
     if(articolo != null){
         if (articolo?.tags.length) {
             const newtags = [...articolo.tags];
+            
             tags = newtags.map((tag, index) => {
-                return (
-                    <div className={'Tag'} key={index}>
-                        <Tag click={()=>{}}>{tag}</Tag>
-                    </div>
+                return (            
+                        <Tag click={()=>{}} key={index}>{tag}</Tag>
                 );
             })
+
+        tags = <IonItem class="margin-auto" lines="none">{tags}</IonItem>
         }
         articolo.like.map((object:any) => {
             if (object.username === localStorage.getItem("username")) {

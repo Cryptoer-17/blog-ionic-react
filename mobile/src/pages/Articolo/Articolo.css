@@ -1,8 +1,4 @@
-.Tag{
-    
-    margin-bottom: 10px;
-    margin: auto;
-}
+
 
 .CardContent{
     margin: auto;
@@ -19,4 +15,8 @@
 
 .border-solid{
     border: 1px solid black;
+}
+
+.margin-auto{
+    margin: auto;
 }
