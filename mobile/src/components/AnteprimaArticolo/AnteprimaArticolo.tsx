@@ -24,20 +24,18 @@ const AnteprimaArticolo: React.FC<{
 }>= (props) => {
 
   const { autore, titolo, sottotitolo,categoria, img, descrizione, clickHeart, data, minuti, id ,showDropdown, like,ricerca,clickMenuHandler,disableMore} = props;
-  const [showModalDelete, setShowModalDelete] = useState(false);
+  const [, setShowModalDelete] = useState(false);
   
-
   const viewMessageArticle = (id:string) => {
-    document.getElementById(id)!.click()
-    setTimeout(() => {
-        document.getElementById("messageIcon")!.click();
-    }, 1000);
-}
+        document.getElementById(id)!.click()
+        setTimeout(() => {
+            document.getElementById("messageIcon")!.click();
+        }, 1000);
+    }
 
     const clickModalDelete = () => {
         setShowModalDelete(true);
     }
-
     
   let showModalDeleteVar;
   let colore = 'dark';
@@ -75,10 +73,8 @@ const AnteprimaArticolo: React.FC<{
         </div>
        </IonItem>
        <ActionBar id={id} showdropdown={showDropdown}  viewComments={() => viewMessageArticle(id)} modalDelete={() => clickModalDelete()} clickMenu={clickMenuHandler} disableMore={disableMore} color={colore} onClick={clickHeart} ricerca={ricerca}></ActionBar>
-      
    </IonCard>
       
-    
   return (
     <div >
         {showModalDeleteVar ? showModalDeleteVar : null}

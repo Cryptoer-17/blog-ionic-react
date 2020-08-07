@@ -14,22 +14,21 @@ const Comments: React.FC<{
     articolo:any,
     clickSendMessage:(props:any)=>void
 }> = (props) => {
-    
-    const [showModalDelete,setShowModalDelete] = useState(false);
-    const [indexmsg,setIndexSmg] = useState(0);
+  const { clickSendMessage, articolo } = props;
+  
+  const [showModalDelete,setShowModalDelete] = useState(false);
+  const [indexmsg,setIndexSmg] = useState(0);
 
-    useEffect(()=>{
-      if (props.articolo.messaggi !== undefined) {
-        if (props.articolo.messaggi.length > 1) {
-            document.getElementById("divCommts")!.style.height = '400px';
-            document.getElementById("divCommts")!.style.overflow = 'scroll';
-        }
-    }
-    },[props.articolo.messaggi]);
-
-  const clickModalDelete = ()=> {
-      setShowModalDelete(true);
+  useEffect(()=>{
+    if (props.articolo.messaggi !== undefined) {
+      if (props.articolo.messaggi.length > 1) {
+          document.getElementById("divCommts")!.style.height = '400px';
+          document.getElementById("divCommts")!.style.overflow = 'scroll';
+      }
   }
+  },[props.articolo.messaggi]);
+
+  
   const hideModalDelete = () => {
       setShowModalDelete(false);
   }
@@ -40,7 +39,7 @@ const Comments: React.FC<{
   }
 
 
-  const { clickSendMessage, articolo } = props;
+
   let showModalDeleteVar;
   let tempUserArray:any[] = [];
   let colorArray = ['primary', 'secondary', 'tertiary', 'success', 'warning', 'danger', 'dark', 'medium'];

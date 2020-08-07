@@ -16,7 +16,7 @@ const RisultatiRicerca: React.FC<{
 
     const [classeCat,setClasseCat] = useState('');
     const [classeTag,setClasseTag] = useState('');
-    const [cerca,setCerca] = useState('');
+    const [,setCerca] = useState('');
     useEffect(()=>{
         setCerca(props.cerca);
         document.getElementById("filtroCategoria")!.click();

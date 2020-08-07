@@ -14,7 +14,7 @@ const ActionBar: React.FC<{
     onClick:()=>void,
     ricerca:boolean
 }> = (props) => {
-    const { disableMore,showdropdown, id, ricerca,viewComments,modalDelete, clickMenu,color, onClick } = props;
+    const { disableMore,showdropdown, id, ricerca,color } = props;
   return (
     <IonGrid>
         <IonRow>

@@ -26,16 +26,16 @@ const Profilo: React.FC<{
     onChangePassword:(password:string)=>void
 }> = (props)=>{
 
-    const { loading, mount, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData, onChangeEmail,
+    const { loading, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData, onChangeEmail,
         onChangePassword } = props;
 
     
 
     const [anteprimaImg,setAnteprimaImg]:any=useState();
-    const [presentazione,setPresentazione]=useState(false);
+    const [presentazione,]=useState(false);
     const [presentazioneInput, setPresentazioneInput] = useState(false);
     const [modificaDati,setModificaDati]=useState(false);
-    const [showDropdown,setShowDropdown]=useState(null);
+   
     const [messageModalPassord,setMessageModalPassord]=useState<any>();
     const [modalPassword,setModalPassword]=useState<boolean>(false);
     const [descrizione,setDescrizione]=useState<string>();
@@ -100,7 +100,6 @@ const Profilo: React.FC<{
     const [profileForm,setProfileForm]:any=useState();
     const [passwordIsValid,setPasswordIsValid]=useState<boolean>(false);
     const [formIsValid,setFormIsValid]=useState(true);
-    const [idArticoloCambiamenti,setIdArticoloCambiamenti]=useState(null);
     const [show,setShow]=useState(false);
     const [errorMessage,seterrorMessage]=useState<string>('');
     const [img,setImg]= useState<any>();
@@ -248,7 +247,6 @@ const Profilo: React.FC<{
              descrizione: descrizione
         }
 
-        console.log(profili);
         //faccio il controllo che l'username scelto se inserito, non sià già in uso
        let c = 0;
         if(formData.username.trim() !== ''){
@@ -314,11 +312,6 @@ const Profilo: React.FC<{
                         window.location.reload();
                     },2000)
                 }
-           /* setTimeout(() => {
-                if (caricamentoProfilo === "I dati sono stati inviati/modificati con successo.") {
-                    window.location.reload();
-                }
-            }, 2000);*/
        }else {
             seterrorMessage('Errore nell\'aggiornare il profilo. L\'username scelto è già in uso');
             setTimeout(()=>{
@@ -345,7 +338,6 @@ const Profilo: React.FC<{
         }
         updatedFormElement.value = event.target.value;
         updatedFormElement.valid = checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        console.log(updatedFormElement);
         updatedFormElement.touched = true;
         updatedprofileForm[inputIdentifier] = updatedFormElement;
         let formIsValid = true;
@@ -354,13 +346,11 @@ const Profilo: React.FC<{
         }
         setProfileForm(updatedprofileForm);
         setFormIsValid(formIsValid);
-
     }
 
 
     const convertFile = (e:any) => {
         let reader = new FileReader();
-        console.log("cliccato");
         if (e !== undefined) {
             reader.readAsDataURL(e);
             reader.onloadend = () => {
@@ -373,7 +363,7 @@ const Profilo: React.FC<{
             setImg(null);
             setAnteprimaImg(null);
             let inputFile:any = document.getElementById("inputFile");
-            inputFile.value = null; /** vedere se click close è corretto */
+            inputFile.value = null; 
         }
     };
 
@@ -382,7 +372,7 @@ const Profilo: React.FC<{
         setAnteprimaImg(null);
         setImg(null);   
         let inputFile:any = document.getElementById("inputFile");
-        inputFile.value = null; /** vedere se click close è corretto */
+        inputFile.value = null; 
     }
 
 
@@ -462,11 +452,9 @@ const Profilo: React.FC<{
            setTimeout(()=>{
                 window.location.reload();
            },4500)
-
-          })
+        })
 
           if(psw.newpassword1 !== psw.newpassword2){
-              console.log("entrato");
             errorePassword=true;
             showModalPassword();
             setMessageModalPassord(<Modal show={true} modalClosed={()=>hideModalPassword()}>
@@ -516,7 +504,6 @@ const Profilo: React.FC<{
             <IonText><b>MODIFICA PASSWORD</b></IonText>
         </IonItem>
         {passwordElementsArray.map((elementArray)=>{
-            console.log(elementArray);
             return <IonItem key={elementArray.id} className={!elementArray.psw.valid && elementArray.psw.touched ? 'Invalid' : ''}>
                 <IonInput  
                 type="password" 
@@ -532,24 +519,6 @@ const Profilo: React.FC<{
             </IonButton>
         </IonItem>
         </React.Fragment>)
-   /*     modificaPassword = ( <div><h3>MODIFICA PASSWORD</h3>
-           {passwordElementsArray.map(elementArray=>(
-               <Input
-                    key={elementArray.id}
-                    type={elementArray.psw.elementType}
-                    config={elementArray.psw.elementConfig}
-                    value={elementArray.psw.value}
-                    changed={(event) => this.inputChangePassword(event, elementArray.id)}
-                    touched = {elementArray.psw.touched}
-                    shouldValidate = {elementArray.psw.validation}
-                    valid = {elementArray.psw.valid}
-                    click = {this.doNothing}
-               />
-           ))}
-          <button className={classes.ButtonSend} onClick={this.passswordChangeHandler} disabled={!passwordIsValid} ><IoIosSend style={{ verticalAlign: 'middle', marginRight: '4px' }} />Modifica la password</button>
-            <br/>
-        </div>
-        )*/
 
 
     modificaEmail = (
@@ -574,8 +543,7 @@ const Profilo: React.FC<{
                         <IonIcon icon={paperPlane} slot="start"></IonIcon>
                         <IonLabel>Modifica l'e-mail</IonLabel>
                 </IonButton>
-            </IonItem>
-           
+            </IonItem>    
         </React.Fragment>
     )
   
@@ -586,7 +554,6 @@ const Profilo: React.FC<{
         (btnInviaInfo = <IonButton class="ion-float-right" onClick={orderHandler} fill="outline" color="dark" disabled={!formIsValid}><IonIcon icon={paperPlane} slot="start"></IonIcon><IonLabel>Invia breve presentazione</IonLabel></IonButton>))
     }
 
-    console.log(profileForm);
 
     const formElemetsArray = [];
         for (let key in profileForm) {
@@ -598,15 +565,12 @@ const Profilo: React.FC<{
         }
     let form = (
         formElemetsArray.map(formElement=>{
-            console.log(formElement);
             return formElement.id !== 'sesso' && formElement.id !== 'nazionalita' && formElement.id !== 'username' ?(<React.Fragment key={formElement.id}><IonItem class="ion-margin-top" className={!formElement.config.valid && formElement.config.touched ? 'Invalid' : ''}>
                  <IonInput 
                 type={formElement.config.elementConfig.type} 
                 placeholder={formElement.config.elementConfig.placeholder}
                 value={formElement.config.value} 
-                onIonChange={(event) => inputChangedHandler(event, formElement.id)}
-                
-               /* className={!emailValid  ? 'Invalid' : ''}*/
+                onIonChange={(event) => inputChangedHandler(event, formElement.id)}      
                 /></IonItem>
                  {!formElement.config.valid && formElement.config.touched && formElement.id === 'numeroTelefono' && (
                     <IonItem lines="none"><IonLabel>Il campo deve contenere 10 numeri</IonLabel></IonItem>)}
@@ -681,7 +645,7 @@ const Profilo: React.FC<{
 
     let modal = null;
     if (loading === false ||  loadingLogin === false) {
-        modal = (<Modal show={show} modalClosed={/*this.hideModal*/ ()=>{}}>
+        modal = (<Modal show={show} modalClosed={()=>{}}>
              <IonLabel color="dark">{esito === '' ? null : esito}</IonLabel>
              <IonLabel color="dark">{esitoLogin === '' ? null : esitoLogin}</IonLabel>
             <IonLabel color="dark">{errorMessage === '' ? null : errorMessage}</IonLabel>
@@ -779,9 +743,6 @@ const mapStateToProps = (state:any) => {
 
 const mapDispatchToProps = (dispatch:any) => {
     return {
-        // onGoogleAuth: () => dispatch(actions.googleAuth()),
-        // onLogin : (email,password,isSignup,errore) => dispatch(actions.login(email,password,isSignup,errore)),
-        // onSetLoginRedirectPath: () => dispatch(actions.setLoginRedirectPath('/'))
         onSendData: (data:any) => dispatch(actions.sendData(data)),
         onUpdateData: (data:any, idProfilo:string) => dispatch(actions.updateData(data, idProfilo)),
         onUpdateArticolo: (articolo:any, idArticolo:string) => dispatch(actions.updateArticolo(articolo, idArticolo)),

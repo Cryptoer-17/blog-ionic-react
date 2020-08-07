@@ -36,16 +36,14 @@ const Username: React.FC<{
         setIsFormValid(formIsValid);  
     }
 
-    const handlerClickConfirm = ()=>{
-        
-            if(isFormValid){
-              props.onSetUsername(username); 
-            setTimeout(()=>{
-              window.location.reload();
-            },2000)
-            setTimeout(modalClosed,1000);
-            }
-          
+    const handlerClickConfirm = ()=>{      
+        if(isFormValid){
+            props.onSetUsername(username); 
+        setTimeout(()=>{
+            window.location.reload();
+        },2000)
+        setTimeout(modalClosed,1000);
+        }      
     }
 
     let contenutoModale = <Spinner/>

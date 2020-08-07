@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { IonPage, IonHeader, IonToolbar, IonContent, IonButtons, IonButton, IonItem,   IonModal, IonTitle} from '@ionic/react';
 import Login from "../../components/Login/Login";
-import * as actions from '../../store/actions/index';
 import {connect } from 'react-redux';
 import './MainPage.css';
 

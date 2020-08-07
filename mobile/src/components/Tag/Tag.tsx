@@ -3,7 +3,6 @@ import './Tag.css';
 import { IonCardSubtitle } from '@ionic/react';
 import { useLocation } from 'react-router-dom';
 
-
 const Tag: React.FC<{
   click:()=>void
 }> = (props) => {

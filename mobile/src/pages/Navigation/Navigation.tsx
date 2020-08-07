@@ -10,14 +10,12 @@ const Navigation: React.FC<{
 }> = (props)=>{
 
 
-    const {idProfilo,error} = props;
+    const {idProfilo} = props;
 
     const [show, setShow] = useState(false);
-    const [showmsg, setShowMsg] = useState(false);
+    const [, setShowMsg] = useState(false);
 
-    const showMessage = () => {
-        setShowMsg(true);
-    }
+   
     const hideMessage = () => {
         setShowMsg(false);
     }

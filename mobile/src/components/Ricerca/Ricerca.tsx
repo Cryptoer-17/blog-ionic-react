@@ -1,34 +1,28 @@
 import React, { useState } from 'react';
-import {  IonItem, IonInput, IonButton, IonIcon, IonNav } from '@ionic/react';
+import {  IonItem, IonInput, IonButton, IonIcon } from '@ionic/react';
 import { searchOutline} from 'ionicons/icons';
 import * as actions from '../../store/actions/index';
 import {connect} from 'react-redux';
-import history from '../../utility/history';
-
 import './Ricerca.css';
-
 
 const Ricerca: React.FC<{
     onStartRicerca:(props:any)=>void,
 }> = (props) => {
 
-    const {onStartRicerca} = props;
+const {onStartRicerca} = props;
+const [textRicerca, setTextRicerca] = useState<string>('');
 
-    const [textRicerca, setTextRicerca] = useState<string>('');
+const changeTextRicerca = (text:string)=>{
+    setTextRicerca(text);
+}
 
-    const changeTextRicerca = (text:string)=>{
-        setTextRicerca(text);
+const clickHandler = () =>{
+    if(textRicerca !== ""){
+        onStartRicerca(textRicerca);
     }
+}
 
-    const clickHandler = () =>{
-        if(textRicerca !== ""){
-            onStartRicerca(textRicerca);
-        }
-    }
-
-  
-
-  return (
+return (
          <IonItem  lines="none" class="ricerca" >
             <IonInput 
             type="text" 
