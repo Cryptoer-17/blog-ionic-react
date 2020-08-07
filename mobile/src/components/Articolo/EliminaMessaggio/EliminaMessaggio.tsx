@@ -31,27 +31,26 @@ const EliminaMessaggio: React.FC<{
         setTimeout(() => {
             props.cmpDidMount();
         }, 300);
-       
     }
 
   return (
     <>
-            {loading ? <Spinner /> : null}
-            <IonTitle>SEI SICURO DI VOLER </IonTitle>
-            <IonTitle>ELIMINARE IL MESSAGGIO?</IonTitle>
-            <IonButton 
-            id="buttonDelete" 
-            class="ion-margin-start" 
-            onClick={clickBtnSi} 
-            onMouseEnter={()=>document.getElementById('buttonDelete')!.setAttribute("color","danger")} 
-            onMouseLeave={()=>document.getElementById('buttonDelete')!.setAttribute("color","primary")}
-            >SI</IonButton>
-            <IonButton 
-            id="buttonNoDelete" 
-            onClick={props.hideModal}
-            onMouseEnter={()=>document.getElementById('buttonNoDelete')!.setAttribute("color","success")} 
-            onMouseLeave={()=>document.getElementById('buttonNoDelete')!.setAttribute("color","primary")}
-            >NO</IonButton>
+        {loading ? <Spinner /> : null}
+        <IonTitle>SEI SICURO DI VOLER </IonTitle>
+        <IonTitle>ELIMINARE IL MESSAGGIO?</IonTitle>
+        <IonButton 
+        id="buttonDelete" 
+        class="ion-margin-start" 
+        onClick={clickBtnSi} 
+        onMouseEnter={()=>document.getElementById('buttonDelete')!.setAttribute("color","danger")} 
+        onMouseLeave={()=>document.getElementById('buttonDelete')!.setAttribute("color","primary")}
+        >SI</IonButton>
+        <IonButton 
+        id="buttonNoDelete" 
+        onClick={props.hideModal}
+        onMouseEnter={()=>document.getElementById('buttonNoDelete')!.setAttribute("color","success")} 
+        onMouseLeave={()=>document.getElementById('buttonNoDelete')!.setAttribute("color","primary")}
+        >NO</IonButton>
     </>
   );
 };

@@ -8,6 +8,7 @@ import history from '../../utility/history';
 import './Profilo.css';
 import Modal from '../../components/UI/Modal/Modal';
 import axios from 'axios';
+import AnteprimaArticolo from '../../components/AnteprimaArticolo/AnteprimaArticolo';
 
 const Profilo: React.FC<{
     loading:boolean,
@@ -27,7 +28,7 @@ const Profilo: React.FC<{
 }> = (props)=>{
 
     const { loading, loadingLogin,esito,  esitoLogin, profilo, articoli,profili, profiloReducer, onUpdateData, onUpdateArticolo, onSendData, onChangeEmail,
-        onChangePassword } = props;
+        onChangePassword,mount  } = props;
 
     
 
@@ -103,7 +104,8 @@ const Profilo: React.FC<{
     const [show,setShow]=useState(false);
     const [errorMessage,seterrorMessage]=useState<string>('');
     const [img,setImg]= useState<any>();
-
+    const [idArticoloCambiamenti, setIdArticoloCambiamenti] = useState<string>();
+    const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     useEffect(()=>{
         setDescrizione('' + profilo.descrizione + '');
@@ -482,6 +484,44 @@ const Profilo: React.FC<{
 
     }
 
+
+    const clickHeartHandler = (art:any)=> {
+        let length = art.articolo.like.length;
+        let c = 0;
+        let heartChange = art.articolo.like.map((object:any) => {
+            if (object.username === localStorage.getItem("username")) {
+                object.like = !object.like
+            }
+            else {
+                c++;
+            }
+            return object
+        })
+        if (c === length) {
+            heartChange.push({ like: true, username: localStorage.getItem("username") })
+        }
+        const anteprima = {
+            ...art.articolo,
+            like: heartChange
+        }
+        const id = art.articolo._id;
+        let config = {
+            headers: {
+                authorization: 'Bearer '+ localStorage.getItem("token"),
+            }
+          }
+        axios.put('http://localhost:4001/articolo/update/' + id , anteprima,config)
+            .then(response => {
+                mount();
+            })
+            .catch(error => console.log(error));
+    }
+
+    const clickMenuHandler = (props:any) => {
+        setShowDropdown(!showDropdown);
+        setIdArticoloCambiamenti(props);
+     }
+
     let emailVar;
     let modificaEmail;
     let modificaPassword;
@@ -652,7 +692,36 @@ const Profilo: React.FC<{
         </Modal>);
     }
 
-    
+
+    const personal_article = [...articoli];
+
+        let articoliVisualizzati;
+        articoliVisualizzati = personal_article.map((art) => {
+            if (art.articolo.userId === localStorage.getItem('userId')) {
+                return (
+                    <AnteprimaArticolo
+                        id={art.articolo._id}
+                        autore={art.articolo.autore}
+                        categoria={art.articolo.categoria}
+                        descrizione={art.articolo.descrizione}
+                        img={art.articolo.img}
+                        like={art.articolo.like}
+                        sottotitolo={art.articolo.sottotitolo}
+                        testo={art.articolo.testo}
+                        titolo={art.articolo.titolo}
+                        data={art.articolo.data}
+                        minuti={art.articolo.minuti}
+                        disableMore={false}
+                        showDropdown={idArticoloCambiamenti === art.articolo._id ? showDropdown : false}
+                   /*     mount={mount}*/
+                        clickMenuHandler={clickMenuHandler}
+                    /*    UpdateArticolo={this.props.clickUpdateArticolo}*/
+                        clickHeart={() => clickHeartHandler(art)}
+                        ricerca={false}
+                        key={art.key} />
+                );
+            } else return null;
+        })
 
     return(
         <IonPage>
@@ -721,9 +790,8 @@ const Profilo: React.FC<{
                         <IonButton class="ion-float-right" fill="outline" color="dark" onClick={() => handlerModificaDati()}><IonIcon icon={mail} slot="start"></IonIcon><IonLabel>Mostra dati da modificare</IonLabel></IonButton>
                     </IonCardContent>
                 </IonCard>
-
                 {(modificaDati) ? pageModificaDati : null}
-
+                {articoliVisualizzati}
             </IonContent>
         </IonPage>
     );

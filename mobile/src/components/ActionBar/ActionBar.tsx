@@ -8,7 +8,7 @@ const ActionBar: React.FC<{
     showdropdown:boolean,
     viewComments:()=>void,
     modalDelete:()=>void,
-    clickMenu:()=>void,
+    clickMenu:(props:any)=>void,
     disableMore:boolean,
     color:string,
     onClick:()=>void,
@@ -29,12 +29,12 @@ const ActionBar: React.FC<{
                 </IonButtons>}
             </IonCol>
             <IonCol sizeSm="2" size="2">
-               {disableMore || ricerca ? null : <IonButton fill="clear" color="dark">
+               {disableMore || ricerca ? null : <IonButton fill="clear" color="dark" onClick={()=>props.clickMenu(props.id)}>
                     <IonIcon icon={ellipsisHorizontalOutline} size="large"></IonIcon>
                 </IonButton> }
                 <div className={showdropdown ? 'DropdownContentBlock' : 'DropdownContent'}>
-                    <IonButton onClick={() => props.modalDelete()}>Elimina</IonButton>
-                    <IonButton routerLink={'/modifica/'+id} >
+                    <IonButton onClick={() => props.modalDelete()} fill="clear"  color="dark">Elimina</IonButton>
+                    <IonButton routerLink={'/modifica/'+id} fill="clear" color="dark">
                         Modifica
                     </IonButton>
                 </div>

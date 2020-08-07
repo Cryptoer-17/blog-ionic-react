@@ -161,9 +161,6 @@ const Login: React.FC<{
     );
   };
 
-
-
-
 const mapDispatchToProps = (dispatch:any) => {
     return{
    onLogin : (email:string,password:string,isSignup:boolean) => dispatch(actions.login(email,password,isSignup)),

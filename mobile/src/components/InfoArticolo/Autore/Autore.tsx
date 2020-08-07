@@ -7,7 +7,6 @@ const Autore: React.FC<{
 }> = (props) => {
     const { name} = props;
   return (
-
     <React.Fragment>
         <IonIcon icon={personCircleOutline} class="ion-float-left"></IonIcon>
       <IonCardSubtitle >{name}</IonCardSubtitle>

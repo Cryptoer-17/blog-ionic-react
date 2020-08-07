@@ -17,7 +17,7 @@ const AnteprimaArticolo: React.FC<{
     minuti:number,
     clickHeart:()=>void,
     showDropdown:boolean,
-    clickMenuHandler:()=>void,
+    clickMenuHandler:(props:any)=>void,
     disableMore:boolean,
     ricerca:boolean,
     testo:string

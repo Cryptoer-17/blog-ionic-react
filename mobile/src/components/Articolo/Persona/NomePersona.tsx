@@ -4,7 +4,7 @@ import { IonTitle } from '@ionic/react';
 const NomePersona: React.FC<{
     userArray:any
 }>= (props) => {
-
+  
     let colore;
     props.userArray.map((userPropriety:any)=>{
         if(userPropriety.username === props.children){
