@@ -70,7 +70,8 @@ const RisultatiRicerca: React.FC<{
                     clickHeart={()=>{}}
                     showDropdown={false}
                     clickMenuHandler={()=>{}}
-                    disableMore={true}/>          
+                    disableMore={true}
+                    mount={()=>{}}/>          
                     )
                 :  <IonItem lines="none" class="ion-margin-top"><IonText class="text-nothing-result">Nessun risultato.</IonText></IonItem>}   
                 </IonList>

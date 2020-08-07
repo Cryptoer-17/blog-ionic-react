@@ -671,7 +671,7 @@ const Profilo: React.FC<{
                     <IonText><b>MODIFICA LA TUA FOTO PROFILO</b></IonText>
                 </IonItem>
                 <IonItem lines="none">
-                    <IonButton onClick={() => document.getElementById("inputFile")!.click()} color="dark" fill="outline"><IonIcon icon={camera} slot="start"></IonIcon><IonLabel>Carica foto profilo</IonLabel></IonButton>
+                    <IonButton onClick={() => document.getElementById("inputFile")!.click()} color="dark" fill="outline" ><IonIcon icon={camera} slot="start"></IonIcon><IonLabel>Carica foto profilo</IonLabel></IonButton>
                     <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={(event:any) => convertFile(event.target.files[0])} style={{ width: '0px' }}/>
                     {anteprimaImg ? anteprimaImg : null}
                 </IonItem>

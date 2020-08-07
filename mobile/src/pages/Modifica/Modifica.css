@@ -1,0 +1,28 @@
+.btn-close-img{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.Invalid{
+    border-color: var(--ion-color-danger, #f1453d);
+}
+
+.item-text-area{
+    height: 400px;
+    border: 1px solid black;
+}
+
+.text-area{
+    max-height: none!important;
+}
+
+.DivTagsList{
+    text-align: center;
+}
+
+
+
+.margin-auto{
+    margin: auto;
+}
