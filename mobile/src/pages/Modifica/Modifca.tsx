@@ -394,22 +394,18 @@ const modifyArticleHandler = async () => {
             {tags.length === 15 ? <IonItem lines="none">
                     <IonText>Hai raggiunto il numero massimo di tag consentiti.</IonText>
             </IonItem> : null}
-            <div className={'InputFile'}>
             <IonItem lines="none" className={'CaricaFoto'}>
                 <IonButton onClick={() => document.getElementById("inputFile")!.click()} color="dark" fill="outline" class="margin-auto"><IonIcon icon={camera} slot="start"></IonIcon><IonLabel>Carica foto profilo</IonLabel></IonButton>
                 <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={(event:any) => convertFile(event.target.files[0])} style={{ width: '0px' }}/> 
-            </IonItem>
-            </div>
-         {/*   <IonItem >
+            </IonItem>          
+           <IonItem >
                 {anteprimaImg ? anteprimaImg : null}
-            </IonItem>
-            <IonItem lines="none" class="ion-margin-bottom">
+            </IonItem>   
+             <IonItem lines="none" class="ion-margin-bottom">
                 <IonButton fill="outline" color="dark" onClick={modifyArticleHandler} size="default" class="margin-auto ion-margin-top">Modifica</IonButton>
-          </IonItem>  */}
+          </IonItem>    
             </IonCardContent>
-        </IonCard>
-        
-       
+        </IonCard>  
       </IonContent>
     </IonPage>
   );
