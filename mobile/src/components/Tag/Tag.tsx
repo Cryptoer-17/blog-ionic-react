@@ -6,12 +6,14 @@ import { closeOutline } from 'ionicons/icons';
 
 
 const Tag: React.FC<{
-  click:()=>void
+  click:()=>void,
+  autoWidth:boolean
 }> = (props) => {
   let location = useLocation().pathname.slice(0,9);
+  const {autoWidth} = props;  
   console.log(location);
   return (
-    <div className ={'Tag'}>
+    <div className ={autoWidth? 'Tag' : 'TagSize'}>
       {location === "/pubblica" || location === "/modifica" ? <IonButton size="small" color="dark" fill="clear" onClick = {props.click} ><IonIcon icon={closeOutline} slot="start"></IonIcon></IonButton> :null}
       <IonCardSubtitle color="dark" class="margin-top" ><IonText>{props.children}</IonText></IonCardSubtitle>
     </div>

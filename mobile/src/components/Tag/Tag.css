@@ -6,8 +6,22 @@
     color:#1E1D1D;
     box-shadow: 3px 5px 10px 0px rgba(138,138,136,1);
     margin: 2px 2px 2px 2px;
+    width: 10%;
+    float: left;
     width: auto;
+    /* width auto o 100%*/
+}
 
+.TagSize{
+    background-color:#B4ADAD ;
+    padding:4px;
+    border-radius: 10px;
+    color:#1E1D1D;
+    box-shadow: 3px 5px 10px 0px rgba(138,138,136,1);
+    margin: 2px 2px 2px 2px;
+    width: 10%;
+    float: left;
+    width: 10%;
 }
 
 .Tag i{

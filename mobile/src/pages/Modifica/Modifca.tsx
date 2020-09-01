@@ -186,7 +186,7 @@ const Modifica: React.FC<{
         const updateTags = [...tags]
         let tagsList:any = [];
         updateTags.map((tag) => {
-            return tagsList.push(<Tag key={tag} click={() => deleteTagHandler(tag)}>{tag} </Tag>);
+            return tagsList.push(<Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>{tag} </Tag>);
         })
         setTagsList(tagsList)
         setAnteprimaImg(
@@ -232,7 +232,7 @@ const Modifica: React.FC<{
     let tagsVar = tags;
     if (tagsVar.indexOf(tag) < 0 && tagsVar.length < 15 && tag.length > 0) {
       tagsListVar.push(
-            <Tag key={tag} click={() => deleteTagHandler(tag)}>
+            <Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>
                 {tag}{" "}
             </Tag>
       );
@@ -335,6 +335,8 @@ const modifyArticleHandler = async () => {
     formData.push({ id: key, obj: form[key] });
   }
 
+  console.log(tags.length);
+
   return (
     <IonPage>
       <IonHeader>
@@ -386,7 +388,7 @@ const modifyArticleHandler = async () => {
             {tags.length === 15 ? <IonItem lines="none">
                     <IonText>Hai raggiunto il numero massimo di tag consentiti.</IonText>
             </IonItem> : null}
-            <IonItem lines="none">
+          {/*  <IonItem lines="none">
                 <IonButton onClick={() => document.getElementById("inputFile")!.click()} color="dark" fill="outline" class="margin-auto"><IonIcon icon={camera} slot="start"></IonIcon><IonLabel>Carica foto profilo</IonLabel></IonButton>
                 <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={(event:any) => convertFile(event.target.files[0])} style={{ width: '0px' }}/> 
             </IonItem>
@@ -395,7 +397,7 @@ const modifyArticleHandler = async () => {
             </IonItem>
             <IonItem lines="none" class="ion-margin-bottom">
                 <IonButton fill="outline" color="dark" onClick={modifyArticleHandler} size="default" class="margin-auto ion-margin-top">Modifica</IonButton>
-            </IonItem>
+          </IonItem>  */}
             </IonCardContent>
         </IonCard>
         

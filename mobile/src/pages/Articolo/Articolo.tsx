@@ -126,7 +126,7 @@ const Articolo: React.FC<{
             
             tags = newtags.map((tag, index) => {
                 return (            
-                        <Tag click={()=>{}} key={index}>{tag}</Tag>
+                        <Tag click={()=>{}} autoWidth={true} key={index}>{tag}</Tag>
                 );
             })
 
