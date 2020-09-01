@@ -58,6 +58,7 @@ export const postArticoloSuccess = (articolo) =>{
 };
 
 export const postArticoloFail = (error) => {
+    console.log(error);
     return{
         type:actionTypes.POST_ARTICOLO_FAIL,
         error:error
@@ -128,8 +129,7 @@ export const updateArticolo = (articolo,idArticolo) =>{
             dispatch(updateArticoloSuccess(articolo))
           })
         .catch(error => { 
-            console.log(error.response);
-           /* dispatch(postArticoloFail(error.response.data));*/
+            dispatch(postArticoloFail('caricamento dati non riuscito. Controllare dimensione immagine'));
         });
     }
 }

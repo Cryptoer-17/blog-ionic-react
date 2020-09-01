@@ -324,13 +324,13 @@ const modifyArticleHandler = async () => {
     }
     console.log(articolo);
     onUpdateArticolo(articolo, id);
-   
     setShow(true);
-    /*setTimeout(()=>{
+
+    setTimeout(()=>{
         mount();
         history.push("/");
         window.location.reload();
-    },2500);*/
+    },2500);
 }
 
     console.log(tags)
