@@ -181,11 +181,13 @@ const Modifica: React.FC<{
         
         setForm(form);
         setTags(response.data[0].tags === undefined ? [] : response.data[0].tags);
-        console.log(tags);
+        console.log(response.data[0].tags);
 
-        const updateTags = [...tags]
+
+        const updateTags = [...response.data[0].tags]
         let tagsList:any = [];
         updateTags.map((tag) => {
+          console.log("entrato");
             return tagsList.push(<Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>{tag} </Tag>);
         })
         setTagsList(tagsList)
@@ -233,11 +235,12 @@ const Modifica: React.FC<{
     if (tagsVar.indexOf(tag) < 0 && tagsVar.length < 15 && tag.length > 0) {
       tagsListVar.push(
             <Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>
-                {tag}{" "}
+                {tag}
             </Tag>
       );
       tagsVar = tagsVar.concat(tag);
       setTagsList(tagsListVar);
+      
       setTags(tagsVar);
     }
   };
@@ -382,17 +385,22 @@ const modifyArticleHandler = async () => {
             onIonChange={(event: any) => setTagInput(event.target!.value)}
             onKeyPress={(event:any) => { if (event.key === 'Enter') { addTagHandler(event.target.value);setTagInput("")} }}></IonInput>
             </IonItem>
+            
+              
+            
             <div className="DivTagsList">
             {tagsList}
             </div>
             {tags.length === 15 ? <IonItem lines="none">
                     <IonText>Hai raggiunto il numero massimo di tag consentiti.</IonText>
             </IonItem> : null}
-          {/*  <IonItem lines="none">
+            <div className={'InputFile'}>
+            <IonItem lines="none" className={'CaricaFoto'}>
                 <IonButton onClick={() => document.getElementById("inputFile")!.click()} color="dark" fill="outline" class="margin-auto"><IonIcon icon={camera} slot="start"></IonIcon><IonLabel>Carica foto profilo</IonLabel></IonButton>
                 <input id="inputFile" type="file" accept="image/png,image/gif,image/jpeg, image/jpg" onChange={(event:any) => convertFile(event.target.files[0])} style={{ width: '0px' }}/> 
             </IonItem>
-            <IonItem >
+            </div>
+         {/*   <IonItem >
                 {anteprimaImg ? anteprimaImg : null}
             </IonItem>
             <IonItem lines="none" class="ion-margin-bottom">

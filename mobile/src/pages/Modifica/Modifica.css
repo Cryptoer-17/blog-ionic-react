@@ -19,10 +19,13 @@
 
 .DivTagsList{
     text-align: center;
+    height: 70px;
 }
 
 
-
+.InputFile{
+    float: left;
+}
 
 .margin-auto{
     margin: auto;
