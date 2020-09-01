@@ -188,7 +188,7 @@ const Modifica: React.FC<{
         const updateTags = [...response.data[0].tags]
         let tagsList:any = [];
         updateTags.map((tag) => {
-          console.log("entrato");
+          console.log(tag);
             return tagsList.push(<Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>{tag} </Tag>);
         })
         setTagsList(tagsList)
@@ -250,7 +250,8 @@ const Modifica: React.FC<{
     let tagsListVar: any = [...tagsList];
     let tagsVar = tags;
     tagsVar = tags.filter((t: any) => t !== tag);
-    tagsListVar = tagsList.filter((t: any) => t.key !== tag);
+    console.log("non entrato");
+    tagsListVar = tagsList.filter((t: any) => console.log("entrato"));
     setTagsList(tagsListVar);
     setTags(tagsVar);
   };
@@ -339,7 +340,6 @@ const modifyArticleHandler = async () => {
     formData.push({ id: key, obj: form[key] });
   }
 
-  console.log(esitoCaricamento);
 
   return (
     <IonPage>
