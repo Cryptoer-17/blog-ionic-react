@@ -128,7 +128,8 @@ export const updateArticolo = (articolo,idArticolo) =>{
             dispatch(updateArticoloSuccess(articolo))
           })
         .catch(error => { 
-            dispatch(postArticoloFail(error.response.data));
+            console.log(error.response);
+           /* dispatch(postArticoloFail(error.response.data));*/
         });
     }
 }

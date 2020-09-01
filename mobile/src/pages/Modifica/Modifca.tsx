@@ -33,9 +33,10 @@ const Modifica: React.FC<{
   loading: boolean,
   esito: string,
   onUpdateArticolo:(articolo:any, idArticolo:string)=>void,
-  mount:()=>void
+  mount:()=>void,
+  errore:string
 }> = (props) => {
-  const { esito, onUpdateArticolo, mount } = props;
+  const { esito, onUpdateArticolo, mount,errore } = props;
 
   const [form, setForm] = useState<any>({
     titolo: {
@@ -323,12 +324,13 @@ const modifyArticleHandler = async () => {
     }
     console.log(articolo);
     onUpdateArticolo(articolo, id);
+   
     setShow(true);
-    setTimeout(()=>{
+    /*setTimeout(()=>{
         mount();
         history.push("/");
         window.location.reload();
-    },2500);
+    },2500);*/
 }
 
     console.log(tags)
@@ -415,6 +417,7 @@ const mapStateToProps = (state:any) => {
     return {
         loading: state.articolo.loading,
         esito: state.articolo.esitoCaricamento,
+        errore:state.articolo.error
     };
 };
 const mapDispatchToProps = (dispatch:any) => {
