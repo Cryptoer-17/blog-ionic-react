@@ -34,9 +34,9 @@ const Modifica: React.FC<{
   esito: string,
   onUpdateArticolo:(articolo:any, idArticolo:string)=>void,
   mount:()=>void,
-  errore:string
+  esitoCaricamento:string
 }> = (props) => {
-  const { esito, onUpdateArticolo, mount,errore } = props;
+  const { esito, onUpdateArticolo, mount,esitoCaricamento } = props;
 
   const [form, setForm] = useState<any>({
     titolo: {
@@ -322,7 +322,7 @@ const modifyArticleHandler = async () => {
         titolo: form.titolo.value.trim(),
         userId: localStorage.getItem("userId")
     }
-    console.log(articolo);
+
     onUpdateArticolo(articolo, id);
     setShow(true);
 
@@ -333,14 +333,13 @@ const modifyArticleHandler = async () => {
     },2500);
 }
 
-    console.log(tags)
 
   const formData = [];
   for (let key in form) {
     formData.push({ id: key, obj: form[key] });
   }
 
-  console.log(tags.length);
+  console.log(esitoCaricamento);
 
   return (
     <IonPage>
@@ -403,6 +402,9 @@ const modifyArticleHandler = async () => {
            <IonItem >
                 {anteprimaImg ? anteprimaImg : null}
             </IonItem>   
+            {esitoCaricamento ? <IonItem lines="none">
+              <IonText><b>{esitoCaricamento}</b></IonText>
+            </IonItem> : null}
              <IonItem lines="none" class="ion-margin-bottom">
                 <IonButton fill="outline" color="dark" onClick={modifyArticleHandler} size="default" class="margin-auto ion-margin-top">Modifica</IonButton>
           </IonItem>    
@@ -417,7 +419,7 @@ const mapStateToProps = (state:any) => {
     return {
         loading: state.articolo.loading,
         esito: state.articolo.esitoCaricamento,
-        errore:state.articolo.error
+        esitoCaricamento:state.articolo.esitoCaricamento
     };
 };
 const mapDispatchToProps = (dispatch:any) => {

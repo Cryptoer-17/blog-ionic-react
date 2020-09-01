@@ -58,7 +58,6 @@ export const postArticoloSuccess = (articolo) =>{
 };
 
 export const postArticoloFail = (error) => {
-    console.log(error);
     return{
         type:actionTypes.POST_ARTICOLO_FAIL,
         error:error
