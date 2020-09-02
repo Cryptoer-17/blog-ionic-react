@@ -249,7 +249,8 @@ const Profilo: React.FC<{
              descrizione: descrizione
         }
 
-        //faccio il controllo che l'username scelto se inserito, non sià già in uso
+        //faccio il controllo che l'username scelto se inserito, non sià già in uso...se username inserito è diverso dal suo username memorizzato in locale
+        
        let c = 0;
         if(formData.username.trim() !== ''){
             let profiliReducer = profili;
@@ -260,7 +261,7 @@ const Profilo: React.FC<{
             }
         }
 
-       if(c<1){
+       if(c<1 || (formData.username === localStorage.getItem("username"))){
             if (profiloReducer.length) {
                     onUpdateData(profile, profiloReducer[0].profilo._id);
                     articoli.map((articolo:any) => {
