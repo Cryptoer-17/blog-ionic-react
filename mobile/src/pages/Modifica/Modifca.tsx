@@ -182,16 +182,15 @@ const Modifica: React.FC<{
         
         setForm(form);
         setTags(response.data[0].tags === undefined ? [] : response.data[0].tags);
-        console.log(response.data[0].tags);
 
-
-        const updateTags = [...response.data[0].tags]
+        const updateTags = [...response.data[0].tags];
         let tagsList:any = [];
         updateTags.map((tag) => {
-          console.log(tag);
-            return tagsList.push(<Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>{tag} </Tag>);
+            return tagsList.push(<Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag,response.data[0].tags,tagsList)}>{tag} </Tag>);
         })
+        
         setTagsList(tagsList)
+        
         setAnteprimaImg(
           response.data[0].img === null ? null : (
             <IonItem lines="none" class="margin-auto">
@@ -235,7 +234,7 @@ const Modifica: React.FC<{
     let tagsVar = tags;
     if (tagsVar.indexOf(tag) < 0 && tagsVar.length < 15 && tag.length > 0) {
       tagsListVar.push(
-            <Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag)}>
+            <Tag key={tag} autoWidth={false} click={() => deleteTagHandler(tag,tagsVar,tagsListVar)}>
                 {tag}
             </Tag>
       );
@@ -246,12 +245,21 @@ const Modifica: React.FC<{
     }
   };
 
-  const deleteTagHandler = (tag: any) => {
-    let tagsListVar: any = [...tagsList];
+  const deleteTagHandler = (tag: any,tags:any[],tagsList:any) => {
+   // let tagsListVar: any = [...tagsList];
+   let tagsListVar:any[] = [];
     let tagsVar = tags;
     tagsVar = tags.filter((t: any) => t !== tag);
-    console.log("non entrato");
-    tagsListVar = tagsList.filter((t: any) => console.log("entrato"));
+  
+    console.log(tagsVar);
+    for(let n in tagsVar){
+      tagsListVar.push(
+        <Tag key={tagsVar[n]} autoWidth={false} click={() => deleteTagHandler(tagsVar[n],tagsVar,tagsListVar)}>
+                {tagsVar[n]}
+            </Tag>
+      )
+    }
+    
     setTagsList(tagsListVar);
     setTags(tagsVar);
   };
